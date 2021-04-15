@@ -1,45 +1,35 @@
-// import './App.css'
-// import navbar from "./components/navbar"
-// import {BrowserRouter as Router, Switch, Route } from "react-router-dom"
-// import "./App.css"
-//
-// function App() {
-//   return (
-//       <>
-//         <Router>
-//           <navbar />
-//           <Switch>
-//               <Route path = '/' exact />
-//           </Switch>
-//         </Router>
-//       </>
-//   );
-// }
-//
-// export default App;
 
 import logo from './logo.svg';
 import './App.css';
+import Login from "./components/Login";
+import TrainerPage from "./components/TrainerPage";
+
+import {createElement} from "react";
+import GoogleLogin from 'react-google-login';
+import {HashRouter as Router, Switch, Route } from "react-router-dom"
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Router>
+          <Switch>
+            <Route path='/login'>
+                <Login/>
+            </Route>
+            <Route path='/trainerPage'>
+                <TrainerPage/>
+            </Route>
+            <Route exact path='/'>
+                <div>
+                  HOME PAGE!
+                </div>
+            </Route>
+          </Switch>
+        </Router>
     </div>
   );
 }
+
 
 export default App;
