@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c50d688-3a0d-4955-997c-04e3d68d24f2" name="Default Changelist" comment=".">
+    <list default="true" id="0c50d688-3a0d-4955-997c-04e3d68d24f2" name="Default Changelist" comment="login+logout+navbar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navbar.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navbar.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +92,7 @@
       <workItem from="1618507858710" duration="10769000" />
       <workItem from="1618561751288" duration="3104000" />
       <workItem from="1618564911302" duration="369000" />
-      <workItem from="1618565304773" duration="2506000" />
+      <workItem from="1618565304773" duration="4942000" />
     </task>
     <task id="LOCAL-00001" summary=".">
       <created>1618508275851</created>
@@ -105,7 +101,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618508275851</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="login+logout+navbar">
+      <created>1618567868915</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1618567868915</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,6 +128,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="login+logout+navbar" />
+    <option name="LAST_COMMIT_MESSAGE" value="login+logout+navbar" />
   </component>
 </project>
