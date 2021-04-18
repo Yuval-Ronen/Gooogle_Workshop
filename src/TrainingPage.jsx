@@ -15,6 +15,9 @@ import GoogleLogin from 'react-google-login';
 import { useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import EitanLogoSmall from './EitanLogoSmall.PNG';
+import { Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
 
 
 const TrainingPage = () => {
@@ -72,7 +75,6 @@ const TrainingPage = () => {
                 <Nav variant="pills" className="flex-column">
                 <Nav.Item>
                 <Nav.Link eventKey="first">לוח אימונים  <BsCalendar /></Nav.Link>
-                <calender></calender>
                 </Nav.Item>
                 <Nav.Item>
                 <Nav.Link eventKey="second" >מערך העצמה  <BsGraphUp /></Nav.Link>
