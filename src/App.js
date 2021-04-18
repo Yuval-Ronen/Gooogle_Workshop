@@ -4,7 +4,14 @@ import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from 'react-bootstrap/Image';
 import EitanLogo from './EitanLogo.PNG';
+import GoogleLogin from "react-google-login";
+import LoginTrainer from "./components/LoginTrainer";
+import LoginTrainee from "./components/LoginTrainee";
 
+const responseGoogle = (response) => {
+    console.log(response);
+
+  }
 function App() {
   return(
     <div className="App">
@@ -30,7 +37,8 @@ function App() {
           alignItems: "center",
           margin: 10
       }}>
-         <Button variant="outline-primary" href="/TrainerPage" size="lg" >כניסת מאמנים</Button>{' '}
+         <LoginTrainer/>
+
          </div>
          <div className="buttonTraining" style={{
           display: "flex",
@@ -38,7 +46,7 @@ function App() {
           alignItems: "center",
           margin: 10
       }}>
-         <Button variant="outline-primary" href="/TrainingPage" size="lg">כניסת מתאמנים</Button>{' '}
+         <LoginTrainee/>
          </div>
          </div>
     </div>

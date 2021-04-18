@@ -12,13 +12,14 @@ import { BsCalendar } from "react-icons/bs";
 import { BsCamera } from "react-icons/bs";
 import { BsGraphUp } from "react-icons/bs";
 import { BsFillPlusCircleFill } from "react-icons/bs";
-import GoogleLogin from 'react-google-login';
+import GoogleLogin, {GoogleLogout} from 'react-google-login';
 import { useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import EitanLogoSmall from './EitanLogoSmall.PNG';
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
+import Logout from "./components/Logout";
 
 const TrainerPage = () => {
 
@@ -37,13 +38,13 @@ const TrainerPage = () => {
         </Col>
         <Col sm={3}>
             <div className="App">
-            <GoogleLogin
-            clientId="476408447979-ksp3ikmql53717ucvohu0uhm8t7ld9f1.apps.googleusercontent.com"
-            buttonText="התחבר"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
-            />
+            {/*<GoogleLogin*/}
+            {/*clientId="476408447979-ksp3ikmql53717ucvohu0uhm8t7ld9f1.apps.googleusercontent.com"*/}
+            {/*buttonText="התחבר"*/}
+            {/*onSuccess={responseGoogle}*/}
+            {/*onFailure={responseGoogle}*/}
+            {/*cookiePolicy={'single_host_origin'}*/}
+            {/*/>*/}
             <img  style={{margin: 10}} width="50px" src={url} alt={name}/>
             <h5 dir='rtl'>שלום, {name}</h5>
             </div>
@@ -70,6 +71,7 @@ const TrainerPage = () => {
                 <h1>היסטוריית אימונים</h1>
                 <history />
                 </Tab.Pane>
+
             </Tab.Content>
             </Col>
             <Col sm={3}>
@@ -89,6 +91,8 @@ const TrainerPage = () => {
                 <Nav.Item>
                 <Nav.Link eventKey="fourth">היסטוריית אימונים  <BsClockHistory /></Nav.Link>
                 </Nav.Item>
+                    <Logout/>
+
                  </Nav>
             </Col>
             

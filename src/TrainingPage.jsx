@@ -24,10 +24,13 @@ const TrainingPage = () => {
 
     const [name, setName] = useState("");
     const [url, setUrl] = useState("");
+    const [email, setEmail] = useState("");
+
     const responseGoogle = (response) => {
     console.log(response);
     setName(response.profileObj.name);
     setUrl(response.profileObj.imageUrl);
+    setEmail(response.profileObj.email);
   }
     return(
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
