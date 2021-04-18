@@ -20,8 +20,10 @@ import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import Logout from "./components/Logout";
+import {setUserData} from "./redux/actions";
+import {connect} from "react-redux";
 
-const TrainerPage = () => {
+const TrainerPage = (props) => {
 
     const [name, setName] = useState("");
     const [url, setUrl] = useState("");
@@ -29,7 +31,10 @@ const TrainerPage = () => {
     console.log(response);
     setName(response.profileObj.name);
     setUrl(response.profileObj.imageUrl);
-  }
+    }
+
+    console.log(props.authenticationData);
+
     return(
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
     <Row>
@@ -38,22 +43,14 @@ const TrainerPage = () => {
         </Col>
         <Col sm={3}>
             <div className="App">
-            {/*<GoogleLogin*/}
-            {/*clientId="476408447979-ksp3ikmql53717ucvohu0uhm8t7ld9f1.apps.googleusercontent.com"*/}
-            {/*buttonText="התחבר"*/}
-            {/*onSuccess={responseGoogle}*/}
-            {/*onFailure={responseGoogle}*/}
-            {/*cookiePolicy={'single_host_origin'}*/}
-            {/*/>*/}
-            <img  style={{margin: 10}} width="50px" src={url} alt={name}/>
-            <h5 dir='rtl'>שלום, {name}</h5>
+            <img  style={{margin: 10}} width="50px" src={props.authenticationData.imageUrl} alt={name}/>
+            <h5 dir='rtl'>שלום, {props.authenticationData.name}</h5>
             </div>
         </Col>
         
   </Row>
      <Row>
         <Col sm={9}>
-            
             <Tab.Content>
                 <Tab.Pane eventKey="first">
                     <h1>לוח אימונים</h1>
@@ -100,4 +97,14 @@ const TrainerPage = () => {
         </Tab.Container>
             )
 }
-export default TrainerPage;
+//actions on the storage
+const actionsCreators = {
+
+}
+
+//what in state will be available to props
+const mapStateToProps = (state) => ({
+    authenticationData: state.authenticationData,
+});
+
+export default connect(mapStateToProps,actionsCreators)(TrainerPage);

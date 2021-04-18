@@ -18,19 +18,18 @@ import EitanLogoSmall from './EitanLogoSmall.PNG';
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
+import {connect} from "react-redux";
+import Logout from "./components/Logout";
 
 
-const TrainingPage = () => {
+const TrainingPage = (props) => {
 
     const [name, setName] = useState("");
     const [url, setUrl] = useState("");
-    const [email, setEmail] = useState("");
-
     const responseGoogle = (response) => {
     console.log(response);
     setName(response.profileObj.name);
     setUrl(response.profileObj.imageUrl);
-    setEmail(response.profileObj.email);
   }
     return(
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
@@ -40,15 +39,8 @@ const TrainingPage = () => {
         </Col>
         <Col sm={3}>
             <div className="App">
-            <GoogleLogin
-            clientId="476408447979-ksp3ikmql53717ucvohu0uhm8t7ld9f1.apps.googleusercontent.com"
-            buttonText="התחבר"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
-            />
-            <img  style={{margin: 10}} width="50px" src={url} alt={name}/>
-            <h5 dir='rtl'>שלום, {name}</h5>
+            <img  style={{margin: 10}} width="50px" src={props.authenticationData.imageURL} alt={name}/>
+            <h5 dir='rtl'>שלום, {props.authenticationData.name}</h5>
             </div>
         </Col>
         
@@ -88,6 +80,7 @@ const TrainingPage = () => {
                 <Nav.Item>
                 <Nav.Link eventKey="fourth">היסטוריית אימונים  <BsClockHistory /></Nav.Link>
                 </Nav.Item>
+                    <Logout/>
                  </Nav>
             </Col>
             
@@ -95,4 +88,14 @@ const TrainingPage = () => {
         </Tab.Container>
             )
 }
-export default TrainingPage;
+
+const actionsCreators = {
+
+}
+
+//what in state will be available to props
+const mapStateToProps = (state) => ({
+    authenticationData: state.authenticationData,
+});
+
+export default connect(mapStateToProps,actionsCreators)(TrainingPage);
