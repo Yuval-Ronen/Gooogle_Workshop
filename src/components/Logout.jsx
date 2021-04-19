@@ -3,7 +3,7 @@ import GoogleLogin, {GoogleLogout} from "react-google-login";
 import { Link, Redirect } from 'react-router-dom';
 import {Button} from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
-import {BsClockHistory, BsPeopleCircle} from "react-icons/bs";
+import {BsPeopleCircle} from "react-icons/bs";
 import {setCurState, setUserData} from "../redux/actions";
 import {connect} from "react-redux";
 
@@ -46,7 +46,7 @@ class Logout extends React.Component{
                   clientId="476408447979-ksp3ikmql53717ucvohu0uhm8t7ld9f1.apps.googleusercontent.com"
                   render = {renderProps => (
                       <Nav.Item>
-                          <Nav.Link eventKey="fifth" onClick={renderProps.onClick}>התנתק/י מהחשבון <BsPeopleCircle/></Nav.Link>
+                          <Nav.Link eventKey="fifth" onClick={renderProps.onClick}><text style={{color:'red'}}>התנתק/י מהחשבון <BsPeopleCircle/></text></Nav.Link>
                       </Nav.Item>
             )}
                   onLogoutSuccess={this.logout}
