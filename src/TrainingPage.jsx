@@ -80,8 +80,8 @@ const TrainingPage = (props) => {
                 <Nav.Item>
                 <Nav.Link eventKey="fourth">היסטוריית אימונים  <BsClockHistory /></Nav.Link>
                 </Nav.Item>
-                <Logout/>
-                </Nav>
+                    <Logout/>
+                 </Nav>
             </Col>
             
         </Row>
