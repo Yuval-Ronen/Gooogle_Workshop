@@ -1,13 +1,13 @@
 import React from 'react';
-import Calendar from 'react-calendar'
+import Tab from "react-bootstrap/Tab";
 
 
-const calender = () => {
+const calender = (props) => {
     return(
-        <div>
-            <h3>calender </h3>
-            <Calendar/>
-        </div>
+        <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+
+            <h1>calender </h1>
+                    </Tab.Container>
 
     )
     

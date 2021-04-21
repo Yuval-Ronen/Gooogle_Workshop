@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom';
 import calender from './calender'
 import empowerment from './empowerment'
 import history from './history'
+import TrainersTrainee from './components/TrainersTrainee'
 import photos from './photos'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -12,7 +13,6 @@ import { BsCalendar } from "react-icons/bs";
 import { BsCamera } from "react-icons/bs";
 import { BsGraphUp } from "react-icons/bs";
 import { BsFillPlusCircleFill } from "react-icons/bs";
-import GoogleLogin, {GoogleLogout} from 'react-google-login';
 import { useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import EitanLogoSmall from './EitanLogoSmall.PNG';
@@ -57,8 +57,8 @@ const TrainerPage = (props) => {
                 <calender />
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
-                <h1>מערך העצמה</h1>
-                <empowerment />
+                <h1>מתאמנים</h1>
+                <TrainersTrainee />
                 </Tab.Pane>
                 <Tab.Pane eventKey="third">
                 <h1>תמונות מאימונים</h1>
@@ -80,7 +80,7 @@ const TrainerPage = (props) => {
                 <Nav.Link eventKey="first">לוח אימונים  <BsCalendar /></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                <Nav.Link eventKey="second" >מערך העצמה  <BsGraphUp /></Nav.Link>
+                <Nav.Link eventKey="second" >מתאמנים  <BsGraphUp /></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                 <Nav.Link eventKey="third">תמונות מאימונים  <BsCamera /></Nav.Link>
@@ -89,7 +89,6 @@ const TrainerPage = (props) => {
                 <Nav.Link eventKey="fourth">היסטוריית אימונים  <BsClockHistory /></Nav.Link>
                 </Nav.Item>
                     <Logout/>
-
                  </Nav>
             </Col>
             
