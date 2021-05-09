@@ -24,6 +24,31 @@ def connect():
     return jsonify({}), 200
 
 
+@app.route("/api/checkIfTrainer/<email>", methods=['GET'])
+@error_handler
+def checkIfTrainer(email):
+    info = sql_manager.sql_c.check_email_trainer(email)
+
+    return jsonify({"result": {"trainer_id": info["ID"],
+                               "first_name": info["first_name"],
+                               "last_name": info["last_name"],
+                               "email": info["email"],
+                               "image": info["image"],
+                               "admin": info["admin"]}}), 200
+
+
+@app.route("/api/checkIfTrainee/<email>", methods=['GET'])
+@error_handler
+def checkIfTrainee(email):
+    info = sql_manager.sql_c.check_email_trainee(email)
+
+    return jsonify({"result": {"trainer_id": info["ID"],
+                               "first_name": info["first_name"],
+                               "last_name": info["last_name"],
+                               "email": info["email"],
+                               "image": info["image"]}}), 200
+
+
 @app.route("/", methods=['GET'])
 def react():
     return render_template("index.html")
@@ -37,6 +62,6 @@ def react():
 
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', port=45556)
-    app.run(host='localhost', port=3000, debug=True)
+    app.run(host='localhost', port=5000, debug=True)
     # app.run(host='localhost', port="3000", debug=True)
     # app.run(host='127.0.0.1', port="5000", debug=True)

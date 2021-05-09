@@ -1,5 +1,4 @@
 import ReactDOM from 'react-dom';
-import calender from './calender'
 import empowerment from './empowerment'
 import history from './history'
 import photos from './photos'
@@ -20,6 +19,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import {connect} from "react-redux";
 import Logout from "./components/Logout";
+import Calendar from "./Calendar";
 
 
 const TrainingPage = (props) => {
@@ -50,7 +50,7 @@ const TrainingPage = (props) => {
             <Tab.Content>
                 <Tab.Pane eventKey="first">
                     <h1>לוח אימונים</h1>
-                <calender />
+                <Calendar />
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
                 <h1>מערך העצמה</h1>

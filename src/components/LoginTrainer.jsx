@@ -5,6 +5,8 @@ import { Link, Redirect } from 'react-router-dom';
 import {Button} from "react-bootstrap";
 import {extractUserData} from "./googleApi/GoogleApi";
 import {setCurState, setUserData} from '../redux/actions'
+import serverConnector from '../server-connector';
+import logout from "./Logout"
 
 
 
@@ -16,8 +18,33 @@ const loginFailureHandler = (response) => {
 
 
 
-const LoginTrainer = (props) => {
 
+
+
+const LoginTrainer = (props) => {
+    const [trainerDetails, setTrainerDetails] = useState({});
+
+     // const CheckEmail = (email) => {
+     //  console.log("check email")
+     //
+     //   useEffect(()=>{
+     //     console.log("1")
+     //     serverConnector.checkIfTrainer(email).then(res=>{
+     //     setTrainerDetails(res);
+     // })
+     // if(trainerDetails.trainer_id === null){
+     //        console.log("not a trainer. id not in system")
+     //        logout();
+     //        }
+     //   })
+     // }
+
+     useEffect(()=>{
+         if(trainerDetails.trainer_id === null){
+            console.log("not a trainer. id not in system")
+            logout();
+            }
+       })
 
     if (props.currentState === "trainer") {
         return <Redirect to="/TrainerPage"/>;
@@ -35,8 +62,15 @@ const LoginTrainer = (props) => {
             onSuccess={(response) =>
                 {
                     const userData = extractUserData(response);
+                    console.log("before check email")
+                    serverConnector.checkIfTrainer(userData.email).then(res=>{
+                        setTrainerDetails(res);
+                        console.log(res);
+                         })
+                    // CheckEmail(userData.email);
                     props.setCurState("trainer");
                     props.setUserData(userData);
+
 
 
                 }

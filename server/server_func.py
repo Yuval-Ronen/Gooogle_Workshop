@@ -14,3 +14,7 @@ class sqlManager:
 # create new ConnectSQL obj
 sql_manager = sqlManager()
 sql_manager.total_setup()
+
+# ========================================================
+
+
