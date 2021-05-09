@@ -11,37 +11,46 @@ const realServerCon = {
     checkIfTrainer: email =>{
         fetch("/api/checkIfTrainer").then(result =>{
             return {
-                answer: "true/false",
+                trainer_id: "id",
+                first_name: "first_name",
+                last_name: "last_name",
+                email: "email",
+                image: "image",
+                admin: "admin",
             }
         })
     },
     checkIfTrainee: email =>{
         fetch("/api/checkIfTrainee").then(result =>{
             return {
-                answer: "true/false",
+                trainee_id: "id",
+                first_name: "first_name",
+                last_name: "last_name",
+                email: "email",
+                image: "image",
             }
         })
     },
 
 
-    getAllTrainees: trainerId =>{
+    getAllTrainees: trainer_id =>{
         fetch("/api/getAllTrainees/",{
             method: 'POST',
             body: JSON.stringify({
-                trainerId: trainerId
+                trainer_id: trainer_id
             })
         }).then(result =>{
             return [
                 {
-                    traineeID: "ID",
-                    firstName: "firstName",
-                    lastName: "lastName",
+                    trainee_id: "ID",
+                    first_name: "firstName",
+                    last_name: "lastName",
                     image: "imagePath",
                 },
                 {
-                    traineeID: "ID",
-                    firstName: "firstName",
-                    lastName: "lastName",
+                    trainee_id: "ID",
+                    first_name: "firstName",
+                    last_name: "lastName",
                     image: "imagePath",
                 }
             ]
@@ -49,18 +58,18 @@ const realServerCon = {
         })
     },
 
-    createNewTrain: (trainerID, {trainees_or_group}, type, trainDate, trainTime, description)  =>{
+    createNewTrain: (trainer_id, {trainees_or_group}, type, trainDate, trainTime, description)  =>{
         fetch("/api/createNewTrain").then(result =>{
             return {
                 status: "success/failure",
             }
         })
     },
-    getPersonalProgram: (traineeId) =>{
+    getPersonalProgram: (trainee_id) =>{
         fetch("/api/getPersonalProgram/",{
             method: 'POST',
             body: JSON.stringify({
-                traineeId: traineeId
+                trainee_id: trainee_id
             })
         }).then(result =>{
             return {
@@ -68,41 +77,56 @@ const realServerCon = {
             }
         })
     },
+    setPersonalProgram: (trainer_id,trainee_id, program) =>{
 
-    getAllTrainingHistory_trainer: trainerId =>{//all the training that the trainer did
+        fetch("/api/setPersonalProgram/",{
+            method: 'POST',
+            body: JSON.stringify({
+                trainer_id: trainer_id,
+                trainee_id: trainee_id,
+                program: program
+            })
+        }).then(result =>{
+            return {
+                status: "success/failure",
+            }
+        })
+    },
+
+    getAllTrainingHistory_trainer: trainer_id =>{//all the training that the trainer did
         fetch("/api/getAllTrainingHistory_trainer/",{
             method: 'POST',
             body: JSON.stringify({
-                trainerId: trainerId
+                trainer_id: trainer_id
             })
         }).then(result =>{
             return [
                 {
-                    trainDate: "date",
-                    trainTime: "time",
-                    group_members: ["name1","name2", "name3"],//if this is a personal train the array will be empty
-                    trainee_name: "name",//will be null if it's a group train
+                    train_date: "train_date",
+                    train_time: "train_time",
+                    all_trainees: ["name1","name2", "name3"],
                     description: "description",
-                    type: "the train type",
+                    train_type: "the train type",
+                    status: "Open/Close"
                 },
                 {
                     trainDate: "date",
                     trainTime: "time",
-                    group_members: ["name1","name2", "name3"],//if this is a personal train the array will be empty
-                    trainee_name: "name",//will be null if it's a group train
+                    all_trainees: ["name1","name2", "name3"],
                     description: "description",
-                    type: "the train type",
+                    train_type: "the train type",
+                    status: "Open/Close"
                 }
             ]
 
         })
     },
 
-    getAllTrainingHistory_trainee: traineeId =>{//all the training that the trainee did
+    getAllTrainingHistory_trainee: trainee_id =>{//all the training that the trainee did
         fetch("/api/getAllTrainingHistory_trainee/",{
             method: 'POST',
             body: JSON.stringify({
-                traineeId: traineeId
+                trainee_id: trainee_id
             })
         }).then(result =>{
             return [
@@ -127,11 +151,11 @@ const realServerCon = {
         })
     },
 
-    autoComplete_trainee: (string, trainerId) =>{
+    autoComplete_trainee: (string, trainer_id) =>{
         fetch("/api/autoComplete_trainee", {
             method: 'POST',
             body: JSON.stringify({
-                trainerId: trainerId,
+                trainer_id: trainer_id,
                 string: string
             })
 
@@ -139,10 +163,35 @@ const realServerCon = {
             return [
                 "name1",
                 "name2",
-                "name3",
-                "name4",
-                "name5"
+                "name3"
             ]
         })
+    },
+    autoComplete_train_type: (string) =>{
+        fetch("/api/autoComplete_trainee", {
+            method: 'POST',
+            body: JSON.stringify({
+                string: string
+            })
+
+        }).then(result =>{
+            return [
+                "type1",
+                "type2",
+                "type3"
+            ]
+        })
+    },
+    getAllTrain_type: () =>{
+        fetch("/api/getAllTrainingHistory_trainee/",{
+        }).then(result =>{
+            return [
+                "type1",
+                "type2",
+                "type3"
+            ]
+
+        })
     }
+
 }

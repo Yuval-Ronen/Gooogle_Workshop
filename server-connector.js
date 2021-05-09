@@ -18,13 +18,13 @@ const serverConnector = {
     checkIfTrainer:async () =>{
         let res = await fetch(serverUrl+"/api/checkIfTrainer");
         let answer = await res.json();
-        return answer;
+        return answer["result"];
     },
 
     checkIfTrainee:async () =>{
         let res = await fetch(serverUrl+"/api/checkIfTrainee");
         let answer = await res.json();
-        return answer;
+        return answer["result"];
     },
 
     getAllTrainees: async (trainerId) => {
@@ -47,13 +47,28 @@ const serverConnector = {
     },
 
     getPersonalProgram: async (traineeId) => {
-        let res = await fetch(serverUrl + "/api/autoComplete/",{
+        let res = await fetch(serverUrl + "/api/getPersonalProgram/",{
             method: 'POST',
             headers:{
                 "Content-Type":"application/json"
             },
             body: JSON.stringify({
                 traineeId: traineeId
+            })
+        })
+        let data = await res.json();
+        return data["result"];
+    },
+    setPersonalProgram: async (traineeId,trainee_id, program) => {
+        let res = await fetch(serverUrl + "/api/setPersonalProgram/",{
+            method: 'POST',
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({
+                traineeId: traineeId,
+                trainee_id: trainee_id,
+                program: program
             })
         })
         let data = await res.json();
