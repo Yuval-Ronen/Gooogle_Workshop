@@ -1,0 +1,20 @@
+.container {
+    width: 100%;
+    /* border: 1px solid white; */
+    margin: auto;
+    color: #DCDCDC;
+    border-radius: 10px;
+    max-height: 600px;
+    overflow-y: scroll;
+    display: flex;
+    /*flex-direction: flex-start;*/
+    flex-flow: wrap;
+    justify-content: center;
+}
+.traineeResult{
+    width: 35%;
+    padding: 5px;
+    margin: 5px;
+    min-width: 320px;
+
+}
