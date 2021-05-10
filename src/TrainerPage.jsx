@@ -1,5 +1,5 @@
-import ReactDOM from 'react-dom';
-import Calender from './calender'
+import {Switch,  Route,  Redirect} from "react-router-dom";
+import calender from './calender'
 import empowerment from './empowerment'
 import history from './history'
 import TrainersTrainee from './components/TrainersTrainee'
@@ -23,6 +23,7 @@ import Logout from "./components/Logout";
 import {setUserData} from "./redux/actions";
 import {connect} from "react-redux";
 
+
 const TrainerPage = (props) => {
 
     const [name, setName] = useState("");
@@ -35,64 +36,76 @@ const TrainerPage = (props) => {
 
     console.log(props.authenticationData);
 
+    // Todo take this to a new file and give it a new name if needed
+    const TabsContent = () =>
+        (<Tab.Content>
+            <Tab.Pane eventKey="first">
+                <h1>לוח אימונים</h1>
+                <calender/>
+            </Tab.Pane>
+            <Tab.Pane eventKey="second">
+                <h1>מתאמנים</h1>
+                <TrainersTrainee/>
+            </Tab.Pane>
+            <Tab.Pane eventKey="third">
+                <h1>תמונות מאימונים</h1>
+                <photos/>
+            </Tab.Pane>
+            <Tab.Pane eventKey="fourth">
+                <h1>היסטוריית אימונים</h1>
+                <history/>
+            </Tab.Pane>
+        </Tab.Content>)
+
+
     return(
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-    <Row>
-    <Col sm={9}>
-             <Image src={EitanLogoSmall} />
-        </Col>
-        <Col sm={3}>
-            <div className="App">
-            <img  style={{margin: 10}} width="50px" src={props.authenticationData.imageUrl} alt={name}/>
-            <h5 dir='rtl'>שלום, {props.authenticationData.name}</h5>
-            </div>
-        </Col>
-        
-  </Row>
-     <Row>
-        <Col sm={9}>
-            <Tab.Content>
-                <Tab.Pane eventKey="first">
-                <h1>לוח אימונים</h1>
-                <Calender />
-                </Tab.Pane>
-                <Tab.Pane eventKey="second">
-                <h1>מתאמנים</h1>
-                <TrainersTrainee />
-                </Tab.Pane>
-                <Tab.Pane eventKey="third">
-                <h1>תמונות מאימונים</h1>
-                <photos />
-                </Tab.Pane>
-                <Tab.Pane eventKey="fourth">
-                <h1>היסטוריית אימונים</h1>
-                <history />
-                </Tab.Pane>
+            <Row>
+                <Col sm={9}>
+                    <Image src={EitanLogoSmall}/>
+                </Col>
+                <Col sm={3}>
+                    <div className="App">
+                        <img style={{margin: 10}} width="50px" src={props.authenticationData.imageUrl} alt={name}/>
+                        <h5 dir='rtl'>שלום, {props.authenticationData.name}</h5>
+                    </div>
+                </Col>
 
-            </Tab.Content>
-            </Col>
-            <Col sm={3}>
-                <div>
-                    <Button variant="outline-danger" href="/TrainerPage" size="lg" dir='rtl'style={{margin:"10px"}}><BsFillPlusCircleFill /> הוספת אימון</Button>{' '}
-                </div>
-                <Nav variant="pills" className="flex-column">
-                <Nav.Item>
-                <Nav.Link eventKey="first">לוח אימונים  <BsCalendar /></Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                <Nav.Link eventKey="second" >מתאמנים  <BsGraphUp /></Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                <Nav.Link eventKey="third">תמונות מאימונים  <BsCamera /></Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                <Nav.Link eventKey="fourth">היסטוריית אימונים  <BsClockHistory /></Nav.Link>
-                </Nav.Item>
-                    <Logout/>
-                 </Nav>
-            </Col>
-            
-        </Row>
+            </Row>
+            <Row>
+                <Col sm={9}>
+                  <Switch>
+                    <Route exact={true} path="/TrainerPage/trainee">
+                        Trainee Page
+                    </Route>
+                    <Route path="/">
+                        <TabsContent/>
+                    </Route>
+                  </Switch>
+                </Col>
+                <Col sm={3}>
+                    {/* יובלי אני רוצה לעשות פה שינויים, לעשות commit לפני？ שיהיה אפשר לשחזר אם תרצי？סבבה*/}
+                    <div>
+                        <Button variant="outline-danger" href="/TrainerPage" size="lg" dir='rtl'
+                                style={{margin: "10px"}}><BsFillPlusCircleFill/> הוספת אימון</Button>{' '}
+                    </div>
+                    <Nav variant="pills" className="flex-column">
+                        <Nav.Item>
+                            <Nav.Link eventKey="first">לוח אימונים <BsCalendar/></Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link eventKey="second">מתאמנים <BsGraphUp/></Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link eventKey="third">תמונות מאימונים <BsCamera/></Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link eventKey="fourth">היסטוריית אימונים <BsClockHistory/></Nav.Link>
+                        </Nav.Item>
+                        <Logout/>
+                    </Nav>
+                </Col>
+            </Row>
         </Tab.Container>
             )
 }

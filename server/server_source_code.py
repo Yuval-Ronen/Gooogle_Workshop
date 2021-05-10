@@ -15,8 +15,8 @@ class ConnectSQL:
 
     def check_email_trainer(self, email):
         query = ("SELECT * "
-                 "FROM eitan_database.trainer"
-                 "WHERE email = %s")
+                 " FROM eitan_database.trainer"
+                 " WHERE email = 'yuvalronen10@gmail.com' ")
         self.cursor.execute(query, (email,))
         for (ID, first_name, last_name, email, image, admin) in self.cursor:
             final = {"ID": ID, "first_name": first_name, "last_name": last_name,
@@ -26,7 +26,7 @@ class ConnectSQL:
     def check_email_trainee(self, email):
         query = ("SELECT * "
                  "FROM eitan_database.trainee"
-                 "WHERE email = %s")
+                 " WHERE email = %s ")
         self.cursor.execute(query, (email,))
         for (ID, first_name, last_name, email, image) in self.cursor:
             final = {"ID": ID, "first_name": first_name, "last_name": last_name,
@@ -37,7 +37,7 @@ class ConnectSQL:
         query = ("SELECT eitan_database.trainee.ID, eitan_database.trainee.first_name, "
                  "eitan_database.trainee.last_name, eitan_database.trainee.image "
                  "FROM eitan_database.trainer_trainee JOIN eitan_database.trainee ON trainee_id = ID"
-                 "WHERE trainer_id = %s")
+                 " WHERE trainer_id = %s")
         self.cursor.execute(query, (trainer_id,))
         for (ID, first_name, last_name, image) in self.cursor:
             final = {"traineeID": ID, "first_name": first_name, "last_name": last_name, "image": image}
@@ -72,8 +72,8 @@ class ConnectSQL:
     def get_personal_program(self, trainee_id):
         query = ("Select link, program_date "
                  "FROM eitan_database.all_personal_programs"
-                 "Where trainee_id = %s"
-                 "ORDER BY program_date DESC")
+                 " Where trainee_id = %s"
+                 " ORDER BY program_date DESC")
         self.cursor.execute(query, trainee_id)
         for (link, program_date) in self.cursor:
             final = {"link": link, "program_date": program_date}
@@ -94,9 +94,9 @@ class ConnectSQL:
             "train_type, train_time, train_date, description, status "
             "FROM eitan_database.all_training as t1, eitan_database.match_trainee_trainId as t2, "
             "eitan_database.trainee as t3"
-            "WHERE t3.ID = t2.trainee_id AND t1.train_id = t2.train_id AND t1.trainer_id = %s"
-            "GROUP BY t1.train_id"
-            "ORDER BY t1.train_date, t1.train_time DESC")
+            " WHERE t3.ID = t2.trainee_id AND t1.train_id = t2.train_id AND t1.trainer_id = %s"
+            " GROUP BY t1.train_id"
+            " ORDER BY t1.train_date, t1.train_time DESC")
         self.cursor.execute(query, trainer_id)
         for (all_trainees, train_type, train_time, train_date, description, status) in self.cursor:
             final = {"train_date": train_date, "train_time": train_time, "all_trainees": all_trainees,
@@ -109,9 +109,9 @@ class ConnectSQL:
             "train_type, train_time, train_date, description "
             "FROM eitan_database.all_training as t1, eitan_database.match_trainee_trainId as t2, "
             "eitan_database.trainee as t3"
-            "WHERE t3.ID = t2.trainee_id AND t1.train_id = t2.train_id AND t1.trainee_id = %s"
-            "GROUP BY t1.train_id"
-            "ORDER BY t1.train_date, t1.train_time DESC")
+            " WHERE t3.ID = t2.trainee_id AND t1.train_id = t2.train_id AND t1.trainee_id = %s"
+            " GROUP BY t1.train_id"
+            " ORDER BY t1.train_date, t1.train_time DESC")
         self.cursor.execute(query, trainee_id)
         for (all_trainees, train_type, train_time, train_date, description) in self.cursor:
             final = {"train_date": train_date, "train_time": train_time, "all_trainees": all_trainees,
@@ -122,7 +122,7 @@ class ConnectSQL:
         string = string + "%"
         query = ("SELECT CONCAT( first_name, ' ', last_name) as full_name, ID "
                  "FROM eitan_database.trainee as t, eitan_database.trainer_trainee as t2"
-                 "WHERE t2.trainee_id = t.ID AND t2.trainer_id = %s AND CONCAT( first_name, ' ', last_name) LIKE %s")
+                 " WHERE t2.trainee_id = t.ID AND t2.trainer_id = %s AND CONCAT( first_name, ' ', last_name) LIKE %s")
         self.cursor.execute(query, (trainer_id, string))
         # for (full_name, ID) in self.cursor:
         #     final = {"full_name": full_name, "trainee_id": ID}
@@ -133,7 +133,7 @@ class ConnectSQL:
         string = string + "%"
         query = ("SELECT train_type "
                  "FROM eitan_database.train_type"
-                 "WHERE type LIKE %s")
+                 " WHERE type LIKE %s")
         self.cursor.execute(query, string)
         return [train_type for (train_type,) in self.cursor]
 
