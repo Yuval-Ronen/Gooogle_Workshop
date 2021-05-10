@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import calender from './calender'
+import Calender from './calender'
 import empowerment from './empowerment'
 import history from './history'
 import TrainersTrainee from './components/TrainersTrainee'
@@ -53,8 +53,8 @@ const TrainerPage = (props) => {
         <Col sm={9}>
             <Tab.Content>
                 <Tab.Pane eventKey="first">
-                    <h1>לוח אימונים</h1>
-                <calender />
+                <h1>לוח אימונים</h1>
+                <Calender />
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
                 <h1>מתאמנים</h1>
