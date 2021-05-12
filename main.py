@@ -2,7 +2,7 @@ from functools import wraps
 from flask import Flask, render_template, jsonify, request
 
 from server.server_source_code import ConnectSQL
-from server_func import sql_manager
+from server.server_func import sql_manager
 
 # app = Flask(__name__, static_folder="../public", static_url_path='/', template_folder="../public")
 app = Flask(__name__, template_folder="../public")

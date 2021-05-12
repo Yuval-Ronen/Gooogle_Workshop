@@ -6,7 +6,7 @@ import {Provider} from 'react-redux'
 import store from './redux/store'
 import './index.css';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
-import TrainerPage from './TrainerPage'
+import TrainerPage from './components/trainer/TrainerPage'
 import TrainingPage from './TrainingPage'
 import App from './App';
 
