@@ -3,12 +3,12 @@ import {BsCalendar, BsCamera, BsClockHistory, BsFillPlusCircleFill, BsGraphUp} f
 import Nav from "react-bootstrap/Nav";
 import Logout from "../Logout";
 import React from "react";
+import AddTraining from "../AddTraining"
 
 const TrainerContentController = () =>
     <div className='trainer-content-controller'>
         <div>
-            <Button variant="outline-danger" href="/TrainerPage" size="lg" dir='rtl'
-                    style={{margin: "10px"}}><BsFillPlusCircleFill/> הוספת אימון</Button>{" "}
+        <AddTraining />
         </div>
         <Nav variant="pills" className="flex-column">
             <Nav.Item>
