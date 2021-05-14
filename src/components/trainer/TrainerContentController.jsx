@@ -1,9 +1,8 @@
-import {Button} from "react-bootstrap";
-import {BsCalendar, BsCamera, BsClockHistory, BsFillPlusCircleFill, BsGraphUp} from "react-icons/bs";
+import {BsCalendar, BsCamera, BsClockHistory, BsGraphUp} from "react-icons/bs";
 import Nav from "react-bootstrap/Nav";
 import Logout from "../Logout";
 import React from "react";
-import AddTraining from "../AddTraining"
+import AddTraining from '../AddTraining_Components/AddTraining.js'
 
 const TrainerContentController = () =>
     <div className='trainer-content-controller'>

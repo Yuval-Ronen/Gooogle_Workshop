@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux'
@@ -9,7 +7,6 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 import TrainerPage from './components/trainer/TrainerPage'
 import TrainingPage from './TrainingPage'
 import App from './App';
-
 
 const routing = (
   <BrowserRouter>
