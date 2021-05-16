@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -19,7 +18,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme, createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import Chip from '@material-ui/core/Chip';
@@ -42,7 +41,11 @@ const buttonStyle = {
 
 function AddTraining(props) {
 
-  
+  // For text direction
+  const rtl = createMuiTheme({
+    direction: 'rtl', 
+  });
+
   // For dialog
   const [openDialog, setOpen] = React.useState(false);
 
@@ -157,7 +160,8 @@ function AddTraining(props) {
         <DialogTitle id="form-dialog-title">הוספת אימון</DialogTitle>
         
         <DialogContent>
-
+            
+            <div>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
 
             {/* Date section  */}
@@ -186,7 +190,8 @@ function AddTraining(props) {
                 }}
               />
               </MuiPickersUtilsProvider>
-
+              </div>
+              <div>
               {/* Training type section */}
               <FormControl className={trainingType.formControl}>
               <InputLabel htmlFor="type-native-simple">סוג האימון</InputLabel>
@@ -235,7 +240,21 @@ function AddTraining(props) {
                 ))}
               </Select>
             </FormControl>
+            </div>
 
+            <form>
+              <ThemeProvider rtl={rtl}>
+                <div dir="rtl">
+                  <TextField
+                    id="standard-textarea"
+                    label="תוכנית האימון"
+                    placeholder="תוכנית האימון"
+                    multiline
+                    fullWidth
+                  />
+                </div>
+              </ThemeProvider>
+            </form>
 
         </DialogContent>
 
