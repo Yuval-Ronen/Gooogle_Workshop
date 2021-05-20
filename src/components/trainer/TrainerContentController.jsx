@@ -1,14 +1,13 @@
-import {Button} from "react-bootstrap";
-import {BsCalendar, BsCamera, BsClockHistory, BsFillPlusCircleFill, BsGraphUp} from "react-icons/bs";
+import {BsCalendar, BsCamera, BsClockHistory, BsGraphUp} from "react-icons/bs";
 import Nav from "react-bootstrap/Nav";
 import Logout from "../Logout";
 import React from "react";
+import AddTraining from '../AddTraining_Components/AddTraining.js'
 
 const TrainerContentController = () =>
     <div className='trainer-content-controller'>
         <div>
-            <Button variant="outline-danger" href="/TrainerPage" size="lg" dir='rtl'
-                    style={{margin: "10px"}}><BsFillPlusCircleFill/> הוספת אימון</Button>{" "}
+        <AddTraining />
         </div>
         <Nav variant="pills" className="flex-column">
             <Nav.Item>
