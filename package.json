@@ -20,6 +20,7 @@
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.2",
     "react-google-calendar-api": "^1.3.1",
+    "react-google-docs-viewer": "^1.0.1",
     "react-google-login": "^5.2.2",
     "react-google-photo": "^1.2.1",
     "react-google-picker": "^0.1.0",
@@ -38,7 +39,8 @@
     "start-api": "python -m flask run",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "parser": "babel-eslint"
   },
   "eslintConfig": {
     "extends": [
@@ -59,10 +61,16 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.13.13",
     "@material-ui/icons": "^4.11.2",
+    "babel-eslint": "^10.1.0",
+    "clsx": "^1.1.1",
+    "devextreme-react": "^20.2.7",
+    "prop-types": "^15.7.2",
     "react-app-rewired": "^2.1.8",
     "react-calendar": "^3.4.0",
-    "react-dev-utils": "^11.0.4"
+    "react-dev-utils": "^11.0.4",
+    "reactstrap": "^8.9.0"
   },
   "proxy": "http://localhost:5000"
 }
