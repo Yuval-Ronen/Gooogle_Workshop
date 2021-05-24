@@ -10,7 +10,6 @@ import TrainerContentController from "./TrainerContentController";
 import PageHeader from "./PageHeader";
 
 
-
 const TrainerPage = (props) => {
 
     const [name, setName] = useState("");
@@ -31,13 +30,10 @@ const TrainerPage = (props) => {
                 <PageHeader authenticationData={props.authenticationData} alt={name}/>
             </Row>
             <Row>
-                <Col sm={9}>
                     <TrainerPageContent/>
-                </Col>
-                <Col sm={3}>
-                    <TrainerContentController/>
-                </Col>
             </Row>
+
+
         </div>
     )
 }

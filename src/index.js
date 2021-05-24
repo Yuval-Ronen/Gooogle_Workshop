@@ -7,6 +7,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import TrainerPage from './components/trainer/TrainerPage'
 import TrainingPage from './TrainingPage'
 import App from './App';
+import Calendar from 'react-calendar';
 
 const routing = (
   <BrowserRouter>
