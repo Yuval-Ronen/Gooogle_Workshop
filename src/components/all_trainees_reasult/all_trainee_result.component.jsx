@@ -30,6 +30,7 @@ const TraineeResult = ({listOfTrainees})=>{
             </div> )
             }
 
+
             </div>
 
         }
