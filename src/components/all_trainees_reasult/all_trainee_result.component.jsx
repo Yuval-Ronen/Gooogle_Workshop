@@ -20,7 +20,7 @@ const TraineeResult = ({listOfTrainees})=>{
     }
 
     return <div className={style.container} onClick={askForData} >
-        <TraineeProgress listHistory = {trainingHistory} listProgram = {personalProgram }/>
+        {/*<TraineeProgress listHistory = {trainingHistory} listProgram = {personalProgram }/>*/}
 
         {listOfTrainees?.length > 0 && listOfTrainees.map((trainee, index)=>
             <div key={trainee.first_name + trainee.last_name + index} className={style.traineeResult}>

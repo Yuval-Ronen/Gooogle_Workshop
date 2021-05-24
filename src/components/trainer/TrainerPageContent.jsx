@@ -7,7 +7,7 @@ import ExercisePictures from "./trainer_content/ExercisePictures";
 import ExerciseHistory from "./trainer_content/ExerciseHistory";
 
 const TrainerPageContent = () =>
-        <div className='trainer-page-content'>
+        <div className='trainer-page-content' style={{width:"100%", paddingLeft: "5%", paddingRight: "5%"}}>
            <Switch>
                <Route exact={true} path="/TrainerPage/trainee" component={TrainerTrainee}/>
                <Route exact={true} path="/TrainerPage/exercise_schedule" component={TrainerExerciseSchedule}/>

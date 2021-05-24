@@ -1,6 +1,10 @@
 import React, {useState} from "react";
 import { Table } from 'reactstrap';
 import TrainingCart from "../../my_chart/chart_component";
+import {Container} from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import PersonalProgress from "../../personal_progress/personalProgress_component";
 
 
 const TrainerTrainee = (props) => {
@@ -25,14 +29,14 @@ const TrainerTrainee = (props) => {
         {trainDate:"12-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
         {trainDate:"11-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"},
         {trainDate:"10-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"crossfit"},
-        {trainDate:"12-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
-        {trainDate:"11-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"},
-        {trainDate:"12-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
-        {trainDate:"11-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"},
-        {trainDate:"12-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
-        {trainDate:"11-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"},
-        {trainDate:"12-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
-        {trainDate:"11-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"}];
+        {trainDate:"9-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
+        {trainDate:"8-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"},
+        {trainDate:"7-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
+        {trainDate:"6-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"},
+        {trainDate:"5-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
+        {trainDate:"4-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"},
+        {trainDate:"3-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
+        {trainDate:"2-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"}];
 
     let train_type_icons = {martialArts: "mdi:karate",
         jog: "mdi:run",
@@ -44,9 +48,20 @@ const TrainerTrainee = (props) => {
     return (
         <div>
         {/*    <h1> need to put name</h1>*/}
-        <TrainingCart />
+        <Container style={{padding: "0px"}}>
+            <Row className="justify-content-md-center">
+                <Col lg = "2">
+                    <PersonalProgress/>
+                </Col>
+                <Col >
+                    <TrainingCart />
+                </Col>
+            </Row>
+
+        </Container>
+
         <div class="w3-panel">
-            <div class="w3-row-padding" style={{margin:5}}>
+            <div class="w3-row-padding" style={{margin:"5"}}>
               <div class="w3-third">
                 <img src="" style={{width:100}} alt=""/>
                 </div>

@@ -196,6 +196,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
         onHide={onHide}
       >
         <div>
+          <h1> test!</h1>
           <div className={classes.header}>
             <IconButton
               className={classes.closeButton}
