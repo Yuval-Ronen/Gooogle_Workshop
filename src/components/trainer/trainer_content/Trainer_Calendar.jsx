@@ -106,7 +106,10 @@ class Trainer_Calendar extends React.PureComponent {
     }
     this.setState({ editingAppointment: undefined, isNewAppointment: true });
   }
-
+  setDeletedAppointmentId(id) {
+    this.setState({ deletedAppointmentId: id });
+  }
+  
   onEditingAppointmentChange(editingAppointment) {
     this.setState({ editingAppointment });
   }
