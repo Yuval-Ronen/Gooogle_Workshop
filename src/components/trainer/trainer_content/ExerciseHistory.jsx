@@ -6,8 +6,8 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import PersonalProgress from "../../personal_progress/personalProgress_component";
 
-
-const ExerciseHistory = (props) => {
+//person can be trainer or trainee
+const ExerciseHistory = (identity) => {
     const [trainingHistory, setTrainingHistory] = useState([]);
     const [personalProgram, setPersonalProgram] = useState([]);
 

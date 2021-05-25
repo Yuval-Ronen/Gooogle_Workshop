@@ -10,13 +10,13 @@ class ConnectSQL:
 
     def connect_to_db(self):
         self.cnx = mysql.connector.connect(user='root', password='stGNhgOtr6vCzgBu', host='127.0.0.1',
-                                           database='eitan_database', port=3306)
-        self.cursor = self.cnx.cursor()
+                                           database='eitan_database', port=3306, buffered=True)
+        self.cursor = self.cnx.cursor(buffered=True)
 
     def check_email_trainer(self, email):
         query = ("SELECT * "
                  " FROM eitan_database.trainer"
-                 " WHERE email = 'yuvalronen10@gmail.com' ")
+                 " WHERE email = %s ")
         self.cursor.execute(query, (email,))
         for (ID, first_name, last_name, email, image, admin) in self.cursor:
             final = {"ID": ID, "first_name": first_name, "last_name": last_name,
@@ -150,3 +150,7 @@ class ConnectSQL:
 
 if __name__ == '__main__':
     a = ConnectSQL()
+    query1 = ("SELECT * "
+             " FROM eitan_database.trainer"
+             " WHERE email = %s ")
+    a.cursor.execute(query1, ("%yuvalronen10@gmail.com"))
