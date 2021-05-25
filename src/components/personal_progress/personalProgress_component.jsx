@@ -30,11 +30,14 @@ const PersonalProgress = (props) => {
             </div> )
             }
             <form>
+                <p></p>
                 <p>הוסף מערך העצמה חדש</p>
                 <input
                     type ="text"
-                    placeholder = "הכניסו קישור של google docs"/>
+                    placeholder = " google docs הכניסו קישור של "
                     onChange={myChangeHandler}
+                style = {{width:"90%",height:"10%", textAlign:"right"}}/>
+
             </form>
 
             </div>)
