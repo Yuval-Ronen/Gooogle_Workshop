@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import PersonalProgress from "../../personal_progress/personalProgress_component";
 import ExerciseHistory from "./ExerciseHistory";
+import ShowExerciseHistory from "../../show_exercise_history";
 
 
 const TrainerTrainee = (props) => {
@@ -51,7 +52,7 @@ const TrainerTrainee = (props) => {
             </Row>
 
         </Container>
-        <ExerciseHistory training_his = {training_his}/>
+        <ShowExerciseHistory training_his = {training_his}/>
         </div>
 
     )

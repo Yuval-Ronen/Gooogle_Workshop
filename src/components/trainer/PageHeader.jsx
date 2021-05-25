@@ -196,7 +196,7 @@ class PageHeader extends Component {
         onClick={e => this.handleToggle(e)}
       />
       <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
-        <NavLink activeClassName="active" to="/TrainerPage/exercise_history/training_his" training_his = {training_his} >
+        <NavLink activeClassName="active" to="/TrainerPage/exercise_history"  >
           <li>היסטוריית אימונים</li>
         </NavLink>
 
