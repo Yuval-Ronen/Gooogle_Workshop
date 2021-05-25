@@ -6,28 +6,28 @@ import {
     {
       text: 'אישי',
       id: 1,
-      color: amber,
+      color: deepPurple[500],
     }, {
       text: 'VIP',
       id: 2,
-      color: pink,
+      color: amber,
     }, {
       text: 'מתנדב',
       id: 3,
-      color: purple,
+      color: amber[200],
     }, {
       text: 'קבוצתי',
       id: 4,
-      color: deepOrange,
+      color: deepPurple[200],
     }, {
       text: 'מוסד',
       id: 5,
-      color: teal,
+      color: deepPurple[300],
     }, {
         text: 'Online',
         id: 6,
-        color: lightGreen,
-      }
+        color: amber[600],
+    },
   ];
 
 
@@ -35,30 +35,30 @@ import {
     {
       text: 'רותם גביש',
       id: 1,
-      color: deepPurple[100],
+      color: pink[100],
     }, {
       text: 'גל גולדשטיין',
       id: 2,
-      color: deepPurple[200],
+      color: pink[200],
     }, {
       text: 'אורי מרום',
       id: 3,
-      color: deepPurple[300],
+      color: pink[300],
     }, {
       text: 'עומר צוויג',
       id: 4,
-      color: deepPurple[400],
+      color: pink[400],
     }, {
       text: 'דור שירן',
       id: 5,
-      color: deepPurple[500],
+      color: pink[500],
     }, {
-        text: 'רותם מאירצוק',
-        id: 6,
-        color: deepPurple[600],
+      text: 'רותם מאירצוק',
+      id: 6,
+      color: pink[600],
       }, {
-        text:  'הגר דהן',
-        id: 7,
-        color: deepPurple[700],
-      }
+      text:  'הגר דהן',
+      id: 7,
+      color: pink[700],
+    }
   ];

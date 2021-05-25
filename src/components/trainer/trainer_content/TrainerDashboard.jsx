@@ -21,8 +21,8 @@ let training_his = ["מתאמנים",[{trainDate:"27-05-21",trainTime:"08:00:00"
             <div >
                 <TrainingCart style ={{height:"200px"}}/>
             </div>
-            <div>
-                <h1>האימונים הבאים שלך</h1>
+            <div style={{margin: 20}}>
+                <h2>אימונים קרובים</h2>
                 <ShowExerciseHistory training_his ={training_his}/>
             </div>
 
