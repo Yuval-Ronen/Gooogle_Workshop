@@ -25,10 +25,13 @@ const TraineeDashboard = (props) => {
                         <TrainTypePie/>
                     </Col>
                 </Row>
+                <Row>
+                    
+                </Row>
             </Container>
 
-            <div>
-                <h1>האימונים הבאים שלך</h1>
+            <div style={{margin: 20}}>
+            <h2>אימונים קרובים</h2>
                 <ShowExerciseHistory training_his ={training_his}/>
             </div>
 
