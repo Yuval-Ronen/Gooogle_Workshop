@@ -35,7 +35,6 @@ class Logout extends React.Component{
                     )
 
     }
-
     render() {
         if (this.state.loggedOut) {
             return <Redirect to="/"/>;
@@ -45,9 +44,9 @@ class Logout extends React.Component{
               <GoogleLogout
                   clientId="476408447979-ksp3ikmql53717ucvohu0uhm8t7ld9f1.apps.googleusercontent.com"
                   render = {renderProps => (
-                      <Nav.Item>
-                          <Nav.Link eventKey="fifth" onClick={renderProps.onClick}><text style={{color:'red'}}>התנתק/י מהחשבון <BsPeopleCircle/></text></Nav.Link>
-                      </Nav.Item>
+                      
+                          <span onClick={renderProps.onClick}><text style={{color:'red', fontSize:11}}>התנתק/י</text></span>
+                      
             )}
                   onLogoutSuccess={this.logout}
                   onLogoutFailure={(response) => console.log(response)}

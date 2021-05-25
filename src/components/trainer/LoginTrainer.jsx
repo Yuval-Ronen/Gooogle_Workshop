@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import GoogleLogin from "react-google-login";
 import { Link, Redirect } from 'react-router-dom';
 import {Button} from "react-bootstrap";
-import {extractUserData} from "./googleApi/GoogleApi";
-import {setCurState, setUserData} from '../redux/actions'
-import serverConnector from '../server-connector';
-import logout from "./Logout"
+import {extractUserData} from "../googleApi/GoogleApi";
+import {setCurState, setUserData} from '../../redux/actions'
+import serverConnector from '../../server-connector';
+import logout from "../Logout"
 
 
 

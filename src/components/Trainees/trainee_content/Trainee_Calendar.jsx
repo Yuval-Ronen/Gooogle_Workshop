@@ -1,5 +1,3 @@
-/* eslint-disable max-classes-per-file */
-/* eslint-disable react/no-unused-state */
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
@@ -36,8 +34,8 @@ import Notes from '@material-ui/icons/Notes';
 import Close from '@material-ui/icons/Close';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Create from '@material-ui/icons/Create';
-import { appointments } from './trainer/trainer_content/Training'
-import {triningType, Trainees} from './trainer/trainer_content/TrainingTypeAndTreinees'
+import { appointments } from '../../trainer/trainer_content/Training'
+import {triningType, Trainees} from '../../trainer/trainer_content/TrainingTypeAndTreinees'
 
 
 const containerStyles = theme => ({
@@ -196,7 +194,6 @@ class AppointmentFormContainerBasic extends React.PureComponent {
         onHide={onHide}
       >
         <div>
-          <h1> test!</h1>
           <div className={classes.header}>
             <IconButton
               className={classes.closeButton}
@@ -277,7 +274,7 @@ const styles = theme => ({
 });
 
 /* eslint-disable-next-line react/no-multi-comp */
-class Calendar extends React.PureComponent {
+class Trainee_Calendar extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -480,24 +477,9 @@ class Calendar extends React.PureComponent {
             </Button>
           </DialogActions>
         </Dialog>
-
-        <Fab
-          color="secondary"
-          className={classes.addButton}
-          onClick={() => {
-            this.setState({ editingFormVisible: true });
-            this.onEditingAppointmentChange(undefined);
-            this.onAddedAppointmentChange({
-              startDate: new Date(currentDate).setHours(startDayHour),
-              endDate: new Date(currentDate).setHours(startDayHour + 1),
-            });
-          }}
-        >
-          <AddIcon />
-        </Fab>
       </Paper>
     );
   }
 }
 
-export default withStyles(styles, { name: 'EditingDemo' })(Calendar);
+export default withStyles(styles, { name: 'EditingDemo' })(Trainee_Calendar);
