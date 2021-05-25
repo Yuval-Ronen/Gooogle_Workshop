@@ -1,5 +1,5 @@
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 import { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
@@ -24,14 +24,14 @@ const TraineesPage = (props) => {
 
     return(
         <div className='trainee-page'>
+            <Container fluid>
             <Row>
                 <PageHeader_Trainee authenticationData={props.authenticationData} alt={name}/>
             </Row>
             <Row>
                     <TraineePageContent/>
             </Row>
-
-
+            </Container>
         </div>
     )
 }

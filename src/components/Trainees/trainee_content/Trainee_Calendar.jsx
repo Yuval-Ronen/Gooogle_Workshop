@@ -1,12 +1,13 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
+import { ViewState, EditingState, } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   Resources,
   Toolbar,
   MonthView,
   WeekView,
+  DayView,
   ViewSwitcher,
   Appointments,
   AppointmentTooltip,
@@ -14,6 +15,8 @@ import {
   DragDropProvider,
   EditRecurrenceMenu,
   AllDayPanel,
+  DateNavigator,
+  TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -90,6 +93,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
 
     this.state = {
       appointmentChanges: {},
+      data: appointments,
     };
 
     this.getAppointmentData = () => {
@@ -275,6 +279,8 @@ const styles = theme => ({
 
 /* eslint-disable-next-line react/no-multi-comp */
 class Trainee_Calendar extends React.PureComponent {
+    today = new Date();
+
   constructor(props) {
     super(props);
     this.state = {
@@ -292,7 +298,7 @@ class Trainee_Calendar extends React.PureComponent {
           allowMultiple: true,
         },
       ],
-      currentDate: '2018-06-27',
+      currentDate: this.today,
       confirmationVisible: false,
       editingFormVisible: false,
       deletedAppointmentId: undefined,
@@ -423,10 +429,10 @@ class Trainee_Calendar extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
-          height={660}
+          height={700}
         >
           <ViewState
-            currentDate={currentDate}
+            defaultCurrentDate={currentDate}
           />
           <EditingState
             onCommitChanges={this.commitChanges}
@@ -438,6 +444,7 @@ class Trainee_Calendar extends React.PureComponent {
             endDayHour={endDayHour}
           />
           <MonthView />
+          <DayView/>
           <AllDayPanel />
           <EditRecurrenceMenu />
           <Appointments />
@@ -447,6 +454,8 @@ class Trainee_Calendar extends React.PureComponent {
             showDeleteButton
           />
           <Toolbar />
+          <DateNavigator />
+          <TodayButton />
           <ViewSwitcher />
           <AppointmentForm
             overlayComponent={this.appointmentForm}
