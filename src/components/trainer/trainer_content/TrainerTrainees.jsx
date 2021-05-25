@@ -23,7 +23,6 @@ const TrainerTrainees = (props) => {
 
     return(
         <Container>
-            <h1>המתאמנים שלך</h1>
             <TraineeResult listOfTrainees={allTrainees}/>
         </Container>
     )

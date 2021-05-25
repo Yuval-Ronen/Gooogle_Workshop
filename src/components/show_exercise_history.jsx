@@ -76,7 +76,6 @@ const ShowExerciseHistory = (training_his) => {
 
     return (
         <div className='exercise-history'>
-            <h1>היסטוריית אימונים</h1>
 
         <div class="w3-panel">
             <div class="w3-row-padding" style={{margin:"5"}}>

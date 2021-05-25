@@ -3,14 +3,18 @@ import React from 'react';
 import { Chart, Series, CommonSeriesSettings, Legend, ValueAxis, Title, Export, Tooltip, Border } from 'devextreme-react/chart';
 import service from './month_data.js';
 import char from './chart_style.css'
+import PieChart from "devextreme-react/pie-chart";
 const dataSource = service.getMonthData();
 
 class TrainingCart extends React.Component {
+
   render() {
     return (
       <Chart
         id="chart"
-        title="כמות אימונים שבוצעו לפי חודשים"
+        title="אימונים לפי חודש"
+        palette="Violet"
+        paletteExtensionMode= 'Blend'
         dataSource={dataSource}
       >
         <CommonSeriesSettings argumentField="month" type="stackedBar" />

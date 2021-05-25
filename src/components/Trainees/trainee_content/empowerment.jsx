@@ -1,7 +1,11 @@
 import react from "react";
 
 const empowerment = () => {
-    return <h3>empowerment </h3>
+    return (
+    <div className='empowerment'>
+        <h3>empowerment </h3>
+    </div>
+    )
 
 }
 export default empowerment;
