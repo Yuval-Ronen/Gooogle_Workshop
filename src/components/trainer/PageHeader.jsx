@@ -153,9 +153,23 @@ const Navigation = styled.header`
   }
 `;
 
+    let training_his = ["מתאמנים",[{trainDate:"13-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"good train", type:"crossfit"},
+            {trainDate:"12-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"swim"},
+            {trainDate:"11-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"dance"},
+            {trainDate:"10-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"crossfit"},
+            {trainDate:"9-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"swim"},
+            {trainDate:"8-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"dance"},
+            {trainDate:"7-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"swim"},
+            {trainDate:"6-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"dance"},
+            {trainDate:"5-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"swim"},
+            {trainDate:"4-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"dance"},
+            {trainDate:"3-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"swim"},
+            {trainDate:"2-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"dance"}]];
+
 
 class PageHeader extends Component {
-  
+
+
     constructor(props) {
       super(props);
       this.state = {
@@ -173,7 +187,7 @@ class PageHeader extends Component {
         const { isExpanded } = this.state;
         return (
     <Navigation>
-       
+
     <nav className="nav">
       <i
         className="fa fa-bars"
@@ -181,11 +195,11 @@ class PageHeader extends Component {
         onClick={e => this.handleToggle(e)}
       />
       <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
-        <NavLink activeClassName="active" to="/TrainerPage/exercise_history">
+        <NavLink activeClassName="active" to="/TrainerPage/exercise_history/training_his" training_his = {training_his} >
           <li>היסטוריית אימונים</li>
         </NavLink>
 
-        <NavLink activeClassName="active" to="/TrainerPage/trainees">
+        <NavLink activeClassName="active" to="/TrainerPage/trainees" >
           <li>מתאמנים</li>
         </NavLink>
 
@@ -195,11 +209,11 @@ class PageHeader extends Component {
         <li>
         <div className="google">
           <p>
-                <img style={{margin: 5, display: "inline-block", float: "right"}} width="40px" src={this.props.authenticationData.imageUrl} alt={this.props.alt}/>  
+                <img style={{margin: 5, display: "inline-block", float: "right"}} width="40px" src={this.props.authenticationData.imageUrl} alt={this.props.alt}/>
                 <Logout/>
                 <h6 dir='rtl'>שלום, {this.props.authenticationData.name}</h6>
                 </p>
-                
+
             </div>
         </li>
         <li>
@@ -212,7 +226,7 @@ class PageHeader extends Component {
 
       </ul>
     </nav>
-            
+
 
 
       </Navigation>

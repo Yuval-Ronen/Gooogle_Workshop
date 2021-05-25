@@ -5,12 +5,24 @@ import {Container} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import PersonalProgress from "../../personal_progress/personalProgress_component";
+import ExerciseHistory from "./ExerciseHistory";
 
 
 const TrainerTrainee = (props) => {
     const [trainingHistory, setTrainingHistory] = useState([]);
     const [personalProgram, setPersonalProgram] = useState([]);
-
+    let training_his = ["מתאמנים",[{trainDate:"13-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"good train", type:"crossfit"},
+            {trainDate:"12-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"swim"},
+            {trainDate:"11-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"dance"},
+            {trainDate:"10-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"crossfit"},
+            {trainDate:"9-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"swim"},
+            {trainDate:"8-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"dance"},
+            {trainDate:"7-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"swim"},
+            {trainDate:"6-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"dance"},
+            {trainDate:"5-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"swim"},
+            {trainDate:"4-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"dance"},
+            {trainDate:"3-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"swim"},
+            {trainDate:"2-05-21",trainTime:"08:00:00", trainer_or_group_members:"{100000001}",description:"", type:"dance"}]];
     // const askForData = () =>{
     //     // serverConnector.then(res => {
     //     //     setData();
@@ -24,26 +36,6 @@ const TrainerTrainee = (props) => {
     //     setTrainingHistory(training_his);
     //     setPersonalProgram(all_personal_program);
     // }
-
-    let training_his = [{trainDate:"13-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"good train", type:"crossfit"},
-        {trainDate:"12-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
-        {trainDate:"11-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"},
-        {trainDate:"10-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"crossfit"},
-        {trainDate:"9-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
-        {trainDate:"8-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"},
-        {trainDate:"7-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
-        {trainDate:"6-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"},
-        {trainDate:"5-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
-        {trainDate:"4-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"},
-        {trainDate:"3-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
-        {trainDate:"2-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"}];
-
-    let train_type_icons = {martialArts: "mdi:karate",
-        jog: "mdi:run",
-        swim: "mdi:swim",
-        crossfit: "mdi:weight-lifter",
-        dance: "mdi:yoga" }
-
 
     return (
         <div>
@@ -59,44 +51,7 @@ const TrainerTrainee = (props) => {
             </Row>
 
         </Container>
-
-        <div class="w3-panel">
-            <div class="w3-row-padding" style={{margin:"5"}}>
-              <div class="w3-third">
-                <img src="" style={{width:100}} alt=""/>
-                </div>
-              <div class="w3-twothird">
-                <h5>אימונים קרובים</h5>
-                <Table class="w3-table w3-striped w3-white">
-                <tr>
-                    <td><h5>תיאור</h5></td>
-                    <td><h5>סוג אימון</h5></td>
-                    <td><h5>מתאמנים</h5></td>
-                    <td><h5>שעה</h5></td>
-                    <td><h5>תאריך</h5></td>
-                    <td><h5> </h5></td>
-
-
-                </tr>
-                        {/*<TraineeProgress listHistory = {trainingHistory} listProgram = {personalProgram }/>*/}
-                        {training_his?.length > 0 && training_his.map((exercise, index)=>
-                        // <div key={} className={}>
-                        <tr>
-                            <td>{exercise.description}</td>
-                            <td>{exercise.type}</td>
-                            <td>{exercise.group_members}</td>
-                            <td>{exercise.trainTime}</td>
-                            <td>{exercise.trainDate}</td>
-                            <td><span className="iconify" data-icon= {train_type_icons[exercise.type]} data-inline="false" color="#55215e" width= "30px" height= "30px"  text-align = "center"></span></td>
-
-
-                          </tr>
-                   )
-                            }
-                </Table>
-              </div>
-            </div>
-      </div>
+        <ExerciseHistory training_his = {training_his}/>
         </div>
 
     )
