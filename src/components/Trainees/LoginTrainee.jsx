@@ -2,9 +2,9 @@ import React, {useState} from 'react'
 import GoogleLogin from "react-google-login";
 import { Link, Redirect } from 'react-router-dom';
 import {Button} from "react-bootstrap";
-import {setUserData, setCurState} from "../redux/actions";
+import {setUserData, setCurState} from "../../redux/actions";
 import {connect} from "react-redux";
-import {extractUserData} from "./googleApi/GoogleApi";
+import {extractUserData} from "../googleApi/GoogleApi";
 
 
 const loginFailureHandler = (response) => {
@@ -17,7 +17,7 @@ const loginFailureHandler = (response) => {
 const LoginTrainee = (props) => {
 
    if (props.currentState === "trainee") {
-        return <Redirect to="/TrainingPage"/>;
+        return <Redirect to="/TraineesPage"/>;
     }
     // if (props.authenticationData.email && props.currentState === "trainee") {
     //     return <Redirect to="/TrainingPage"/>;
@@ -29,7 +29,7 @@ const LoginTrainee = (props) => {
             <GoogleLogin
             clientId="476408447979-ksp3ikmql53717ucvohu0uhm8t7ld9f1.apps.googleusercontent.com"
             render = {renderProps => (
-                <Button variant="outline-primary" href="/TrainingPage" size="lg" onClick={renderProps.onClick} disable = {renderProps.disabled} >
+                <Button variant="outline-primary" href="/TraineesPage" size="lg" onClick={renderProps.onClick} disable = {renderProps.disabled} >
                     כניסת מתאמנים</Button>
             )}
             buttonText={''}

@@ -1,13 +1,11 @@
-import Calendar from "../../Calendar";
-import Tab from "react-bootstrap/Tab";
+import Trainer_Calendar from "./Trainer_Calendar";
 import React from "react";
 
 const TrainerExerciseSchedule = (props) => {
 
     return (
         <div className='trainer-exercise-schedule'>
-            <h1>לוח אימונים</h1>
-            <Calendar/>
+            <Trainer_Calendar/>
         </div>
     )
 }

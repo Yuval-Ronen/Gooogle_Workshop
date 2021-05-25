@@ -1,3 +1,9 @@
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
 
 import React from "react";
 import { Button } from "react-bootstrap";
@@ -5,8 +11,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Image from 'react-bootstrap/Image';
 import EitanLogo from './EitanLogo.PNG';
 import GoogleLogin from "react-google-login";
-import LoginTrainer from "./components/LoginTrainer";
-import LoginTrainee from "./components/LoginTrainee";
+import LoginTrainer from "./components/trainer/LoginTrainer";
+import LoginTrainee from "./components/Trainees/LoginTrainee";
 
 const responseGoogle = (response) => {
     console.log(response);

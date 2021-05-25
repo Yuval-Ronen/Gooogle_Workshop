@@ -154,79 +154,79 @@ const Navigation = styled.header`
 `;
 
 
-class PageHeader extends Component {
-  
+class PageHeader_Trainee extends Component {
+
+    
     constructor(props) {
-      super(props);
-      this.state = {
-        isExpanded: false
-      };
-    }
-    handleToggle(e) {
-      e.preventDefault();
-      this.setState({
-        isExpanded: !this.state.isExpanded
-      });
-    }
-
-    render() {
-        const { isExpanded } = this.state;
-        return (
-    <Navigation>
-       
-    <nav className="nav">
-      <i
-        className="fa fa-bars"
-        aria-hidden="true"
-        onClick={e => this.handleToggle(e)}
-      />
-      <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
-        <NavLink activeClassName="active" to="/TrainerPage/exercise_history">
-          <li>היסטוריית אימונים</li>
-        </NavLink>
-
-        <NavLink activeClassName="active" to="/TrainerPage/trainees">
-          <li>מתאמנים</li>
-        </NavLink>
-
-        <NavLink activeClassName="active" to="/TrainerPage/exercise_schedule">
-          <li>לוח אימונים</li>
-        </NavLink>
-        <li>
-        <div className="google">
-          <p>
-                <img style={{margin: 5, display: "inline-block", float: "right"}} width="40px" src={this.props.authenticationData.imageUrl} alt={this.props.alt}/>  
-                <Logout/>
-                <h6 dir='rtl'>שלום, {this.props.authenticationData.name}</h6>
-                </p>
-                
-            </div>
-        </li>
-        <li>
-        <div className="logo">
-          <Link to="/TrainerPage">
-          <Image src={EitanLogoSmall}/>
-          </Link>
-        </div>
-        </li>
-
-      </ul>
-    </nav>
-            
-
-
-      </Navigation>
-
-);
-}
-}
-
-
-
-PageHeader.propTypes = {
-    authenticationData: PropTypes.any,
-    alt: PropTypes.string
-};
-
-export default PageHeader;
-
+        super(props);
+        this.state = {
+          isExpanded: false
+        };
+      }
+      handleToggle(e) {
+        e.preventDefault();
+        this.setState({
+          isExpanded: !this.state.isExpanded
+        });
+      }
+  
+      render() {
+          const { isExpanded } = this.state;
+          return (
+      <Navigation>
+         
+      <nav className="nav">
+        <i
+          className="fa fa-bars"
+          aria-hidden="true"
+          onClick={e => this.handleToggle(e)}
+        />
+        <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
+          <NavLink activeClassName="active" to="/TraineesPage/exercise_history">
+            <li>היסטוריית אימונים</li>
+          </NavLink>
+  
+          <NavLink activeClassName="active" to="/TraineesPage/empowerment">
+            <li>מערך העצמה</li>
+          </NavLink>
+  
+          <NavLink activeClassName="active" to="/TraineesPage/exercise_schedule">
+            <li>לוח אימונים</li>
+          </NavLink>
+          <li>
+          <div className="google">
+            <p>
+                  <img style={{margin: 5, display: "inline-block", float: "right"}} width="40px" src={this.props.authenticationData.imageUrl} alt={this.props.alt}/>  
+                  <Logout/>
+                  <h6 dir='rtl'>שלום, {this.props.authenticationData.name}</h6>
+                  </p>
+                  
+              </div>
+          </li>
+          <li>
+          <div className="logo">
+            <Link to="/TraineesPage">
+            <Image src={EitanLogoSmall}/>
+            </Link>
+          </div>
+          </li>
+  
+        </ul>
+      </nav>
+              
+  
+  
+        </Navigation>
+  
+  );
+  }
+  }
+  
+  
+  
+  PageHeader_Trainee.propTypes = {
+      authenticationData: PropTypes.any,
+      alt: PropTypes.string
+  };
+  
+  export default PageHeader_Trainee;

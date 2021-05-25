@@ -1,17 +1,48 @@
-import React, {Component} from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { useState } from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
+import {connect} from "react-redux";
+import TraineePageContent from "./trainee_content/TraineePageContent";
+import PageHeader_Trainee from "./PageHeader_Trainee";
 
-class TraineesPage extends React.Component{
-    constructor(props) {
-        super(props);
 
+const TraineesPage = (props) => {
+
+    const [name, setName] = useState("");
+    const [url, setUrl] = useState("");
+    const responseGoogle = (response) => {
+    console.log(response);
+    setName(response.profileObj.name);
+    setUrl(response.profileObj.imageUrl);
     }
 
-    render() {
-        return (
-            null
+    console.log(props.authenticationData);
 
-        )
-    }
+    // Todo take this to a new file and give it a new name if needed
+
+    return(
+        <div className='trainee-page'>
+            <Row>
+                <PageHeader_Trainee authenticationData={props.authenticationData} alt={name}/>
+            </Row>
+            <Row>
+                    <TraineePageContent/>
+            </Row>
+
+
+        </div>
+    )
+}
+//actions on the storage
+const actionsCreators = {
 
 }
-export default TraineesPage
+
+//what in state will be available to props
+const mapStateToProps = (state) => ({
+    authenticationData: state.authenticationData,
+});
+
+export default connect(mapStateToProps,actionsCreators)(TraineesPage);

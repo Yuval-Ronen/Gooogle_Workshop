@@ -6,7 +6,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import {connect} from "react-redux";
 import TrainerPageContent from "./TrainerPageContent";
-import TrainerContentController from "./TrainerContentController";
 import PageHeader from "./PageHeader";
 
 

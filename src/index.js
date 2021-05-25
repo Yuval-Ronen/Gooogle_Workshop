@@ -5,7 +5,7 @@ import store from './redux/store'
 import './index.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import TrainerPage from './components/trainer/TrainerPage'
-import TrainingPage from './TrainingPage'
+import TraineesPage from './components/Trainees/TraineesPage'
 import App from './App';
 import Calendar from 'react-calendar';
 
@@ -15,7 +15,7 @@ const routing = (
             <div>
               <Switch>
                 <Route exact path="/" component={App} />
-                <Route path="/TrainingPage" component={TrainingPage} />
+                <Route path="/TraineesPage" component={TraineesPage} />
                 <Route path="/TrainerPage" component={TrainerPage} />
               </Switch>
             </div>
