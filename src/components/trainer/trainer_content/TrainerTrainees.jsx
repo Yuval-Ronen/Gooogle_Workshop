@@ -37,6 +37,7 @@ const TrainerTrainees = (props) => {
     ]
 
     return(
+ 
             <TraineeResult listOfTrainees={allTrainees}/>
     )
 }
