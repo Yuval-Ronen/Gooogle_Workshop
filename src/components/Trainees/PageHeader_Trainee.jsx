@@ -21,6 +21,7 @@ const Navigation = styled.header`
 
   .google{
     width: 15%;
+    height: 5%;
     display: flex;
     flex-direction: column;
     clear: both;

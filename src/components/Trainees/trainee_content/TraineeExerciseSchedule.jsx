@@ -1,5 +1,8 @@
 import Trainee_Calendar from "./Trainee_Calendar";
 import React from "react";
+import styled from "styled-components";
+
+
 
 const TraineeExerciseSchedule = (props) => {
 

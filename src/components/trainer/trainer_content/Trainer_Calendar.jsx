@@ -9,6 +9,7 @@ import {
   Toolbar,
   MonthView,
   WeekView,
+  DayView,
   ViewSwitcher,
   Appointments,
   AppointmentTooltip,
@@ -16,6 +17,8 @@ import {
   DragDropProvider,
   EditRecurrenceMenu,
   AllDayPanel,
+  DateNavigator,
+  TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -40,10 +43,11 @@ import { appointments } from './Training'
 import {triningType, Trainees} from './TrainingTypeAndTreinees'
 
 
+
 const containerStyles = theme => ({
   container: {
     width: theme.spacing(68),
-    padding: 0,
+    padding: 10,
     paddingBottom: theme.spacing(2),
   },
   content: {
@@ -92,6 +96,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
 
     this.state = {
       appointmentChanges: {},
+      data: appointments,
     };
 
     this.getAppointmentData = () => {
@@ -196,7 +201,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
         onHide={onHide}
       >
         <div>
-          <h1> test!</h1>
+ 
           <div className={classes.header}>
             <IconButton
               className={classes.closeButton}
@@ -278,6 +283,8 @@ const styles = theme => ({
 
 /* eslint-disable-next-line react/no-multi-comp */
 class Trainer_Calendar extends React.PureComponent {
+  today = new Date();
+
   constructor(props) {
     super(props);
     this.state = {
@@ -295,7 +302,7 @@ class Trainer_Calendar extends React.PureComponent {
           allowMultiple: true,
         },
       ],
-      currentDate: '2018-06-27',
+      currentDate: this.today,
       confirmationVisible: false,
       editingFormVisible: false,
       deletedAppointmentId: undefined,
@@ -426,10 +433,10 @@ class Trainer_Calendar extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
-          height={660}
+          height={700}
         >
           <ViewState
-            currentDate={currentDate}
+            defaultCurrentDate={currentDate}
           />
           <EditingState
             onCommitChanges={this.commitChanges}
@@ -441,6 +448,7 @@ class Trainer_Calendar extends React.PureComponent {
             endDayHour={endDayHour}
           />
           <MonthView />
+          <DayView/>
           <AllDayPanel />
           <EditRecurrenceMenu />
           <Appointments />
@@ -450,13 +458,17 @@ class Trainer_Calendar extends React.PureComponent {
             showDeleteButton
           />
           <Toolbar />
+          
           <ViewSwitcher />
+          <DateNavigator />
+          <TodayButton />
           <AppointmentForm
             overlayComponent={this.appointmentForm}
             visible={editingFormVisible}
             onVisibilityChange={this.toggleEditingFormVisibility}
           />
           <DragDropProvider />
+
         </Scheduler>
 
         <Dialog
@@ -499,5 +511,6 @@ class Trainer_Calendar extends React.PureComponent {
     );
   }
 }
+
 
 export default withStyles(styles, { name: 'EditingDemo' })(Trainer_Calendar);
