@@ -8,7 +8,7 @@ import AllPersonalProgress from "./AllPersonalProgress";
 
 const Empowerment = () => {
 
-    const [source2, setSource] = useState("https://docs.google.com/document/d/1CwdtJIqoWhAn88FMqw3wSaMMvXUgoFY1hCqIiXgFvGw/edit");
+    const [source2, setSource] = useState("https://docs.google.com/document/d/1EmFhltEfkpRu0J7D46anmz_GfE9krBhaWQd35m-HydA/edit");
 
     console.log(source2);
     return (
