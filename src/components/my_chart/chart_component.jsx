@@ -21,7 +21,6 @@ const TrainingCart = (id) => {
 
       <Chart
         id="chart"
-        title="אימונים לפי חודש"
         palette="Violet"
         paletteExtensionMode= 'Blend'
         dataSource={dataSource}
