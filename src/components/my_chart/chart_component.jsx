@@ -41,6 +41,7 @@ const TrainingCart = (id) => {
           <Border visible={true} />
         </Legend>
       </Chart>
+      </div>
     )
 
 }
