@@ -10,8 +10,7 @@ import TrainerDashboard from "./trainer_content/TrainerDashboard";
 
 const TrainerPageContent = () =>
 
-
-        <div className='trainer-page-content' style={{width:"100%", paddingLeft: "5%", paddingRight: "5%"}}>
+        <div className='trainer-page-content' style={{width:"100%", paddingLeft: "2%", paddingRight: "2%"}}>
            <Switch>
                <Route exact={true} path="/TrainerPage" component={TrainerDashboard}/>
                <Route exact={true} path="/TrainerPage/trainee" component={TrainerTrainee}/>

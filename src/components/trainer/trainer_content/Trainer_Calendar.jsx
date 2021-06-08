@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unused-state */
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
+import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   Resources,
@@ -16,7 +16,6 @@ import {
   AppointmentForm,
   DragDropProvider,
   EditRecurrenceMenu,
-  AllDayPanel,
   DateNavigator,
   TodayButton,
   CurrentTimeIndicator,
@@ -53,7 +52,49 @@ const styles = theme => ({
   },
 });
 
+
+const TextEditor = (props) => {
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props.type === 'multilineTextEditor') {
+    return null;
+  } return <AppointmentForm.TextEditor {...props} />;
+};
+
+
+const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
+  const onCustomFieldChange = (nextValue) => {
+    onFieldChange({ customField: nextValue });
+  };
+  const onValueChange = (nextValue) => {
+    onFieldChange({ customField: nextValue });
+  };
+return (
+  <AppointmentForm.BasicLayout
+    appointmentData={appointmentData}
+    onFieldChange={onFieldChange}
+    {...restProps}
+  >
+    <AppointmentForm.Label
+      text="Custom Field"
+      type="title"
+    />
+    <AppointmentForm.TextEditor
+      value={appointmentData.customField}
+      onValueChange={onCustomFieldChange}
+      placeholder="Custom field"
+    />
+    <AppointmentForm.SelectProps
+    value={appointmentData.customField}
+    onValueChange={onCustomFieldChange}
+    availableOptions={[{id:0, text: "שחיה"}, {id:1, text: "ריצה"}]}
+    type="outlinedSelect"
+    />
+  </AppointmentForm.BasicLayout>
+);
+};
+
 class Trainer_Calendar extends React.PureComponent {
+
   today = new Date();
 
   constructor(props) {
@@ -170,6 +211,8 @@ class Trainer_Calendar extends React.PureComponent {
     });
   }
 
+  
+
   render() {
     const { data,
        resources,
@@ -191,6 +234,7 @@ class Trainer_Calendar extends React.PureComponent {
           data={data}
           height={500}
           locale={locale}
+          timeZone={'Asia/Jerusalem'}
         >
           <ViewState
             CurrentDate={currentDate}
@@ -208,14 +252,13 @@ class Trainer_Calendar extends React.PureComponent {
             onEditingAppointmentChange={this.changeEditingAppointment}
           />
           <EditRecurrenceMenu />
-
+          <IntegratedEditing />
           <WeekView
             startDayHour={startDayHour}
             endDayHour={endDayHour}
           />
           <MonthView />
           <DayView/>
-          <AllDayPanel />
           <Appointments />
           <AppointmentTooltip
             showOpenButton
@@ -229,8 +272,11 @@ class Trainer_Calendar extends React.PureComponent {
           <TodayButton />
           <AppointmentForm
           visible={editingFormVisible}
-          onVisibilityChange={this.toggleEditingFormVisibility} />
+          onVisibilityChange={this.toggleEditingFormVisibility}
+          basicLayoutComponent={BasicLayout}
+          textEditorComponent={TextEditor}
 
+         />
           <Resources
             data={resources}
             mainResourceName="triningTypeId"
@@ -270,8 +316,8 @@ class Trainer_Calendar extends React.PureComponent {
             this.setState({ editingFormVisible: true });
             this.onEditingAppointmentChange(undefined);
             this.onAddedAppointmentChange({
-              startDate: new Date(currentDate).setHours(17),
-              endDate: new Date(currentDate).setHours(18),
+              startDate: new Date(currentDate).setHours(17,0,0),
+              endDate: new Date(currentDate).setHours(18,0,0),
             });
           }}
         >

@@ -12,11 +12,9 @@ import {
   Appointments,
   AppointmentTooltip,
   AppointmentForm,
-  DragDropProvider,
-  EditRecurrenceMenu,
-  AllDayPanel,
   DateNavigator,
   TodayButton,
+  CurrentTimeIndicator,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -81,6 +79,7 @@ class Trainee_Calendar extends React.PureComponent {
       startDayHour: 9,
       endDayHour: 19,
       isNewAppointment: false,
+      locale: 'he-IS',
     };
 
     this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
@@ -168,37 +167,24 @@ class Trainee_Calendar extends React.PureComponent {
     const { data,
        resources,
         currentDate,
-         addedAppointment,
-          appointmentChanges, 
-          editingAppointment,
           startDayHour,
           endDayHour,
-          confirmationVisible,
           editingFormVisible,
+          locale,
          } = this.state;
          const { classes } = this.props;
     return (
       <Paper>
         <Scheduler
           data={data}
-          height={700}
+          height={500}
+          locale={locale}
+          timeZone={'Asia/Jerusalem'}
         >
           <ViewState
             defaultCurrentDate={currentDate}
           />
-          <EditingState
-            onCommitChanges={this.commitChanges}
 
-            addedAppointment={addedAppointment}
-            onAddedAppointmentChange={this.onAddedAppointmentChange}
-
-            appointmentChanges={appointmentChanges}
-            onAppointmentChangesChange={this.changeAppointmentChanges}
-
-            editingAppointment={editingAppointment}
-            onEditingAppointmentChange={this.changeEditingAppointment}
-          />
-          <EditRecurrenceMenu />
 
           <WeekView
             startDayHour={startDayHour}
@@ -206,49 +192,26 @@ class Trainee_Calendar extends React.PureComponent {
           />
           <MonthView />
           <DayView/>
-          <AllDayPanel />
           <Appointments />
           <AppointmentTooltip
-            
             showCloseButton
-            
           />
           <Toolbar />
           
           <ViewSwitcher />
           <DateNavigator />
           <TodayButton />
-          <AppointmentForm
-          visible={editingFormVisible}
-          onVisibilityChange={this.toggleEditingFormVisibility} />
+
 
           <Resources
             data={resources}
             mainResourceName="triningTypeId"
           />
+          <CurrentTimeIndicator
+          shadePreviousAppointments="true"
+          shadePreviousCells="true"/>
         </Scheduler>
 
-        <Dialog
-          open={confirmationVisible}
-          onClose={this.cancelDelete}
-        >
-          <DialogTitle>
-            Delete Appointment
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to delete this appointment?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.toggleConfirmationVisible} color="primary" variant="outlined">
-              Cancel
-            </Button>
-            <Button onClick={this.commitDeletedAppointment} color="secondary" variant="outlined">
-              Delete
-            </Button>
-          </DialogActions>
-        </Dialog>
 
       </Paper>
     );
