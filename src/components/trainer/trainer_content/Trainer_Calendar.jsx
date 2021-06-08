@@ -19,6 +19,7 @@ import {
   AllDayPanel,
   DateNavigator,
   TodayButton,
+  CurrentTimeIndicator,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -45,7 +46,8 @@ import {triningType, Trainees} from './TrainingTypeAndTreinees'
 
 const styles = theme => ({
   addButton: {
-    position: 'absolute',
+    position: '-webkit-sticky',
+    position: 'sticky',
     bottom: theme.spacing(1) * 3,
     right: theme.spacing(1) * 4,
   },
@@ -78,9 +80,10 @@ class Trainer_Calendar extends React.PureComponent {
       editingAppointment: undefined,
       previousAppointment: undefined,
       addedAppointment: {},
-      startDayHour: 9,
-      endDayHour: 19,
+      startDayHour: 5,
+      endDayHour: 22,
       isNewAppointment: false,
+      locale: 'he-IS',
     };
 
     this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
@@ -178,16 +181,19 @@ class Trainer_Calendar extends React.PureComponent {
           endDayHour,
           confirmationVisible,
           editingFormVisible,
+          locale,
          } = this.state;
          const { classes } = this.props;
     return (
+      
       <Paper>
         <Scheduler
           data={data}
-          height={700}
+          height={500}
+          locale={locale}
         >
           <ViewState
-            defaultCurrentDate={currentDate}
+            CurrentDate={currentDate}
           />
           <EditingState
             onCommitChanges={this.commitChanges}
@@ -230,6 +236,9 @@ class Trainer_Calendar extends React.PureComponent {
             mainResourceName="triningTypeId"
           />
           <DragDropProvider />
+          <CurrentTimeIndicator
+          shadePreviousAppointments="true"
+          shadePreviousCells="true"/>
         </Scheduler>
 
         <Dialog
@@ -237,19 +246,19 @@ class Trainer_Calendar extends React.PureComponent {
           onClose={this.cancelDelete}
         >
           <DialogTitle>
-            Delete Appointment
+            מחק אימון
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Are you sure you want to delete this appointment?
+              האם למחוק את האימון?
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.toggleConfirmationVisible} color="primary" variant="outlined">
-              Cancel
+              ביטול
             </Button>
             <Button onClick={this.commitDeletedAppointment} color="secondary" variant="outlined">
-              Delete
+              מחק
             </Button>
           </DialogActions>
         </Dialog>
@@ -261,14 +270,15 @@ class Trainer_Calendar extends React.PureComponent {
             this.setState({ editingFormVisible: true });
             this.onEditingAppointmentChange(undefined);
             this.onAddedAppointmentChange({
-              startDate: new Date(currentDate).setHours(startDayHour),
-              endDate: new Date(currentDate).setHours(startDayHour + 1),
+              startDate: new Date(currentDate).setHours(17),
+              endDate: new Date(currentDate).setHours(18),
             });
           }}
         >
           <AddIcon />
         </Fab>
       </Paper>
+      
     );
   }
 }

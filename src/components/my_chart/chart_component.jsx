@@ -1,18 +1,20 @@
 import React from 'react';
-
 import { Chart, Series, CommonSeriesSettings, Legend, ValueAxis, Title, Export, Tooltip, Border } from 'devextreme-react/chart';
 import service from './month_data.js';
 import char from './chart_style.css'
 import PieChart from "devextreme-react/pie-chart";
+
 const dataSource = service.getMonthData();
 
 class TrainingCart extends React.Component {
 
   render() {
     return (
+      <div style = {{marginBottom:"20px"}}>
+        <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >אימונים לפי חודש</p>
+      
       <Chart
         id="chart"
-        title="אימונים לפי חודש"
         palette="Violet"
         paletteExtensionMode= 'Blend'
         dataSource={dataSource}
@@ -34,6 +36,7 @@ class TrainingCart extends React.Component {
         {/*<Export enabled={true} />*/}
         {/*<Tooltip enabled={true} />*/}
       </Chart>
+      </div>
     );
   }
 }

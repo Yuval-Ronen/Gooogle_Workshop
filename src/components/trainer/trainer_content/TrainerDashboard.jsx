@@ -17,16 +17,20 @@ let training_his = ["מתאמנים",[{trainDate:"27-05-21",trainTime:"08:00:00"
 
 
     return(
-        <div>
-            <div >
+        <Container style={{padding: "0px"}}>
+            <Row>
+                <Col>
                 <TrainingCart style ={{height:"200px"}}/>
-            </div>
-            <div style={{margin: 20}}>
-                <h2>אימונים קרובים</h2>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >אימונים אחרונים</p>
                 <ShowExerciseHistory training_his ={training_his}/>
-            </div>
-
-        </div>
+                </Col>
+            </Row>
+        </Container>
+    
     )
 }
 

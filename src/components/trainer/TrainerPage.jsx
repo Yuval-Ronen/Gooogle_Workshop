@@ -24,7 +24,7 @@ const TrainerPage = (props) => {
     // Todo take this to a new file and give it a new name if needed
 
     return(
-        <div className='trainer-page'>
+        <div className='trainer-page'> 
             <Container fluid>
             <Row>
                 <PageHeader authenticationData={props.authenticationData} alt={name}/>

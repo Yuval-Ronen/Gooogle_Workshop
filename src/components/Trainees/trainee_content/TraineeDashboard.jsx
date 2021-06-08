@@ -15,27 +15,26 @@ const TraineeDashboard = (props) => {
 
 
     return(
-        <div>
-            <Container>
+            <Container style={{padding: "0px"}}>
                 <Row>
+                     <Col>
+                        <TrainTypePie/>
+                    </Col>
                     <Col>
                         <TrainingCart style ={{height:"200px"}}/>
                     </Col>
-                    <Col>
-                        <TrainTypePie/>
-                    </Col>
+
                 </Row>
                 <Row>
-                    
+                    <Col>
+            <p style = {{textAnchor: "middle",fontSize: "35px", color: "#55215e", textAlign: 'center'}} >אימונים אחרונים</p>
+                <ShowExerciseHistory training_his ={training_his}/>
+            </Col>
                 </Row>
             </Container>
 
-            <div style={{margin: 20}}>
-            <h2>אימונים קרובים</h2>
-                <ShowExerciseHistory training_his ={training_his}/>
-            </div>
+            
 
-        </div>
     )
 }
 

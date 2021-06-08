@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import PersonalProgress from "../../personal_progress/personalProgress_component";
 import ExerciseHistory from "./ExerciseHistory";
 import ShowExerciseHistory from "../../show_exercise_history";
+import purple from '@material-ui/core/colors/purple';
 
 
 const TrainerTrainee = (props) => {
@@ -42,17 +43,23 @@ const TrainerTrainee = (props) => {
         <div>
         {/*    <h1> need to put name</h1>*/}
         <Container style={{padding: "0px"}}>
-            <Row className="justify-content-md-center">
-                <Col lg = "2">
+            <Row >
+                <Col  >
                     <PersonalProgress/>
                 </Col>
-                <Col >
+                <Col xs={8}>
                     <TrainingCart />
                 </Col>
             </Row>
-
+            <Row>
+                <Col>
+                <p style = {{textAnchor: "middle",fontSize: "35px", color: "#55215e", textAlign: 'center'}} >אימונים אחרונים</p>
+                <ShowExerciseHistory training_his = {training_his}/>
+                
+                </Col>
+            </Row>
         </Container>
-        <ShowExerciseHistory training_his = {training_his}/>
+
         </div>
 
     )

@@ -7,7 +7,7 @@ import TraineeDashboard from "./TraineeDashboard";
 
 
 const TraineePageContent = () =>
-        <div className='trainee-page-content' style={{width:"100%", paddingLeft: "5%", paddingRight: "5%"}}>
+        <div className='trainee-page-content' style={{width:"100%", paddingLeft: "1%", paddingRight: "1%"}}>
            <Switch>
                <Route exact={true} path="/TraineesPage" component={TraineeDashboard}/>
                <Route exact={true} path="/TraineesPage/exercise_schedule" component={TraineeExerciseSchedule}/>

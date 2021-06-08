@@ -16,7 +16,7 @@ const Navigation = styled.header`
   align-items: center;
   padding: 0px 100px 0;
   height: 140px;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   background: #FFF;
 
   .google{
@@ -74,9 +74,6 @@ const Navigation = styled.header`
     a {
       font-size: 1em;
       text-decoration: none;
-      .active {
-        color: tomato;
-      }
     }
     a.active {
         opacity: 0.5;

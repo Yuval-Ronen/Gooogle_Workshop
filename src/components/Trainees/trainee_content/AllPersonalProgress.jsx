@@ -1,5 +1,5 @@
 import React from "react";
-
+import './personal_program_listStyle.css'
 
 const AllPersonalProgress = ({onClickCallback}) => {
     let all_personal_program = [
@@ -9,21 +9,27 @@ const AllPersonalProgress = ({onClickCallback}) => {
         {month: "פבואר", year: "2021", docs_link: "https://docs.google.com/document/d/1X3MozGrUISwjI6CUpdK522Ov0EIDO9OMU0g_ulVjmhE/edit"},
         {month: "ינואר", year: "2021", docs_link: "https://docs.google.com/document/d/1CwdtJIqoWhAn88FMqw3wSaMMvXUgoFY1hCqIiXgFvGw/edit"}
         ]
+    
+        
+    const personal_program_list = all_personal_program.map((program, index)=>
+    
+        <li key={program.month + program.year + index}  className="list-item">
+                        <button onClick={()=>onClickCallback(program.docs_link)}
+                                        
+                        >{program.month + ' '+ program.year}</button>
+        </li> );
+    
 
-// style="white-space: pre; font-size: 28px; font-family: "Segoe UI Light", "Helvetica Neue Light", "Segoe UI", "Helvetica Neue", "Trebuchet MS", Verdana, sans-serif; font-weight: 200; fill: rgb(35, 35, 35); cursor: default;"
    return (
        <div>
-           <text style = {{textAnchor: "middle",fontSize: "28px", fontWeight: "200"}} >מערכי העצמה</text>
-       {all_personal_program?.length > 0 && all_personal_program.map((program, index)=>
-            <div key={program.month + program.year + index} onClick={()=>onClickCallback(program.docs_link)} >
-                            {/*<div key={program.month + program.year + index} className={style.traineeResult}>*/}
-                            {program.month + ','+ program.year}
-            </div> )
-            }
-
+           <text style = {{textAnchor: "middle",fontSize: "25px", color: "#ffc717"}} >מערכי העצמה</text>
+            <ul className="unordered-list">
+            {personal_program_list}
+            </ul>
             </div>)
 
-        }
+}
+
 
 
 export default AllPersonalProgress;
