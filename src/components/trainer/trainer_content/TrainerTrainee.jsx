@@ -19,18 +19,24 @@ const TrainerTrainee = (props) => {
         <div>
         {/*    <h1> need to put name</h1>*/}
         <Container style={{padding: "0px"}}>
-            <Row className="justify-content-md-center">
-                <Col lg = "2">
+            <Row >
+                <Col  >
                     <PersonalProgress/>
                 </Col>
-                <Col >
+                <Col xs={8}>
                     <TrainingCart />
                 </Col>
             </Row>
+            <Row>
+                <Col>
+                <p style = {{textAnchor: "middle",fontSize: "35px", color: "#55215e", textAlign: 'center'}} >אימונים אחרונים</p>
+                <ShowExerciseHistory training_his = {trainingHis}/>
 
+                </Col>
+            </Row>
         </Container>
-        <ShowExerciseHistory training_his = {trainingHis}/>
         </div>
+
 
     )
 }

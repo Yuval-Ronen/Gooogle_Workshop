@@ -13,15 +13,15 @@ const Empowerment = () => {
     console.log(source2);
     return (
     <div className='empowerment'>
-                <Container style = {{maxWidth:"100%"}}>
-            <Row>
-                <Col>
+                <Container >
+                <Row>
+                <Col xs={10} >
                     <ShowGoogleDocs source = {source2}/>
                 </Col>
-                <Col lg = "3">
+                <Col >
                     <AllPersonalProgress onClickCallback={setSource}/>
                 </Col>
-            </Row>
+                </Row>
         </Container>
 
     </div>

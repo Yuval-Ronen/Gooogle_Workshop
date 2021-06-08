@@ -28,16 +28,21 @@ const TrainerDashboard = (props) => {
     // },[])
 
     return(
-        <div>
-            <div >
-                <TrainingCart dataSource = {userInfo.ID} style ={{height:"200px"}}/>
-            </div>
-            <div style={{margin: 20}}>
-                <h2>אימונים קרובים</h2>
-                <ShowExerciseHistory training_his ={trainingHis}/>
-            </div>
-        </div>
-        )
-    }
+        <Container style={{padding: "0px"}}>
+            <Row>
+                <Col>
+                <TrainingCart style ={{height:"200px"}}/>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >אימונים אחרונים</p>
+                <ShowExerciseHistory training_his ={training_his}/>
+                </Col>
+            </Row>
+        </Container>
+
+    )
+}
 
 export default TrainerDashboard;

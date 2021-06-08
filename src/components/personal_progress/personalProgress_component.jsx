@@ -7,6 +7,7 @@ import React from "react";
 import style from "../all_trainees_reasult/all_trainee_result.module.css";
 import TraineeDisplay from "../trainee-displayer/trainee_displayer.component";
 import style1 from "./personal_program.css"
+import "../Trainees/trainee_content/personal_program_listStyle.css"
 
 const PersonalProgress = (props) => {
     let all_personal_program = [
@@ -21,17 +22,19 @@ const PersonalProgress = (props) => {
     }
 // style="white-space: pre; font-size: 28px; font-family: "Segoe UI Light", "Helvetica Neue Light", "Segoe UI", "Helvetica Neue", "Trebuchet MS", Verdana, sans-serif; font-weight: 200; fill: rgb(35, 35, 35); cursor: default;"
    return (
-       <div>
-           <text style = {{textAnchor: "middle",fontSize: "28px", fontWeight: "200"}} >מערכי העצמה</text>
+       <div style = {{marginBottom:"20px", marginRight:"20px" }}>
+        <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >מערכי העצמה</p>
+           <ul className="unordered-list">
        {all_personal_program?.length > 0 && all_personal_program.map((program, index)=>
-            <div key={program.month + program.year + index} >
+            <li  key={program.month + program.year + index} className="list-item"  >
+                <a href = {program.docs_link} target = "_blank">{program.month + ' '+ program.year}</a>
                             {/*<div key={program.month + program.year + index} className={style.traineeResult}>*/}
-                            <a href = {program.docs_link} target = "_blank">{program.month + ','+ program.year}</a>
-            </div> )
-            }
+                        
+            </li> )
+            } </ul>
             <form>
                 <p></p>
-                <p>הוסף מערך העצמה חדש</p>
+                <p style = {{fontSize: "15px", color: "#ffc717"}}>:הוסף מערך העצמה חדש</p>
                 <input
                     type ="text"
                     placeholder = " google docs הכניסו קישור של "

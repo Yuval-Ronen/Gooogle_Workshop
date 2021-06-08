@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import { Chart, Series, CommonSeriesSettings, Legend, ValueAxis, Title, Border } from 'devextreme-react/chart';
-import serverConnector from "../../server-connector";
+import React from 'react';
 
+import { Chart, Series, CommonSeriesSettings, Legend, ValueAxis, Title, Export, Tooltip, Border } from 'devextreme-react/chart';
 import service from './month_data.js';
+import char from './chart_style.css'
+import PieChart from "devextreme-react/pie-chart";
 const dataSource = service.getMonthData();
-console.log("data_source", dataSource)
 
 const TrainingCart = (id) => {
     // const [dataSource, setDataSource] = useState([]);
@@ -16,6 +16,9 @@ const TrainingCart = (id) => {
     // },[])
 
     return (
+      <div style = {{marginBottom:"20px"}}>
+        <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >אימונים לפי חודש</p>
+
       <Chart
         id="chart"
         title="אימונים לפי חודש"
@@ -41,4 +44,5 @@ const TrainingCart = (id) => {
     )
 
 }
+
 export default TrainingCart;

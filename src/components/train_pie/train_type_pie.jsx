@@ -12,12 +12,14 @@ const TrainTypePie = (props) => {
   return `${arg.argumentText}: ${arg.valueText}`;
 }
   return (
+    <div style = {{marginBottom:"20px"}}>
+    <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >סוגי אימון</p>
+  
     <PieChart
       id="pie"
       dataSource={dataSource}
       palette="Violet"
       //Palette Extension Mode
-      title="סוגי אימון"
     >
       <Series argumentField="train_type" valueField="amount">
         <Label visible={true} customizeText={formatLabel} format="fixedPoint">
@@ -27,6 +29,7 @@ const TrainTypePie = (props) => {
       </Series>
       <Legend horizontalAlignment="center" verticalAlignment="bottom" columnCount={4} />
     </PieChart>
+    </div>
   );
 }
 

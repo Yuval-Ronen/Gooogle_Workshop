@@ -7,7 +7,7 @@ const monthData = [{
     month: "נובמבר",
     training_amount: 6,
 }, {
-    month: "אורטובר",
+    month: "אוקטובר",
     training_amount: 7,
 }, {
     month: "ספטמבר",
