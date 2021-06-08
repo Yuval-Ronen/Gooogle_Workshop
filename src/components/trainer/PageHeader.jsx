@@ -1,10 +1,11 @@
 import Image from "react-bootstrap/Image";
 import EitanLogoSmall from "../../EitanLogoSmall.PNG";
 import * as PropTypes from "prop-types";
-import React, {Component, useState} from "react";
+import React, {Component} from "react";
 import { NavLink, Link } from "react-router-dom";
 import styled from "styled-components";
-import Logout from '../../components/Logout'
+import NameAndPic from "../NameAndPic"
+
 
 const Navigation = styled.header`
   width: 100%;
@@ -153,7 +154,9 @@ const Navigation = styled.header`
   }
 `;
 
+
 class PageHeader extends Component {
+
 
     constructor(props) {
       super(props);
@@ -173,48 +176,43 @@ class PageHeader extends Component {
         return (
     <Navigation>
 
-    <nav className="nav">
-      <i
-        className="fa fa-bars"
-        aria-hidden="true"
-        onClick={e => this.handleToggle(e)}
-      />
-      <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
-        <NavLink activeClassName="active" to="/TrainerPage/exercise_history"  >
-          <li>היסטוריית אימונים</li>
-        </NavLink>
+        <nav className="nav">
+            <i
+                className="fa fa-bars"
+                aria-hidden="true"
+                onClick={e => this.handleToggle(e)}
+            />
+            <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
+                <NavLink activeClassName="active" to="/TrainerPage/exercise_history">
+                    <li>היסטוריית אימונים</li>
+                </NavLink>
 
-        <NavLink activeClassName="active" to="/TrainerPage/trainees" >
-          <li>מתאמנים</li>
-        </NavLink>
+                <NavLink activeClassName="active" to="/TrainerPage/trainees">
+                    <li>מתאמנים</li>
+                </NavLink>
 
-        <NavLink activeClassName="active" to="/TrainerPage/exercise_schedule">
-          <li>לוח אימונים</li>
-        </NavLink>
-        <li>
-        <div className="google">
-          <p>
-                <img style={{margin: 5, display: "inline-block", float: "right"}} width="40px" src={this.props.authenticationData.imageUrl} alt={this.props.alt}/>
-                <Logout/>
-                <h6 dir='rtl'>שלום, {this.props.authenticationData.name}</h6>
-                </p>
+                <NavLink activeClassName="active" to="/TrainerPage/exercise_schedule">
+                    <li>לוח אימונים</li>
+                </NavLink>
+                <li>
+                    <div className="google">
+                        <NameAndPic authenticationData={this.props.authenticationData} alt={this.props.alt}/>
 
-            </div>
-        </li>
-        <li>
-        <div className="logo">
-          <Link to="/TrainerPage">
-          <Image src={EitanLogoSmall}/>
-          </Link>
-        </div>
-        </li>
+                    </div>
+                </li>
+                <li>
+                    <div className="logo">
+                        <Link to="/TrainerPage">
+                            <Image src={EitanLogoSmall}/>
+                        </Link>
+                    </div>
+                </li>
 
-      </ul>
-    </nav>
+            </ul>
+        </nav>
 
 
-
-      </Navigation>
+    </Navigation>
 
 );
 }

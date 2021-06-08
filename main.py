@@ -92,6 +92,7 @@ def getAllTrainingHistory_trainee(trainee_id):
 @error_handler
 def getTrainingAmountByMonth_trainer(trainer_id):
     info = sql_c.get_training_amount_by_month_trainer(trainer_id)
+    print(info)
     return jsonify(info)
 
 
@@ -118,7 +119,7 @@ def react():
 
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', port=45556)
-    # ress = getAllTrainingHistory_trainer(205380132)
+    # ress = sql_c.getTrainingAmountByMonth_trainer('205380132')
     # print(ress)
 
     app.run(host='127.0.0.1', port="5000", debug=True)

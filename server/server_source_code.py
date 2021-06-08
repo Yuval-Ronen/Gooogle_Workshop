@@ -41,7 +41,6 @@ class ConnectSQL:
                  " WHERE trainer_id = %s")
         self.cursor.execute(query, (trainer_id,))
         final = {}
-
         for (ID, first_name, last_name, image) in self.cursor:
             final = {"traineeID": ID, "first_name": first_name, "last_name": last_name, "image": image}
         return final
