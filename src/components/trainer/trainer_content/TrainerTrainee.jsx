@@ -6,12 +6,17 @@ import Row from "react-bootstrap/Row";
 import PersonalProgress from "../../personal_progress/personalProgress_component";
 import ShowExerciseHistory from "../../show_exercise_history";
 import serverConnector from "../../../server-connector";
+import {useLocation} from "react-router-dom"
 
-
-const TrainerTrainee = (props) => {
+const TrainerTrainee = () => {
+    const currentURL = window.location.href
+    let location = useLocation()
+    let params = new URLSearchParams(location.search);
+    let trainee_id = parseInt(params.get("trainee_id")); // is the number 123
+    console.log("trainee_id",trainee_id)
     const [trainingHis, setTrainingHis] = useState([]);
      useEffect( () =>{
-         serverConnector.getAllTrainingHistory_trainee(205380132).then(res => {
+         serverConnector.getAllTrainingHistory_trainee(trainee_id).then(res => {
              setTrainingHis(res);
          })
     },[])

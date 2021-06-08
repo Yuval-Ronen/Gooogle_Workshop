@@ -105,6 +105,14 @@ def getUpcomingExercise_trainer(trainer_id):
     return jsonify(result_list)
 
 
+@app.route("/api/getAllTrainees/<trainer_id>", methods=['GET'])
+@error_handler
+def getAllTrainees(trainer_id):
+    info = sql_c.get_all_trainees(trainer_id)
+    print(info)
+    return jsonify(info)
+
+
 @app.route("/", methods=['GET'])
 def react():
     return render_template("index.html")

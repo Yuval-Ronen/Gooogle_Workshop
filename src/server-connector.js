@@ -28,8 +28,7 @@ const serverConnector = {
 
     getAllTrainees: async (trainer_id) => {
         let res = await fetch(serverUrl + "/api/getAllTrainees/"+trainer_id);
-        let allTrainees = await res.json();
-        return allTrainees["result"];
+        return  await res.json();
     },
     createNewTrain:async (trainer_id, {trainees_or_group}, type, trainDate, trainTime, description) =>{
         let res = await fetch(serverUrl+"/api/createNewTrain", {

@@ -19,6 +19,8 @@ const loginFailureHandler = (response) => {
 
 const LoginTrainer = (props) => {
     const [userInfo,setUserInfo] = useLocalStorage("userInfo",{});
+    const [googlePic,setGooglePic] = useLocalStorage("googlePic",'');
+
     if (props.currentState === "trainer") {
         return <Redirect to="/TrainerPage"/>;
     }
@@ -40,6 +42,7 @@ const LoginTrainer = (props) => {
                         console.log("user is trainer:");
                         console.log(userDataFromServer);
                         setUserInfo(userDataFromServer);
+                        setGooglePic(userDataFromGoogle.imageUrl)
                         props.setCurState("trainer");
                         props.setUserData(userDataFromGoogle);
                     } else {
