@@ -5,6 +5,9 @@ import TrainingCart from "../../my_chart/chart_component";
 import serverConnector from "../../../server-connector";
 import {useState} from "react";
 import {useLocalStorage} from "../../../UtillHook";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 
 
@@ -37,7 +40,7 @@ const TrainerDashboard = (props) => {
             <Row>
                 <Col>
                 <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >אימונים אחרונים</p>
-                <ShowExerciseHistory training_his ={training_his}/>
+                <ShowExerciseHistory training_his ={trainingHis}/>
                 </Col>
             </Row>
         </Container>
