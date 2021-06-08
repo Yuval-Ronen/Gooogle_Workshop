@@ -1,51 +1,24 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { connect } from 'react-redux';
 import GoogleLogin from "react-google-login";
-import { Link, Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import {Button} from "react-bootstrap";
 import {extractUserData} from "../googleApi/GoogleApi";
 import {setCurState, setUserData} from '../../redux/actions'
 import serverConnector from '../../server-connector';
-import logout from "../Logout"
+import {useLocalStorage} from "../../UtillHook"
+
 
 
 
 const loginFailureHandler = (response) => {
     console.log(response);
     // TODO what to do if login fails?
-
   }
 
 
-
-
-
-
 const LoginTrainer = (props) => {
-    const [trainerDetails, setTrainerDetails] = useState({});
-
-     // const CheckEmail = (email) => {
-     //  console.log("check email")
-     //
-     //   useEffect(()=>{
-     //     console.log("1")
-     //     serverConnector.checkIfTrainer(email).then(res=>{
-     //     setTrainerDetails(res);
-     // })
-     // if(trainerDetails.trainer_id === null){
-     //        console.log("not a trainer. id not in system")
-     //        logout();
-     //        }
-     //   })
-     // }
-
-     useEffect(()=>{
-         if(trainerDetails.trainer_id === null){
-            console.log("not a trainer. id not in system")
-            logout();
-            }
-       })
-
+    const [userInfo,setUserInfo] = useLocalStorage("userInfo",{});
     if (props.currentState === "trainer") {
         return <Redirect to="/TrainerPage"/>;
     }
@@ -55,24 +28,25 @@ const LoginTrainer = (props) => {
             <GoogleLogin
             clientId="476408447979-ksp3ikmql53717ucvohu0uhm8t7ld9f1.apps.googleusercontent.com"
             render = {renderProps => (
-                <Button variant="outline-primary" href="/TrainerPage" size="lg" onClick={renderProps.onClick} disable = {renderProps.disabled} >
+                <Button className={"login_trainer"} variant="outline-primary" href="/TrainerPage" size="lg" onClick={renderProps.onClick} disable = {renderProps.disabled} >
                     כניסת מאמנים</Button>
             )}
             buttonText={''}
-            onSuccess={(response) =>
+            onSuccess={async (response) =>
                 {
-                    const userData = extractUserData(response);
-                    console.log("before check email")
-                    serverConnector.checkIfTrainer(userData.email).then(res=>{
-                        setTrainerDetails(res);
-                        console.log(res);
-                         })
-                    // CheckEmail(userData.email);
-                    props.setCurState("trainer");
-                    props.setUserData(userData);
+                    const userDataFromGoogle = extractUserData(response);
+                    const userDataFromServer = await serverConnector.checkIfTrainer(userDataFromGoogle.email);
+                    if(userDataFromServer.ID !== undefined){ // user found as trainer.
+                        console.log("user is trainer:");
+                        console.log(userDataFromServer);
+                        setUserInfo(userDataFromServer);
+                        props.setCurState("trainer");
+                        props.setUserData(userDataFromGoogle);
+                    } else {
+                        console.log("user is not trainer:");
 
-
-
+                        // props.setCurState("not a trainer")
+                    }
                 }
             }
             onFailure={loginFailureHandler}
@@ -81,18 +55,14 @@ const LoginTrainer = (props) => {
         </div>)
 }
 
-
-
 const actionsCreators = {
     setUserData: setUserData,
     setCurState: setCurState,
 
 }
-
 const mapStateToProps = (state) => ({
     authenticationData: state.authenticationData,
     currentState: state.currentState,
-
 });
 
 export default connect(mapStateToProps, actionsCreators)(LoginTrainer);

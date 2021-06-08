@@ -4,48 +4,7 @@ import { Table } from 'reactstrap';
 
 //person can be trainer or trainee
 const ShowExerciseHistory = (training_his) => {
-    const [trainingHistory, setTrainingHistory] = useState([]);
-    const [personalProgram, setPersonalProgram] = useState([]);
-    console.log(training_his)
-
-    // const askForData = () =>{
-    //     // serverConnector.then(res => {
-    //     //     setData();
-    //     // })
-    //     let training_his = [{trainDate:"13-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"good train", type:"trx"},
-    //     {trainDate:"12-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"swim"},
-    //     {trainDate:"11-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"dance"},
-    //     {trainDate:"10-05-21",trainTime:"08:00:00", group_members:"{100000001}",description:"", type:"trx"}];
-    //
-    //     let all_personal_program = [{date:"date", link:"link"}];
-    //     setTrainingHistory(training_his);
-    //     setPersonalProgram(all_personal_program);
-    // }
-
-    // let col_name = training_his[0];
-    //     console.log("col name"+col_name)
-    //
-    // function mySwitch(param){
-    //     switch (param){
-    //         case "trainer":
-    //             return training_his_trainer;
-    //             break;
-    //         case "trainee":
-    //             return training_his_trainee;
-    //             break;
-    //     }
-    // }
-    // const tmp = ()=>{
-    //     switch (identity){
-    //         case "trainer":
-    //             return training_his_trainer;
-    //             break;
-    //         case "trainee":
-    //             return training_his_trainee;
-    //             break;
-    //     }
-    // }
-
+    console.log("training_his",training_his)
 
 
     let train_type_icons = {martialArts: "mdi:karate",
@@ -53,26 +12,6 @@ const ShowExerciseHistory = (training_his) => {
         swim: "mdi:swim",
         crossfit: "mdi:weight-lifter",
         dance: "mdi:yoga" };
-    // function switch_col(){
-    //     switch (identity){
-    //         case "trainer":
-    //             console.log("this is 1")
-    //             return "מתאמנים";
-    //         case "trainee":
-    //                             console.log("this is 2")
-    //
-    //             return "מאמן";
-    //     }
-    // }
-    // let col_name;
-    // if( identity === "trainer"){
-    //     col_name = "מתאמנים"
-    // }
-    // else if(identity === "trainee"){
-    //     col_name = "מאמן"
-    // }
-    // let trainee_or_trainer = {"trainee":"מתאמנים", "trainer": "מאמן"}
-
 
     return (
         <div className='exercise-history'>
@@ -96,10 +35,10 @@ const ShowExerciseHistory = (training_his) => {
                         // <div key={} className={}>
                         <tr>
                             <td>{exercise.description}</td>
-                            <td>{exercise.type}</td>
-                            <td>{exercise.trainer_or_group_members}</td>
-                            <td>{exercise.trainTime}</td>
-                            <td>{exercise.trainDate}</td>
+                            <td>{exercise.train_type}</td>
+                            <td>{exercise.all_trainees}</td>
+                            <td>{exercise.train_time}</td>
+                            <td>{exercise.train_date}</td>
                             <td><span className="iconify" data-icon= {train_type_icons[exercise.type]} data-inline="false" color="#55215e" width= "30px" height= "30px"  text-align = "center"></span></td>
                           </tr>
                    )

@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
 import GoogleLogin from "react-google-login";
-import { Link, Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import {Button} from "react-bootstrap";
 import {setUserData, setCurState} from "../../redux/actions";
 import {connect} from "react-redux";
 import {extractUserData} from "../googleApi/GoogleApi";
+import serverConnector from "../../server-connector";
 
 
 const loginFailureHandler = (response) => {
@@ -13,15 +13,10 @@ const loginFailureHandler = (response) => {
 
   }
 
-
 const LoginTrainee = (props) => {
-
    if (props.currentState === "trainee") {
         return <Redirect to="/TraineesPage"/>;
     }
-    // if (props.authenticationData.email && props.currentState === "trainee") {
-    //     return <Redirect to="/TrainingPage"/>;
-    // }
 
     return(
 
@@ -33,13 +28,21 @@ const LoginTrainee = (props) => {
                     כניסת מתאמנים</Button>
             )}
             buttonText={''}
-            onSuccess={(response) =>
+            onSuccess={async (response) =>
                 {
-                    console.log("got google login response")
-                    console.log(response)
-                    const userData = extractUserData(response);
-                    props.setCurState("trainee");
-                    props.setUserData(userData);
+                    const userDataFromGoogle = extractUserData(response);
+                    const userDataFromServer = await serverConnector.checkIfTrainee(userDataFromGoogle.email);
+                    if(userDataFromServer.ID !== undefined){ // user found as trainer.
+                        console.log("user is trainee:")
+                        console.log(userDataFromServer)
+                        props.setCurState("trainee");
+                        props.setUserData(userDataFromGoogle);
+                    } else {
+                        console.log("user is not trainee:");
+
+                        // props.setCurState("not a trainer")
+                    }
+
 
 
                 }

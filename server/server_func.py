@@ -1,4 +1,4 @@
-from server_source_code import ConnectSQL
+from server.server_source_code import ConnectSQL
 
 
 class sqlManager:

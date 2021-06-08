@@ -5,11 +5,11 @@ import TrainerExerciseSchedule from "./trainer_content/TrainerExerciseSchedule";
 import TrainerTrainees from "./trainer_content/TrainerTrainees";
 import ExerciseHistory from "./trainer_content/ExerciseHistory";
 import TrainerDashboard from "./trainer_content/TrainerDashboard";
-import TraineeDashboard from "../Trainees/trainee_content/TraineeDashboard";
 
 
 
 const TrainerPageContent = () =>
+
 
         <div className='trainer-page-content' style={{width:"100%", paddingLeft: "5%", paddingRight: "5%"}}>
            <Switch>

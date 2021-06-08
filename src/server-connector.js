@@ -17,14 +17,13 @@ const serverConnector = {
 
     checkIfTrainer:async (email) =>{
         let res = await fetch(serverUrl + "/api/checkIfTrainer/" + email);
-        let answer = await res.json();
-        return answer["result"];
+        return await res.json();
     },
 
     checkIfTrainee:async (email) =>{
         let res = await fetch(serverUrl+"/api/checkIfTrainee/" + email);
-        let answer = await res.json();
-        return answer["result"];
+        return await res.json();
+        // return answer["result"];
     },
 
     getAllTrainees: async (trainer_id) => {
@@ -63,16 +62,27 @@ const serverConnector = {
     },
     getAllTrainingHistory_trainer: async (trainer_id) => {
         let res = await fetch(serverUrl + "/api/getAllTrainingHistory_trainer/" + trainer_id)
-        let data = await res.json();
-        return data["result"];
+        return await res.json();
+        // return await data;
+
     },
     getAllTrainingHistory_trainee: async (trainee_id) => {
         let res = await fetch(serverUrl + "/api/getAllTrainingHistory_trainee/" + trainee_id)
 
-        let data = await res.json();
-        return data["result"];
+        return await res.json();
+        // return await data;
     },
-
+    getUpcomingExercise_trainer: async (trainer_id) => {
+        let res = await fetch(serverUrl + "/api/getUpcomingExercise_trainer/" + trainer_id)
+        return await res.json();
+        // return await data;
+    },
+    getTrainingAmountByMonth_trainer: async (trainer_id) => {
+        let res = await fetch(serverUrl + "/api/getTrainingAmountByMonth_trainer/" + trainer_id)
+        console.log("res",res)
+        return await res.json();
+        // return await data;
+    },
     autoComplete_trainee: async (string, trainer_id) => {
         let res = await fetch(serverUrl + "/api/autoComplete_trainee/",{
             method: 'POST',

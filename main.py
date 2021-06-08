@@ -1,11 +1,11 @@
 from functools import wraps
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify
 
 from server.server_source_code import ConnectSQL
 from server.server_func import sql_manager
 
 # app = Flask(__name__, static_folder="../public", static_url_path='/', template_folder="../public")
-app = Flask(__name__, template_folder="../public")
+app = Flask(__name__)
 
 sql_c = ConnectSQL()
 
@@ -18,6 +18,7 @@ def error_handler(f):
         except Exception as err:
             print(str(err))
             return jsonify({"error": str(err)}), 500
+
     return decorator
 
 
@@ -34,13 +35,13 @@ def connect():
 def checkIfTrainer(email):
     # info = sql_manager.sql_c.check_email_trainer(email)
     info = sql_c.check_email_trainer(email)
-
-    return jsonify({"result": {"trainer_id": info["ID"],
-                               "first_name": info["first_name"],
-                               "last_name": info["last_name"],
-                               "email": info["email"],
-                               "image": info["image"],
-                               "admin": info["admin"]}}), 200
+    return info
+    # return jsonify({"result": {"trainer_id": info["ID"],
+    #                            "first_name": info["first_name"],
+    #                            "last_name": info["last_name"],
+    #                            "email": info["email"],
+    #                            "image": info["image"],
+    #                            "admin": info["admin"]}}), 200
 
 
 @app.route("/api/checkIfTrainee/<email>", methods=['GET'])
@@ -48,18 +49,65 @@ def checkIfTrainer(email):
 def checkIfTrainee(email):
     info = sql_c.check_email_trainee(email)
     # info = sql_manager.sql_c.check_email_trainee(email)
+    return info
+    # return jsonify({"result": {"trainer_id": info["ID"],
+    #                            "first_name": info["first_name"],
+    #                            "last_name": info["last_name"],
+    #                            "email": info["email"],
+    #                            "image": info["image"]}}), 200
 
-    return jsonify({"result": {"trainer_id": info["ID"],
-                               "first_name": info["first_name"],
-                               "last_name": info["last_name"],
-                               "email": info["email"],
-                               "image": info["image"]}}), 200
+
+@app.route("/api/getAllTrainingHistory_trainer/<trainer_id>", methods=['GET'])
+@error_handler
+def getAllTrainingHistory_trainer(trainer_id):
+    info = sql_c.get_all_training_history_trainer(trainer_id)
+    result_list = ["מתאמנים", info]
+    return jsonify(result_list)
+
+    #
+    # for index in info:
+    #     result_list.append({"trainer_id": info["ID"],
+    #                         "first_name": info["first_name"],
+    #                         "last_name": info["last_name"],
+    #                         "email": info["email"],
+    #                         "image": info["image"]})
+    # print(result_list)
+    # return result_list
+
+
+@app.route("/api/getAllTrainingHistory_trainee/<trainee_id>", methods=['GET'])
+@error_handler
+def getAllTrainingHistory_trainee(trainee_id):
+    info = sql_c.get_all_training_history_trainee(trainee_id)
+    result_list = ["מאמן", info]
+    return jsonify(result_list)
+    # return jsonify({"result": {"trainer_id": info["ID"],
+    #                            "first_name": info["first_name"],
+    #                            "last_name": info["last_name"],
+    #                            "email": info["email"],
+    #                            "image": info["image"]}}), 200
+
+
+@app.route("/api/getTrainingAmountByMonth_trainer/<trainer_id>", methods=['GET'])
+@error_handler
+def getTrainingAmountByMonth_trainer(trainer_id):
+    info = sql_c.get_training_amount_by_month_trainer(trainer_id)
+    return jsonify(info)
+
+
+@app.route("/api/getUpcomingExercise_trainer/<trainer_id>", methods=['GET'])
+@error_handler
+def getUpcomingExercise_trainer(trainer_id):
+    info = sql_c.get_upcoming_exercise_trainer(trainer_id)
+    result_list = ["מתאמנים", info]
+    print(result_list)
+    return jsonify(result_list)
 
 
 @app.route("/", methods=['GET'])
 def react():
-    # return render_template("index.html")
-    return app.send_static_file('index.html')
+    return render_template("index.html")
+    # return app.send_static_file('index.html')
 
 
 # @app.route('/')
@@ -70,8 +118,7 @@ def react():
 
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', port=45556)
-    ress = checkIfTrainer("yuvalronen10@gmail.com")
+    # ress = getAllTrainingHistory_trainer(205380132)
+    # print(ress)
 
-    app.run(host='localhost', port=5000, debug=True)
-    # app.run(host='localhost', port="3000", debug=True)
-    # app.run(host='127.0.0.1', port="5000", debug=True)
+    app.run(host='127.0.0.1', port="5000", debug=True)

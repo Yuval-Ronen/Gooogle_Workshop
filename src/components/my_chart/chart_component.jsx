@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import { Chart, Series, CommonSeriesSettings, Legend, ValueAxis, Title, Border } from 'devextreme-react/chart';
+import serverConnector from "../../server-connector";
 
-import { Chart, Series, CommonSeriesSettings, Legend, ValueAxis, Title, Export, Tooltip, Border } from 'devextreme-react/chart';
 import service from './month_data.js';
-import char from './chart_style.css'
-import PieChart from "devextreme-react/pie-chart";
 const dataSource = service.getMonthData();
+console.log("data_source", dataSource)
 
-class TrainingCart extends React.Component {
+const TrainingCart = (id) => {
+    // const [dataSource, setDataSource] = useState([]);
+    // useEffect( () =>{
+    //     serverConnector.getTrainingAmountByMonth_trainer(id).then(res => {
+    //         setDataSource(res);
+    //         console.log(dataSource)
+    //     })
+    // },[])
 
-  render() {
     return (
       <Chart
         id="chart"
@@ -31,11 +37,8 @@ class TrainingCart extends React.Component {
           horizontalAlignment="right">
           <Border visible={true} />
         </Legend>
-        {/*<Export enabled={true} />*/}
-        {/*<Tooltip enabled={true} />*/}
       </Chart>
-    );
-  }
-}
+    )
 
+}
 export default TrainingCart;

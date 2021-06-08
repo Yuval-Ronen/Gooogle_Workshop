@@ -1,9 +1,7 @@
-import React, {useState} from 'react'
-import GoogleLogin, {GoogleLogout} from "react-google-login";
-import { Link, Redirect } from 'react-router-dom';
-import {Button} from "react-bootstrap";
-import Nav from "react-bootstrap/Nav";
-import {BsPeopleCircle} from "react-icons/bs";
+import React from 'react'
+import  {GoogleLogout} from "react-google-login";
+import {Redirect} from 'react-router-dom';
+
 import {setCurState, setUserData} from "../redux/actions";
 import {connect} from "react-redux";
 
@@ -45,7 +43,7 @@ class Logout extends React.Component{
                   clientId="476408447979-ksp3ikmql53717ucvohu0uhm8t7ld9f1.apps.googleusercontent.com"
                   render = {renderProps => (
                       
-                          <span onClick={renderProps.onClick}><text style={{color:'red', fontSize:11}}>התנתק/י</text></span>
+                          <span onClick={renderProps.onClick}><p style={{color:'red', fontSize:11}}>התנתק/י</p></span>
                       
             )}
                   onLogoutSuccess={this.logout}

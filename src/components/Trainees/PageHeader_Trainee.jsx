@@ -1,4 +1,3 @@
-import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import EitanLogoSmall from "../../EitanLogoSmall.PNG";
 import * as PropTypes from "prop-types";
