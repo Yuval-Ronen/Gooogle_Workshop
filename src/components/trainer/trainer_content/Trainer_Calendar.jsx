@@ -2,7 +2,8 @@
 /* eslint-disable react/no-unused-state */
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
+import Grid from "@material-ui/core/Grid";
+import { ViewState, EditingState, IntegratedEditing, } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   Resources,
@@ -19,6 +20,7 @@ import {
   DateNavigator,
   TodayButton,
   CurrentTimeIndicator,
+  
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -39,8 +41,11 @@ import Notes from '@material-ui/icons/Notes';
 import Close from '@material-ui/icons/Close';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Create from '@material-ui/icons/Create';
+import {
+  pink, purple, orange, amber, indigo, deepPurple
+} from '@material-ui/core/colors';
 import { appointments } from './Training'
-import {triningType, Trainees} from './TrainingTypeAndTreinees'
+import { triningType, Trainees, TrainingDetails} from './TrainingTypeAndTreinees'
 
 
 const styles = theme => ({
@@ -53,42 +58,79 @@ const styles = theme => ({
 });
 
 
-const TextEditor = (props) => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.type === 'multilineTextEditor') {
+
+const messages = {
+  moreInformationLabel: '',
+  detailsLabel: '',
+};
+
+const SelectEditor = (props) => {
+  return <AppointmentForm.SelectEditor {...props} />;
+};
+
+
+
+const TextEditor = (  props) => {
+  if (props.type === "multilineTextEditor") {
     return null;
-  } return <AppointmentForm.TextEditor {...props} />;
+  }
+  if (props.placeholder === "Title") {
+    return null;
+  }
+  return <AppointmentForm.TextEditor {...props} />;
 };
 
 
 const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
   const onCustomFieldChange = (nextValue) => {
-    onFieldChange({ customField: nextValue });
+    onFieldChange({ moreInfo: nextValue });
   };
   const onValueChange = (nextValue) => {
-    onFieldChange({ customField: nextValue });
+    onFieldChange({ title: nextValue });
+    onFieldChange({ triningType: nextValue });
   };
 return (
   <AppointmentForm.BasicLayout
     appointmentData={appointmentData}
     onFieldChange={onFieldChange}
+    
     {...restProps}
   >
-    <AppointmentForm.Label
-      text="Custom Field"
-      type="title"
-    />
-    <AppointmentForm.TextEditor
-      value={appointmentData.customField}
-      onValueChange={onCustomFieldChange}
-      placeholder="Custom field"
-    />
-    <AppointmentForm.SelectProps
-    value={appointmentData.customField}
-    onValueChange={onCustomFieldChange}
-    availableOptions={[{id:0, text: "שחיה"}, {id:1, text: "ריצה"}]}
-    type="outlinedSelect"
-    />
+    <AppointmentForm.Label text="אימון" type="title" />
+    <AppointmentForm.Select
+       value={appointmentData.triningType}
+        onValueChange={onValueChange}
+        type="outlinedSelect"
+        availableOptions ={[
+          {
+            text: 'שחייה',
+            id: 'שחייה',
+          }, {
+            text: 'ריצה',
+            id: 'ריצה',
+          }, {
+            text: 'TRX',
+            id: 'TRX',
+          }, {
+            text: 'ריקוד',
+            id: 'ריקוד',
+          }, {
+            text: 'פונקציונאלי',
+            id: 'פונקציונאלי',
+          }, {
+              text: 'אחר',
+              id: 'אחר',
+          },
+        ]}
+      /> 
+     <AppointmentForm.Label text="תיאור האימון" type="title" />
+      <AppointmentForm.TextEditor
+        value={appointmentData.moreInfo}
+        onValueChange={onCustomFieldChange}
+        placeholder="תיאור האימון"
+        type="multilineTextEditor"
+      /> 
+
   </AppointmentForm.BasicLayout>
 );
 };
@@ -103,13 +145,13 @@ class Trainer_Calendar extends React.PureComponent {
       data: appointments,
       resources: [
         {
-          fieldName: 'triningTypeId',
-          title: 'Training type',
-          instances: triningType,
+          fieldName: 'TrainingDetailsId',
+          title: 'סוג אימון',
+          instances: TrainingDetails,
         },
         {
           fieldName: 'Trainees',
-          title: 'Trainees',
+          title: 'מתאמנים',
           instances: Trainees,
           allowMultiple: true,
         },
@@ -215,16 +257,16 @@ class Trainer_Calendar extends React.PureComponent {
 
   render() {
     const { data,
-       resources,
-        currentDate,
-         addedAppointment,
-          appointmentChanges, 
-          editingAppointment,
-          startDayHour,
-          endDayHour,
-          confirmationVisible,
-          editingFormVisible,
-          locale,
+      resources,
+      currentDate,
+       addedAppointment,
+        appointmentChanges, 
+        editingAppointment,
+        startDayHour,
+        endDayHour,
+        confirmationVisible,
+        editingFormVisible,
+        locale,
          } = this.state;
          const { classes } = this.props;
     return (
@@ -232,7 +274,7 @@ class Trainer_Calendar extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
-          height={500}
+          height="auto"
           locale={locale}
           timeZone={'Asia/Jerusalem'}
         >
@@ -251,14 +293,16 @@ class Trainer_Calendar extends React.PureComponent {
             editingAppointment={editingAppointment}
             onEditingAppointmentChange={this.changeEditingAppointment}
           />
-          <EditRecurrenceMenu />
-          <IntegratedEditing />
+          <EditRecurrenceMenu/> 
           <WeekView
             startDayHour={startDayHour}
             endDayHour={endDayHour}
+            cellDuration={60}
           />
           <MonthView />
-          <DayView/>
+          <DayView
+          cellDuration={60}
+          />
           <Appointments />
           <AppointmentTooltip
             showOpenButton
@@ -275,18 +319,19 @@ class Trainer_Calendar extends React.PureComponent {
           onVisibilityChange={this.toggleEditingFormVisibility}
           basicLayoutComponent={BasicLayout}
           textEditorComponent={TextEditor}
-
+          messages={messages}
          />
           <Resources
             data={resources}
-            mainResourceName="triningTypeId"
+            mainResourceName="TrainingDetailsId"
           />
+          
           <DragDropProvider />
-          <CurrentTimeIndicator
+           <CurrentTimeIndicator
           shadePreviousAppointments="true"
-          shadePreviousCells="true"/>
+          shadePreviousCells="true"/> 
         </Scheduler>
-
+ 
         <Dialog
           open={confirmationVisible}
           onClose={this.cancelDelete}
@@ -309,20 +354,7 @@ class Trainer_Calendar extends React.PureComponent {
           </DialogActions>
         </Dialog>
 
-        <Fab
-          color="secondary"
-          className={classes.addButton}
-          onClick={() => {
-            this.setState({ editingFormVisible: true });
-            this.onEditingAppointmentChange(undefined);
-            this.onAddedAppointmentChange({
-              startDate: new Date(currentDate).setHours(17,0,0),
-              endDate: new Date(currentDate).setHours(18,0,0),
-            });
-          }}
-        >
-          <AddIcon />
-        </Fab>
+        
       </Paper>
       
     );

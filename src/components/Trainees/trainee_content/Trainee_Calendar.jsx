@@ -36,7 +36,7 @@ import Close from '@material-ui/icons/Close';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import Create from '@material-ui/icons/Create';
 import { appointments } from '../../trainer/trainer_content/Training'
-import {triningType, Trainees} from '../../trainer/trainer_content/TrainingTypeAndTreinees'
+import {TrainingDetails, Trainees} from '../../trainer/trainer_content/TrainingTypeAndTreinees'
 
 
 const styles = theme => ({
@@ -58,9 +58,9 @@ class Trainee_Calendar extends React.PureComponent {
       data: appointments,
       resources: [
         {
-          fieldName: 'triningTypeId',
-          title: 'Training type',
-          instances: triningType,
+          fieldName: 'TrainingDetailsId',
+          title: 'סוג אימון',
+          instances: TrainingDetails,
         },
         {
           fieldName: 'Trainees',
@@ -205,7 +205,7 @@ class Trainee_Calendar extends React.PureComponent {
 
           <Resources
             data={resources}
-            mainResourceName="triningTypeId"
+            mainResourceName="TrainingDetailsId"
           />
           <CurrentTimeIndicator
           shadePreviousAppointments="true"

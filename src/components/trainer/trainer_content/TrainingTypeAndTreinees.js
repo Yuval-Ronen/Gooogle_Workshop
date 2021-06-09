@@ -2,7 +2,7 @@ import {
     pink, purple, teal, amber, deepOrange, lightGreen, deepPurple
   } from '@material-ui/core/colors';
 
-  export const triningType = [
+  export const TrainingDetails = [
     {
       text: 'אישי',
       id: 1,
@@ -61,4 +61,23 @@ import {
       id: 7,
       color: pink[700],
     }
+  ];
+
+  export const triningType = [
+    {
+      text: 'שחייה',
+      id: 1,
+    }, {
+      text: 'ריצה',
+      id: 2,
+    }, {
+      text: 'TRX',
+      id: 3,
+    }, {
+      text: 'ריקוד',
+      id: 4,
+    }, {
+      text: 'אחר',
+      id: 5,
+    },
   ];
