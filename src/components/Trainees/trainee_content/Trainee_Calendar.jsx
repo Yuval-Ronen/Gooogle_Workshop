@@ -12,11 +12,13 @@ import {
   Appointments,
   AppointmentTooltip,
   AppointmentForm,
-  EditRecurrenceMenu,
-  AllDayPanel,
   DateNavigator,
   TodayButton,
+  CurrentTimeIndicator,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import { connectProps } from '@devexpress/dx-react-core';
+import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -24,8 +26,17 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
+import TextField from '@material-ui/core/TextField';
+import LocationOn from '@material-ui/icons/LocationOn';
+import Notes from '@material-ui/icons/Notes';
+import Close from '@material-ui/icons/Close';
+import CalendarToday from '@material-ui/icons/CalendarToday';
+import Create from '@material-ui/icons/Create';
 import { appointments } from '../../trainer/trainer_content/Training'
-import {triningType, Trainees} from '../../trainer/trainer_content/TrainingTypeAndTreinees'
+import {TrainingDetails, Trainees} from '../../trainer/trainer_content/TrainingTypeAndTreinees'
 
 
 const styles = theme => ({
@@ -47,9 +58,9 @@ class Trainee_Calendar extends React.PureComponent {
       data: appointments,
       resources: [
         {
-          fieldName: 'triningTypeId',
-          title: 'Training type',
-          instances: triningType,
+          fieldName: 'TrainingDetailsId',
+          title: 'סוג אימון',
+          instances: TrainingDetails,
         },
         {
           fieldName: 'Trainees',
@@ -68,6 +79,7 @@ class Trainee_Calendar extends React.PureComponent {
       startDayHour: 9,
       endDayHour: 19,
       isNewAppointment: false,
+      locale: 'he-IS',
     };
 
     this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
@@ -155,37 +167,24 @@ class Trainee_Calendar extends React.PureComponent {
     const { data,
        resources,
         currentDate,
-         addedAppointment,
-          appointmentChanges, 
-          editingAppointment,
           startDayHour,
           endDayHour,
-          confirmationVisible,
           editingFormVisible,
+          locale,
          } = this.state;
          const { classes } = this.props;
     return (
       <Paper>
         <Scheduler
           data={data}
-          height={700}
+          height={500}
+          locale={locale}
+          timeZone={'Asia/Jerusalem'}
         >
           <ViewState
             defaultCurrentDate={currentDate}
           />
-          <EditingState
-            onCommitChanges={this.commitChanges}
 
-            addedAppointment={addedAppointment}
-            onAddedAppointmentChange={this.onAddedAppointmentChange}
-
-            appointmentChanges={appointmentChanges}
-            onAppointmentChangesChange={this.changeAppointmentChanges}
-
-            editingAppointment={editingAppointment}
-            onEditingAppointmentChange={this.changeEditingAppointment}
-          />
-          <EditRecurrenceMenu />
 
           <WeekView
             startDayHour={startDayHour}
@@ -193,49 +192,26 @@ class Trainee_Calendar extends React.PureComponent {
           />
           <MonthView />
           <DayView/>
-          <AllDayPanel />
           <Appointments />
           <AppointmentTooltip
-            
             showCloseButton
-            
           />
           <Toolbar />
           
           <ViewSwitcher />
           <DateNavigator />
           <TodayButton />
-          <AppointmentForm
-          visible={editingFormVisible}
-          onVisibilityChange={this.toggleEditingFormVisibility} />
+
 
           <Resources
             data={resources}
-            mainResourceName="triningTypeId"
+            mainResourceName="TrainingDetailsId"
           />
+          <CurrentTimeIndicator
+          shadePreviousAppointments="true"
+          shadePreviousCells="true"/>
         </Scheduler>
 
-        <Dialog
-          open={confirmationVisible}
-          onClose={this.cancelDelete}
-        >
-          <DialogTitle>
-            Delete Appointment
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to delete this appointment?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.toggleConfirmationVisible} color="primary" variant="outlined">
-              Cancel
-            </Button>
-            <Button onClick={this.commitDeletedAppointment} color="secondary" variant="outlined">
-              Delete
-            </Button>
-          </DialogActions>
-        </Dialog>
 
       </Paper>
     );

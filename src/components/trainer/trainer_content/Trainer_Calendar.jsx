@@ -2,11 +2,29 @@
 /* eslint-disable react/no-unused-state */
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
-import {Scheduler, Resources, Toolbar, MonthView, WeekView, DayView, ViewSwitcher,
-  Appointments, AppointmentTooltip, AppointmentForm, DragDropProvider, EditRecurrenceMenu,
-  AllDayPanel, DateNavigator, TodayButton, CurrentTimeIndicator,
+import Grid from "@material-ui/core/Grid";
+import { ViewState, EditingState, IntegratedEditing, } from '@devexpress/dx-react-scheduler';
+import {
+  Scheduler,
+  Resources,
+  Toolbar,
+  MonthView,
+  WeekView,
+  DayView,
+  ViewSwitcher,
+  Appointments,
+  AppointmentTooltip,
+  AppointmentForm,
+  DragDropProvider,
+  EditRecurrenceMenu,
+  DateNavigator,
+  TodayButton,
+  CurrentTimeIndicator,
+  
 } from '@devexpress/dx-react-scheduler-material-ui';
+import { connectProps } from '@devexpress/dx-react-core';
+import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -15,21 +33,110 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
+import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
+import TextField from '@material-ui/core/TextField';
+import LocationOn from '@material-ui/icons/LocationOn';
+import Notes from '@material-ui/icons/Notes';
+import Close from '@material-ui/icons/Close';
+import CalendarToday from '@material-ui/icons/CalendarToday';
+import Create from '@material-ui/icons/Create';
+import {
+  pink, purple, orange, amber, indigo, deepPurple
+} from '@material-ui/core/colors';
 import { appointments } from './Training'
-import {triningType, Trainees} from './TrainingTypeAndTreinees'
+import { triningType, Trainees, TrainingDetails} from './TrainingTypeAndTreinees'
 
 
 const styles = theme => ({
   addButton: {
-    // position: '-webkit-sticky',
-    // position: 'sticky',
+    position: '-webkit-sticky',
+    position: 'sticky',
     bottom: theme.spacing(1) * 3,
     right: theme.spacing(1) * 4,
   },
 });
 
+
+
+const messages = {
+  moreInformationLabel: '',
+  detailsLabel: '',
+};
+
+const SelectEditor = (props) => {
+  return <AppointmentForm.SelectEditor {...props} />;
+};
+
+
+
+const TextEditor = (  props) => {
+  if (props.type === "multilineTextEditor") {
+    return null;
+  }
+  if (props.placeholder === "Title") {
+    return null;
+  }
+  return <AppointmentForm.TextEditor {...props} />;
+};
+
+
+const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
+  const onCustomFieldChange = (nextValue) => {
+    onFieldChange({ moreInfo: nextValue });
+  };
+  const onValueChange = (nextValue) => {
+    onFieldChange({ title: nextValue });
+    onFieldChange({ triningType: nextValue });
+  };
+return (
+  <AppointmentForm.BasicLayout
+    appointmentData={appointmentData}
+    onFieldChange={onFieldChange}
+    
+    {...restProps}
+  >
+    <AppointmentForm.Label text="אימון" type="title" />
+    <AppointmentForm.Select
+       value={appointmentData.triningType}
+        onValueChange={onValueChange}
+        type="outlinedSelect"
+        availableOptions ={[
+          {
+            text: 'שחייה',
+            id: 'שחייה',
+          }, {
+            text: 'ריצה',
+            id: 'ריצה',
+          }, {
+            text: 'TRX',
+            id: 'TRX',
+          }, {
+            text: 'ריקוד',
+            id: 'ריקוד',
+          }, {
+            text: 'פונקציונאלי',
+            id: 'פונקציונאלי',
+          }, {
+              text: 'אחר',
+              id: 'אחר',
+          },
+        ]}
+      /> 
+     <AppointmentForm.Label text="תיאור האימון" type="title" />
+      <AppointmentForm.TextEditor
+        value={appointmentData.moreInfo}
+        onValueChange={onCustomFieldChange}
+        placeholder="תיאור האימון"
+        type="multilineTextEditor"
+      /> 
+
+  </AppointmentForm.BasicLayout>
+);
+};
+
 class Trainer_Calendar extends React.PureComponent {
+
   today = new Date();
 
   constructor(props) {
@@ -38,13 +145,13 @@ class Trainer_Calendar extends React.PureComponent {
       data: appointments,
       resources: [
         {
-          fieldName: 'triningTypeId',
-          title: 'Training type',
-          instances: triningType,
+          fieldName: 'TrainingDetailsId',
+          title: 'סוג אימון',
+          instances: TrainingDetails,
         },
         {
           fieldName: 'Trainees',
-          title: 'Trainees',
+          title: 'מתאמנים',
           instances: Trainees,
           allowMultiple: true,
         },
@@ -146,18 +253,20 @@ class Trainer_Calendar extends React.PureComponent {
     });
   }
 
+  
+
   render() {
     const { data,
-       resources,
-        currentDate,
-         addedAppointment,
-          appointmentChanges, 
-          editingAppointment,
-          startDayHour,
-          endDayHour,
-          confirmationVisible,
-          editingFormVisible,
-          locale,
+      resources,
+      currentDate,
+       addedAppointment,
+        appointmentChanges, 
+        editingAppointment,
+        startDayHour,
+        endDayHour,
+        confirmationVisible,
+        editingFormVisible,
+        locale,
          } = this.state;
          const { classes } = this.props;
     return (
@@ -165,8 +274,9 @@ class Trainer_Calendar extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
-          height={500}
+          height="auto"
           locale={locale}
+          timeZone={'Asia/Jerusalem'}
         >
           <ViewState
             CurrentDate={currentDate}
@@ -183,15 +293,16 @@ class Trainer_Calendar extends React.PureComponent {
             editingAppointment={editingAppointment}
             onEditingAppointmentChange={this.changeEditingAppointment}
           />
-          <EditRecurrenceMenu />
-
+          <EditRecurrenceMenu/> 
           <WeekView
             startDayHour={startDayHour}
             endDayHour={endDayHour}
+            cellDuration={60}
           />
           <MonthView />
-          <DayView/>
-          <AllDayPanel />
+          <DayView
+          cellDuration={60}
+          />
           <Appointments />
           <AppointmentTooltip
             showOpenButton
@@ -205,18 +316,22 @@ class Trainer_Calendar extends React.PureComponent {
           <TodayButton />
           <AppointmentForm
           visible={editingFormVisible}
-          onVisibilityChange={this.toggleEditingFormVisibility} />
-
+          onVisibilityChange={this.toggleEditingFormVisibility}
+          basicLayoutComponent={BasicLayout}
+          textEditorComponent={TextEditor}
+          messages={messages}
+         />
           <Resources
             data={resources}
-            mainResourceName="triningTypeId"
+            mainResourceName="TrainingDetailsId"
           />
+          
           <DragDropProvider />
-          <CurrentTimeIndicator
+           <CurrentTimeIndicator
           shadePreviousAppointments="true"
-          shadePreviousCells="true"/>
+          shadePreviousCells="true"/> 
         </Scheduler>
-
+ 
         <Dialog
           open={confirmationVisible}
           onClose={this.cancelDelete}
@@ -239,20 +354,7 @@ class Trainer_Calendar extends React.PureComponent {
           </DialogActions>
         </Dialog>
 
-        <Fab
-          color="secondary"
-          className={classes.addButton}
-          onClick={() => {
-            this.setState({ editingFormVisible: true });
-            this.onEditingAppointmentChange(undefined);
-            this.onAddedAppointmentChange({
-              startDate: new Date(currentDate).setHours(17),
-              endDate: new Date(currentDate).setHours(18),
-            });
-          }}
-        >
-          <AddIcon />
-        </Fab>
+        
       </Paper>
       
     );
