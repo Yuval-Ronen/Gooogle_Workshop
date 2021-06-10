@@ -1,5 +1,5 @@
 import {
-    pink, purple, teal, amber, deepOrange, lightGreen, deepPurple
+    pink, amber, deepPurple
   } from '@material-ui/core/colors';
 
   export const triningType = [

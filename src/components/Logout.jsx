@@ -5,16 +5,11 @@ import {Redirect} from 'react-router-dom';
 import {setCurState, setUserData} from "../redux/actions";
 import {connect} from "react-redux";
 
-// const [name, setName] = useState("");
-// const [url, setUrl] = useState("");
-
 
 class Logout extends React.Component{
-
     state = {
         loggedOut: false,
     }
-
 
     constructor(props) {
         super(props);

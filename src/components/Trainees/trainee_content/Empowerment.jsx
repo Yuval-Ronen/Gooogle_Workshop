@@ -1,4 +1,4 @@
-import react, {useState} from "react";
+import {useState} from "react";
 import ShowGoogleDocs from "./ShowGoogleDocs";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";

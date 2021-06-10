@@ -1,11 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import { Table } from 'reactstrap';
 
 
 //person can be trainer or trainee
 const ShowExerciseHistory = (training_his) => {
-    console.log("training_his",training_his)
-
 
     let train_type_icons = {martialArts: "mdi:karate",
         jog: "mdi:run",
@@ -16,13 +14,14 @@ const ShowExerciseHistory = (training_his) => {
     return (
         <div className='exercise-history'>
 
-        <div class="w3-panel">
-            <div class="w3-row-padding" style={{margin:"5"}}>
-              <div class="w3-third">
+        <div className="w3-panel">
+            <div className="w3-row-padding" style={{margin:"5"}}>
+              <div className="w3-third">
                 <img src="" style={{width:"100"}} alt=""/>
                 </div>
-              <div class="w3-twothird">
-                <Table class="w3-table w3-striped w3-white">
+              <div className="w3-twothird">
+                <Table className="w3-table w3-striped w3-white">
+                    <tbody>
                 <tr>
                     <td><h5>תיאור</h5></td>
                     <td><h5>סוג אימון</h5></td>
@@ -43,6 +42,7 @@ const ShowExerciseHistory = (training_his) => {
                           </tr>
                    )
                             }
+                    </tbody>
                 </Table>
               </div>
             </div>

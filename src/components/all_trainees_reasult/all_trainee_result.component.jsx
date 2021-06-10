@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,8 +21,6 @@ const Grid = styled.header`
 `; 
 
 const TraineeResult = ({listOfTrainees})=>{
-    const [trainingHistory, setTrainingHistory] = useState([]);
-    const [personalProgram, setPersonalProgram] = useState([]);
 
     const useStyles = makeStyles((theme) => ({
         large: {

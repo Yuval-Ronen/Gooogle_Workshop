@@ -1,7 +1,7 @@
 
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
-import { useState } from 'react';
+// import { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import {connect} from "react-redux";
@@ -11,29 +11,25 @@ import PageHeader from "./PageHeader";
 
 const TrainerPage = (props) => {
 
-    const [name, setName] = useState("");
-    const [url, setUrl] = useState("");
-    const responseGoogle = (response) => {
-    console.log(response);
-    setName(response.profileObj.name);
-    setUrl(response.profileObj.imageUrl);
-    }
-
-    console.log(props.authenticationData);
-
-    // Todo take this to a new file and give it a new name if needed
+    // const [name, setName] = useState("");
+    // const [url, setUrl] = useState("");
+    // const responseGoogle = (response) => {
+    // console.log(response);
+    // setName(response.profileObj.name);
+    // setUrl(response.profileObj.imageUrl);
+    // }
 
     return(
         <div className='trainer-page'> 
             <Container fluid>
             <Row>
-                <PageHeader authenticationData={props.authenticationData} alt={name}/>
+                {/*<PageHeader authenticationData={props.authenticationData} alt={name}/>*/}
+                <PageHeader/>
             </Row>
             <Row>
                     <TrainerPageContent/>
             </Row>
             </Container>
-
         </div>
     )
 }

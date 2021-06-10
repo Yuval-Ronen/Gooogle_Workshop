@@ -196,7 +196,7 @@ class PageHeader extends Component {
                 </NavLink>
                 <li>
                     <div className="google">
-                        <NameAndPic authenticationData={this.props.authenticationData} alt={this.props.alt}/>
+                        <NameAndPic/>
 
                     </div>
                 </li>

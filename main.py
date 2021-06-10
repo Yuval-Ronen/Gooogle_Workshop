@@ -36,12 +36,6 @@ def checkIfTrainer(email):
     # info = sql_manager.sql_c.check_email_trainer(email)
     info = sql_c.check_email_trainer(email)
     return info
-    # return jsonify({"result": {"trainer_id": info["ID"],
-    #                            "first_name": info["first_name"],
-    #                            "last_name": info["last_name"],
-    #                            "email": info["email"],
-    #                            "image": info["image"],
-    #                            "admin": info["admin"]}}), 200
 
 
 @app.route("/api/checkIfTrainee/<email>", methods=['GET'])
@@ -50,11 +44,6 @@ def checkIfTrainee(email):
     info = sql_c.check_email_trainee(email)
     # info = sql_manager.sql_c.check_email_trainee(email)
     return info
-    # return jsonify({"result": {"trainer_id": info["ID"],
-    #                            "first_name": info["first_name"],
-    #                            "last_name": info["last_name"],
-    #                            "email": info["email"],
-    #                            "image": info["image"]}}), 200
 
 
 @app.route("/api/getAllTrainingHistory_trainer/<trainer_id>", methods=['GET'])
@@ -62,17 +51,7 @@ def checkIfTrainee(email):
 def getAllTrainingHistory_trainer(trainer_id):
     info = sql_c.get_all_training_history_trainer(trainer_id)
     result_list = ["מתאמנים", info]
-    return jsonify(result_list)
-
-    #
-    # for index in info:
-    #     result_list.append({"trainer_id": info["ID"],
-    #                         "first_name": info["first_name"],
-    #                         "last_name": info["last_name"],
-    #                         "email": info["email"],
-    #                         "image": info["image"]})
-    # print(result_list)
-    # return result_list
+    return jsonify({"result": result_list}), 200
 
 
 @app.route("/api/getAllTrainingHistory_trainee/<trainee_id>", methods=['GET'])
@@ -80,7 +59,7 @@ def getAllTrainingHistory_trainer(trainer_id):
 def getAllTrainingHistory_trainee(trainee_id):
     info = sql_c.get_all_training_history_trainee(trainee_id)
     result_list = ["מאמן", info]
-    return jsonify(result_list)
+    return jsonify({"result": result_list}), 200
     # return jsonify({"result": {"trainer_id": info["ID"],
     #                            "first_name": info["first_name"],
     #                            "last_name": info["last_name"],
@@ -93,8 +72,7 @@ def getAllTrainingHistory_trainee(trainee_id):
 def getTrainingAmountByMonth_trainer(trainer_id):
     info = sql_c.get_training_amount_by_month_trainer(trainer_id)
     print(info)
-    return jsonify(info)
-
+    return jsonify({"result": info}), 200
 
 @app.route("/api/getUpcomingExercise_trainer/<trainer_id>", methods=['GET'])
 @error_handler
@@ -102,7 +80,7 @@ def getUpcomingExercise_trainer(trainer_id):
     info = sql_c.get_upcoming_exercise_trainer(trainer_id)
     result_list = ["מתאמנים", info]
     print(result_list)
-    return jsonify(result_list)
+    return jsonify({"result": result_list}), 200
 
 
 @app.route("/api/getAllTrainees/<trainer_id>", methods=['GET'])

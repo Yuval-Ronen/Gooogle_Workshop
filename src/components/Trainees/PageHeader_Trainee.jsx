@@ -153,7 +153,6 @@ const Navigation = styled.header`
 
 class PageHeader_Trainee extends Component {
 
-    
     constructor(props) {
         super(props);
         this.state = {

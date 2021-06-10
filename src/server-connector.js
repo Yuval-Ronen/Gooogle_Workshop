@@ -28,7 +28,8 @@ const serverConnector = {
 
     getAllTrainees: async (trainer_id) => {
         let res = await fetch(serverUrl + "/api/getAllTrainees/"+trainer_id);
-        return  await res.json();
+        let data = await res.json();
+        return data["result"];
     },
     createNewTrain:async (trainer_id, {trainees_or_group}, type, trainDate, trainTime, description) =>{
         let res = await fetch(serverUrl+"/api/createNewTrain", {
@@ -52,7 +53,7 @@ const serverConnector = {
     getPersonalProgram: async (trainee_id) => {
         let res = await fetch(serverUrl + "/api/getPersonalProgram/"+trainee_id)
         let data = await res.json();
-        return data["result"];
+        return data;
     },
     setPersonalProgram: async (trainer_id,trainee_id, program) => {
         // let res = await fetch(serverUrl + "/api/setPersonalProgram/")
@@ -61,25 +62,26 @@ const serverConnector = {
     },
     getAllTrainingHistory_trainer: async (trainer_id) => {
         let res = await fetch(serverUrl + "/api/getAllTrainingHistory_trainer/" + trainer_id)
-        return await res.json();
-        // return await data;
+        let data = await res.json();
+        return data["result"];
 
     },
     getAllTrainingHistory_trainee: async (trainee_id) => {
         let res = await fetch(serverUrl + "/api/getAllTrainingHistory_trainee/" + trainee_id)
-
         return await res.json();
-        // return await data;
+        let data = await res.json();
+        return data["result"];
     },
     getUpcomingExercise_trainer: async (trainer_id) => {
         let res = await fetch(serverUrl + "/api/getUpcomingExercise_trainer/" + trainer_id)
-        return await res.json();
+        let data = await res.json();
+        return data["result"];
         // return await data;
     },
     getTrainingAmountByMonth_trainer: async (trainer_id) => {
         let res = await fetch(serverUrl + "/api/getTrainingAmountByMonth_trainer/" + trainer_id)
-        console.log("res",res)
-        return await res.json();
+        let data = await res.json();
+        return data["result"];
         // return await data;
     },
     autoComplete_trainee: async (string, trainer_id) => {

@@ -5,6 +5,8 @@ import {setUserData, setCurState} from "../../redux/actions";
 import {connect} from "react-redux";
 import {extractUserData} from "../googleApi/GoogleApi";
 import serverConnector from "../../server-connector";
+import {useLocalStorage} from "../../UtillHook";
+import React from "react";
 
 
 const loginFailureHandler = (response) => {
@@ -14,12 +16,14 @@ const loginFailureHandler = (response) => {
   }
 
 const LoginTrainee = (props) => {
+    const [userInfo, setUserInfo] = useLocalStorage("userInfo",{});
+    const [googlePic, setGooglePic] = useLocalStorage("googlePic",'');
+
    if (props.currentState === "trainee") {
         return <Redirect to="/TraineesPage"/>;
     }
 
     return(
-
         <div>
             <GoogleLogin
             clientId="476408447979-ksp3ikmql53717ucvohu0uhm8t7ld9f1.apps.googleusercontent.com"
@@ -33,18 +37,15 @@ const LoginTrainee = (props) => {
                     const userDataFromGoogle = extractUserData(response);
                     const userDataFromServer = await serverConnector.checkIfTrainee(userDataFromGoogle.email);
                     if(userDataFromServer.ID !== undefined){ // user found as trainer.
-                        console.log("user is trainee:")
-                        console.log(userDataFromServer)
+                        console.log("user is trainee:");
+                        console.log(userDataFromServer);
+                        // setUserInfo(userDataFromServer);
+                        // setGooglePic(userDataFromGoogle.imageUrl)
                         props.setCurState("trainee");
                         props.setUserData(userDataFromGoogle);
                     } else {
-                        console.log("user is not trainee:");
-
-                        // props.setCurState("not a trainer")
+                        console.log("user is not trainer:");
                     }
-
-
-
                 }
             }
             onFailure={loginFailureHandler}

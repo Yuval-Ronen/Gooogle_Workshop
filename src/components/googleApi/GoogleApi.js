@@ -1,7 +1,3 @@
-
-
-
-
 export const extractUserData = (response) => {
     console.log("got response:")
     console.log(response)

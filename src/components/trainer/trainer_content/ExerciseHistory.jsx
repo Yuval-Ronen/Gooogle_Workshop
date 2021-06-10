@@ -7,11 +7,12 @@ import serverConnector from "../../../server-connector";
 const ExerciseHistory = () => {
     const [userInfo,setUserInfo] = useLocalStorage("userInfo",{});
 
-    const [trainingHis, setTrainingHis] = useState([]);
+    const [trainingHis, setTrainingHis] = useState(["מתאמנים",[]]);
      useEffect( () =>{
          if(userInfo.admin !== undefined ){//user is trainer
              serverConnector.getAllTrainingHistory_trainer(userInfo.ID).then(res => {
                  setTrainingHis(res);
+                 console.log("trainingHis",trainingHis)
              })
          }
          else{

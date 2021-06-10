@@ -1,12 +1,4 @@
-import {Container} from "react-bootstrap";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import TrainingCart from "../my_chart/chart_component";
-import {Table} from "reactstrap";
 import React from "react";
-import style from "../all_trainees_reasult/all_trainee_result.module.css";
-import TraineeDisplay from "../trainee-displayer/trainee_displayer.component";
-import style1 from "./personal_program.css"
 import "../Trainees/trainee_content/personal_program_listStyle.css"
 
 const PersonalProgress = (props) => {

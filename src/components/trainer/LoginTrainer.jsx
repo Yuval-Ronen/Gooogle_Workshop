@@ -16,10 +16,9 @@ const loginFailureHandler = (response) => {
     // TODO what to do if login fails?
   }
 
-
 const LoginTrainer = (props) => {
-    const [userInfo,setUserInfo] = useLocalStorage("userInfo",{});
-    const [googlePic,setGooglePic] = useLocalStorage("googlePic",'');
+    const [userInfo, setUserInfo] = useLocalStorage("userInfo",{});
+    const [googlePic, setGooglePic] = useLocalStorage("googlePic",'');
 
     if (props.currentState === "trainer") {
         return <Redirect to="/TrainerPage"/>;
@@ -41,14 +40,13 @@ const LoginTrainer = (props) => {
                     if(userDataFromServer.ID !== undefined){ // user found as trainer.
                         console.log("user is trainer:");
                         console.log(userDataFromServer);
-                        setUserInfo(userDataFromServer);
-                        setGooglePic(userDataFromGoogle.imageUrl)
+                        // setUserInfo(userDataFromServer);
+                        // setGooglePic(userDataFromGoogle.imageUrl)
                         props.setCurState("trainer");
                         props.setUserData(userDataFromGoogle);
                     } else {
                         console.log("user is not trainer:");
 
-                        // props.setCurState("not a trainer")
                     }
                 }
             }

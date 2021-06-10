@@ -12,9 +12,9 @@ import Col from "react-bootstrap/Col";
 
 
 const TrainerDashboard = (props) => {
-    const [userInfo,setUserInfo] = useLocalStorage("userInfo",{});
+    const [userInfo] = useLocalStorage("userInfo",{});
 
-    const [trainingHis, setTrainingHis] = useState([]);
+    const [trainingHis, setTrainingHis] = useState(["מתאמנים",[]]);
      useEffect( () =>{
         serverConnector.getUpcomingExercise_trainer(userInfo.ID).then(res => {
             setTrainingHis(res);
@@ -22,24 +22,24 @@ const TrainerDashboard = (props) => {
         })
     },[])
 
-    // const [dataSource, setDataSource] = useState([]);
-    // useEffect( () =>{
-    //     serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
-    //         setDataSource(res);
-    //         console.log("dataSource2",dataSource)
-    //     })
-    // },[])
+    const [dataSource2, setDataSource2] = useState([]);
+    useEffect( () =>{
+        serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
+            setDataSource2(res);
+            console.log("dataSource2",dataSource2)
+        })
+    },[])
 
     return(
         <Container style={{padding: "0px"}}>
             <Row>
                 <Col>
-                <TrainingCart style ={{height:"200px"}}/>
+                <TrainingCart id = {userInfo.ID} style ={{height:"200px"}}/>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >אימונים אחרונים</p>
+                <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >אימונים קרובים</p>
                 <ShowExerciseHistory training_his ={trainingHis}/>
                 </Col>
             </Row>

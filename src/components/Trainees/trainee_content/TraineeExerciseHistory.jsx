@@ -1,5 +1,3 @@
-import history from "../../../history";
-import Tab from "react-bootstrap/Tab";
 import React from "react";
 import ShowExerciseHistory from "../../show_exercise_history";
 
