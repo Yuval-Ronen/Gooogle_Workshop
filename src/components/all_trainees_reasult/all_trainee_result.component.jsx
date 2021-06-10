@@ -13,7 +13,7 @@ const Grid = styled.header`
 
     .item {
         text-align: center;
-        padding: 20px;
+        padding: 0px;
        
     }
 
@@ -29,6 +29,21 @@ const TraineeResult = ({listOfTrainees})=>{
           width: theme.spacing(10),
           height: theme.spacing(10),
         },
+        root: {
+            display: 'flex',
+            '& > *': {
+              margin: theme.spacing(1),
+            },
+            flexWrap: 'wrap'
+        },
+        item: {
+            display: 'flex',
+            '& > *': {
+              margin: theme.spacing(0.3),
+            },
+            flexDirection: 'column',
+            alignItems: 'center ',
+        }
       }));
 
       const classes = useStyles();
@@ -36,22 +51,23 @@ const TraineeResult = ({listOfTrainees})=>{
 
     return <div>
         <Grid>
-        <ul className="container">
+        <div className={classes.root}>
         
         {/*<TraineeProgress listHistory = {trainingHistory} listProgram = {personalProgram }/>*/}
 
         {listOfTrainees?.length > 0 && listOfTrainees.map((trainee, index)=>
-                <li className="item">
-                <a href={`/TrainerPage/trainee?trainee_id=${trainee.trainee_id}`} style={{display: "block"}} >
-                    <Avatar alt='image' src={trainee.image} className={classes.large} style={{display: "inline-block"}}/>
-                <h6>{trainee.first_name}</h6>
+               
+                <a href={`/TrainerPage/trainee?trainee_id=${trainee.trainee_id}`} >
+                    <div className={classes.item}>
+                    <Avatar alt='image' src={trainee.image} className={classes.large}  />
+                     <h6>{trainee.first_name}</h6>
                     <h6>{trainee.last_name}</h6>
-
+                    </div>
                 </a>
-                </li>
+                
              )
             }
-        </ul>
+        </div>
         </Grid>
         
             </div>

@@ -34,8 +34,8 @@ const TrainerTrainee = () => {
             </Row>
             <Row>
                 <Col>
-                <p style = {{textAnchor: "middle",fontSize: "35px", color: "#55215e", textAlign: 'center'}} >אימונים אחרונים</p>
-                <ShowExerciseHistory training_his = {trainingHis}/>
+                <p style = {{textAnchor: "middle",fontSize: "35px", color: "#55215e", textAlign: 'center'}} >אימונים קרובים</p>
+                <ShowExerciseHistory training_his = {trainingHis} isDashbord={false}/>
 
                 </Col>
             </Row>

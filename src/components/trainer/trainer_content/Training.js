@@ -1,7 +1,7 @@
 export const appointments = [
   {
-    title: 'אחר',
-    triningType: 'אחר',
+    title: 'קארטה',
+    triningType: 'קארטה',
     startDate: new Date(2021, 4, 25, 9, 30),
     endDate: new Date(2021, 4, 25, 10, 30),
     id: 0,
@@ -9,8 +9,8 @@ export const appointments = [
     Trainees: [1,4],
     moreInfo:''
   }, {
-    title: 'ריקוד',
-    triningType: 'ריקוד',
+    title: 'קרוספיט',
+    triningType: 'קרוספיט',
     startDate: new Date(2021, 4, 25, 12, 0),
     endDate: new Date(2021, 4, 25, 13, 0),
     id: 1,
@@ -36,8 +36,8 @@ export const appointments = [
     Trainees: [2,4,6],
     moreInfo:''
   }, {
-    title: 'TRX',
-    triningType: 'TRX',
+    title: 'קארטה',
+    triningType: 'קארטה',
     startDate: new Date(2021, 4, 26, 12, 0),
     endDate: new Date(2021, 4, 26, 13, 30),
     id: 4,
@@ -45,8 +45,8 @@ export const appointments = [
     Trainees: [2,3,7],
     moreInfo:''
   },  {
-    title: 'TRX',
-    triningType: 'TRX',
+    title: 'קארטה',
+    triningType: 'קארטה',
     startDate: new Date(2021, 4, 27, 9, 30),
     endDate: new Date(2021, 4, 27, 10, 30),
     id: 6,

@@ -20,7 +20,7 @@ const TraineeExerciseHistory = (props) => {
 
     return (
         <div className='exercise_history'>
-            <ShowExerciseHistory training_his ={training_his}/>
+            <ShowExerciseHistory training_his ={training_his} isDashbord={false}/>
         </div>
 
     )

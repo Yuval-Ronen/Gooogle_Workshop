@@ -20,7 +20,7 @@ import {
   DateNavigator,
   TodayButton,
   CurrentTimeIndicator,
-  
+
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -45,7 +45,7 @@ import {
   pink, purple, orange, amber, indigo, deepPurple
 } from '@material-ui/core/colors';
 import { appointments } from './Training'
-import { triningType, Trainees, TrainingDetails} from './TrainingTypeAndTreinees'
+import { triningType, Trainees, TrainingDetails } from './TrainingTypeAndTreinees'
 
 
 const styles = theme => ({
@@ -70,7 +70,7 @@ const SelectEditor = (props) => {
 
 
 
-const TextEditor = (  props) => {
+const TextEditor = (props) => {
   if (props.type === "multilineTextEditor") {
     return null;
   }
@@ -89,19 +89,19 @@ const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
     onFieldChange({ title: nextValue });
     onFieldChange({ triningType: nextValue });
   };
-return (
-  <AppointmentForm.BasicLayout
-    appointmentData={appointmentData}
-    onFieldChange={onFieldChange}
-    
-    {...restProps}
-  >
-    <AppointmentForm.Label text="אימון" type="title" />
-    <AppointmentForm.Select
-       value={appointmentData.triningType}
+  return (
+    <AppointmentForm.BasicLayout
+      appointmentData={appointmentData}
+      onFieldChange={onFieldChange}
+
+      {...restProps}
+    >
+      <AppointmentForm.Label text="אימון" type="title" />
+      <AppointmentForm.Select
+        value={appointmentData.triningType}
         onValueChange={onValueChange}
         type="outlinedSelect"
-        availableOptions ={[
+        availableOptions={[
           {
             text: 'שחייה',
             id: 'שחייה',
@@ -109,30 +109,27 @@ return (
             text: 'ריצה',
             id: 'ריצה',
           }, {
-            text: 'TRX',
-            id: 'TRX',
+            text: 'קארטה',
+            id: 'קארטה',
           }, {
             text: 'ריקוד',
             id: 'ריקוד',
           }, {
-            text: 'פונקציונאלי',
-            id: 'פונקציונאלי',
-          }, {
-              text: 'אחר',
-              id: 'אחר',
+            text: 'קרוספיט',
+            id: 'קרוספיט',
           },
         ]}
-      /> 
-     <AppointmentForm.Label text="תיאור האימון" type="title" />
+      />
+      <AppointmentForm.Label text="תיאור האימון" type="title" />
       <AppointmentForm.TextEditor
         value={appointmentData.moreInfo}
         onValueChange={onCustomFieldChange}
         placeholder="תיאור האימון"
         type="multilineTextEditor"
-      /> 
+      />
 
-  </AppointmentForm.BasicLayout>
-);
+    </AppointmentForm.BasicLayout>
+  );
 };
 
 class Trainer_Calendar extends React.PureComponent {
@@ -195,7 +192,7 @@ class Trainer_Calendar extends React.PureComponent {
   setDeletedAppointmentId(id) {
     this.setState({ deletedAppointmentId: id });
   }
-  
+
   onEditingAppointmentChange(editingAppointment) {
     this.setState({ editingAppointment });
   }
@@ -253,24 +250,24 @@ class Trainer_Calendar extends React.PureComponent {
     });
   }
 
-  
+
 
   render() {
     const { data,
       resources,
       currentDate,
-       addedAppointment,
-        appointmentChanges, 
-        editingAppointment,
-        startDayHour,
-        endDayHour,
-        confirmationVisible,
-        editingFormVisible,
-        locale,
-         } = this.state;
-         const { classes } = this.props;
+      addedAppointment,
+      appointmentChanges,
+      editingAppointment,
+      startDayHour,
+      endDayHour,
+      confirmationVisible,
+      editingFormVisible,
+      locale,
+    } = this.state;
+    const { classes } = this.props;
     return (
-      
+
       <Paper>
         <Scheduler
           data={data}
@@ -293,7 +290,7 @@ class Trainer_Calendar extends React.PureComponent {
             editingAppointment={editingAppointment}
             onEditingAppointmentChange={this.changeEditingAppointment}
           />
-          <EditRecurrenceMenu/> 
+          <EditRecurrenceMenu />
           <WeekView
             startDayHour={startDayHour}
             endDayHour={endDayHour}
@@ -301,7 +298,7 @@ class Trainer_Calendar extends React.PureComponent {
           />
           <MonthView />
           <DayView
-          cellDuration={60}
+            cellDuration={60}
           />
           <Appointments />
           <AppointmentTooltip
@@ -310,28 +307,28 @@ class Trainer_Calendar extends React.PureComponent {
             showDeleteButton
           />
           <Toolbar />
-          
+
           <ViewSwitcher />
           <DateNavigator />
           <TodayButton />
           <AppointmentForm
-          visible={editingFormVisible}
-          onVisibilityChange={this.toggleEditingFormVisibility}
-          basicLayoutComponent={BasicLayout}
-          textEditorComponent={TextEditor}
-          messages={messages}
-         />
+            visible={editingFormVisible}
+            onVisibilityChange={this.toggleEditingFormVisibility}
+            basicLayoutComponent={BasicLayout}
+            textEditorComponent={TextEditor}
+            messages={messages}
+          />
           <Resources
             data={resources}
             mainResourceName="TrainingDetailsId"
           />
-          
+
           <DragDropProvider />
-           <CurrentTimeIndicator
-          shadePreviousAppointments="true"
-          shadePreviousCells="true"/> 
+          <CurrentTimeIndicator
+            shadePreviousAppointments="true"
+            shadePreviousCells="true" />
         </Scheduler>
- 
+
         <Dialog
           open={confirmationVisible}
           onClose={this.cancelDelete}
@@ -354,9 +351,9 @@ class Trainer_Calendar extends React.PureComponent {
           </DialogActions>
         </Dialog>
 
-        
+
       </Paper>
-      
+
     );
   }
 }
