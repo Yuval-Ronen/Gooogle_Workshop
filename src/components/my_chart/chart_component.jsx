@@ -1,18 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import { Chart, Series, CommonSeriesSettings, Legend, ValueAxis, Title, Border } from 'devextreme-react/chart';
 import service from './month_data.js';
+import serverConnector from "../../server-connector";
+import {useLocalStorage} from "../../UtillHook";
 
 const dataSource = service.getMonthData();
 
 const TrainingCart = (id) => {
-    // const [dataSource, setDataSource] = useState([]);
-    // useEffect( () =>{
-    //     serverConnector.getTrainingAmountByMonth_trainer(id).then(res => {
-    //         setDataSource(res);
-    //         console.log(dataSource)
-    //     })
-    // },[])
+  const [userInfo] = useLocalStorage("userInfo",{});
+    const [dataSource2, setDataSource] = useState([]);
+    useEffect( () =>{
+        serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
+            setDataSource(res);
+            console.log("dataSource2 in chart",dataSource2)
+        })
+    },[])
 
     return (
       <div style = {{marginBottom:"20px"}}>

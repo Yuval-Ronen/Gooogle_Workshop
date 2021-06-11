@@ -13,22 +13,27 @@ import Col from "react-bootstrap/Col";
 
 const TrainerDashboard = (props) => {
     const [userInfo] = useLocalStorage("userInfo",{});
+    const [dataSource2, setDataSource2] = useState([]);
 
     const [trainingHis, setTrainingHis] = useState(["מתאמנים",[]]);
-     useEffect( () =>{
-        serverConnector.getUpcomingExercise_trainer(userInfo.ID).then(res => {
-            setTrainingHis(res);
-            console.log("trainingHis",trainingHis)
-        })
-    },[])
+     useEffect( () => {
+         serverConnector.getUpcomingExercise_trainer(userInfo.ID).then(res => {
+             setTrainingHis(res);
+             console.log("trainingHis", trainingHis)
+         })
+         serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
+             setDataSource2(res);
+             console.log("dataSource2", dataSource2)
+             console.log(res)
+         })
+     },[])
 
-    const [dataSource2, setDataSource2] = useState([]);
-    useEffect( () =>{
-        serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
-            setDataSource2(res);
-            console.log("dataSource2",dataSource2)
-        })
-    },[])
+    // useEffect( () =>{
+    //     serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
+    //         setDataSource2(res);
+    //         console.log("dataSource2",dataSource2)
+    //     })
+    // },[])
 
     return(
         <Container style={{padding: "0px"}}>

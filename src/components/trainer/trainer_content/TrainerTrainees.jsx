@@ -14,9 +14,9 @@ const TrainerTrainees = (props) => {
     useEffect( () =>{
         serverConnector.getAllTrainees(userInfo.ID).then(res => {
             setAllTrainees(res);
-            console.log("allTrainees",allTrainees)
         })
     },[])
+    console.log("this is allTrainees",allTrainees)
 
     return(
  

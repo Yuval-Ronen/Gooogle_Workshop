@@ -39,8 +39,8 @@ const LoginTrainee = (props) => {
                     if(userDataFromServer.ID !== undefined){ // user found as trainer.
                         console.log("user is trainee:");
                         console.log(userDataFromServer);
-                        // setUserInfo(userDataFromServer);
-                        // setGooglePic(userDataFromGoogle.imageUrl)
+                        setUserInfo(userDataFromServer);
+                        setGooglePic(userDataFromGoogle.imageUrl)
                         props.setCurState("trainee");
                         props.setUserData(userDataFromGoogle);
                     } else {

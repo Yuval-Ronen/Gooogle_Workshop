@@ -14,7 +14,7 @@ const TrainerTrainee = () => {
     let params = new URLSearchParams(location.search);
     let trainee_id = parseInt(params.get("trainee_id")); // is the number 123
     console.log("trainee_id",trainee_id)
-    const [trainingHis, setTrainingHis] = useState([]);
+    const [trainingHis, setTrainingHis] = useState(["מתאמנים",[]]);
      useEffect( () =>{
          serverConnector.getAllTrainingHistory_trainee(trainee_id).then(res => {
              setTrainingHis(res);
