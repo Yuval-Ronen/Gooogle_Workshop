@@ -187,7 +187,7 @@ class PageHeader_Trainee extends Component {
           <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
             <li className={"google"}>
               
-                <NameAndPic authenticationData={this.props.authenticationData} alt={this.props.alt} />
+                <NameAndPic />
               
             </li>
             <NavLink activeClassName="active" to="/TraineesPage/exercise_history">
@@ -202,7 +202,7 @@ class PageHeader_Trainee extends Component {
               <li>לוח אימונים</li>
             </NavLink>
 
-            <NavLink activeClassName="selected" to="/TrainerPage">
+            <NavLink activeClassName="selected" to="/TraineesPage">
               <li>
                 <div className="logo">
                   {/* <Link > */}

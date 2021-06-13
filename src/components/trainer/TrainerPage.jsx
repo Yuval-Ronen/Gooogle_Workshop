@@ -23,7 +23,7 @@ const TrainerPage = (props) => {
         <div className='trainer-page'> 
             <Container fluid>
             <Row>
-                <PageHeader authenticationData={props.authenticationData} alt={name}/>
+                <PageHeader/>
             </Row>
             <Row>
                     <TrainerPageContent/>

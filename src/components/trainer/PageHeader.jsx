@@ -189,7 +189,7 @@ class PageHeader extends Component {
           <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
             <li className="google">
 
-              <NameAndPic authenticationData={this.props.authenticationData} alt={this.props.alt} />
+              <NameAndPic/>
 
             </li>
             <NavLink activeClassName="active" to="/TrainerPage/exercise_history" >
