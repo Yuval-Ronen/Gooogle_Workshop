@@ -21,19 +21,15 @@ const TrainerDashboard = (props) => {
              setTrainingHis(res);
              console.log("trainingHis", trainingHis)
          })
-         serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
-             setDataSource2(res);
-             console.log("dataSource2", dataSource2)
-             console.log(res)
-         })
      },[])
+     //     useEffect( () => {
+     //     serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
+     //         setDataSource2(res);
+     //         console.log("dataSource2", dataSource2)
+     //         console.log(res)
+     //     })
+     // },[])
 
-    // useEffect( () =>{
-    //     serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
-    //         setDataSource2(res);
-    //         console.log("dataSource2",dataSource2)
-    //     })
-    // },[])
 
     return(
         <Container style={{padding: "0px"}}>

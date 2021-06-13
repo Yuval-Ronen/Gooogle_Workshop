@@ -7,13 +7,15 @@ import {useLocalStorage} from "../../UtillHook";
 
 const dataSource = service.getMonthData();
 
-const TrainingCart = (id) => {
+const TrainingCart = () => {
   const [userInfo] = useLocalStorage("userInfo",{});
-    const [dataSource2, setDataSource] = useState([]);
+    const [dataSource2, setDataSource2] = useState([]);
     useEffect( () =>{
         serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
-            setDataSource(res);
+            setDataSource2(res);
             console.log("dataSource2 in chart",dataSource2)
+            console.log("res in chart",dataSource2)
+
         })
     },[])
 

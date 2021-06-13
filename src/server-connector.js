@@ -89,8 +89,8 @@ const serverConnector = {
     getTrainingAmountByMonth_trainer: async (trainer_id) => {
         let res = await fetch(serverUrl + "/api/getTrainingAmountByMonth_trainer/" + trainer_id)
         let data = await res.json();
-        console.log(data["result"])
-        console.log(data)
+        // console.log(data["result"])
+        // console.log(data)
         return data["result"];
 //        return  await res.json();
 
