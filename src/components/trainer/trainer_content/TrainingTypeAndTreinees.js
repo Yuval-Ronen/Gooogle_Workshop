@@ -35,11 +35,11 @@ import {
     {
       text: 'רותם גביש',
       id: 1,
-      color: pink[100],
+      color: pink[1],
     }, {
       text: 'גל גולדשטיין',
       id: 2,
-      color: pink[200],
+      color: pink[2],
     }, {
       text: 'אורי מרום',
       id: 3,

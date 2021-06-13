@@ -2,29 +2,11 @@
 /* eslint-disable react/no-unused-state */
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import Grid from "@material-ui/core/Grid";
 import { ViewState, EditingState, IntegratedEditing, } from '@devexpress/dx-react-scheduler';
-import {
-  Scheduler,
-  Resources,
-  Toolbar,
-  MonthView,
-  WeekView,
-  DayView,
-  ViewSwitcher,
-  Appointments,
-  AppointmentTooltip,
-  AppointmentForm,
-  DragDropProvider,
-  EditRecurrenceMenu,
-  DateNavigator,
-  TodayButton,
+import {Scheduler, Resources, Toolbar, MonthView, WeekView, DayView, ViewSwitcher, Appointments,
+  AppointmentTooltip, AppointmentForm, DragDropProvider, EditRecurrenceMenu, DateNavigator, TodayButton,
   CurrentTimeIndicator,
-
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { connectProps } from '@devexpress/dx-react-core';
-import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -32,26 +14,17 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
-import TextField from '@material-ui/core/TextField';
-import LocationOn from '@material-ui/icons/LocationOn';
-import Notes from '@material-ui/icons/Notes';
-import Close from '@material-ui/icons/Close';
-import CalendarToday from '@material-ui/icons/CalendarToday';
-import Create from '@material-ui/icons/Create';
-import {
-  pink, purple, orange, amber, indigo, deepPurple
-} from '@material-ui/core/colors';
 import { appointments } from './Training'
 import { triningType, Trainees, TrainingDetails } from './TrainingTypeAndTreinees'
+import serverConnector from "../../../server-connector";
+import {pink} from "@material-ui/core/colors";
+
 
 
 const styles = theme => ({
   addButton: {
     position: '-webkit-sticky',
-    position: 'sticky',
+    // position: 'sticky',
     bottom: theme.spacing(1) * 3,
     right: theme.spacing(1) * 4,
   },
@@ -133,12 +106,27 @@ const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
 };
 
 class Trainer_Calendar extends React.PureComponent {
-
   today = new Date();
+  componentDidMount(){
+    serverConnector.getAllTrainees(205380130).then(res => {
+      this.allTrainees = res;
+      console.log("allTrainees",this.allTrainees)
+     })
+    for (const trainee in this.allTrainees){
+      const newTrainee = {text: trainee.first_name + trainee.last_name,
+      id: trainee.trainee_id, color: pink[300]};
+      this.traineesToCal.concat(newTrainee);
+    }
+    console.log("traineesToCal",this.traineesToCal)
+
+  }
 
   constructor(props) {
     super(props);
     this.state = {
+      userInfo :205380130,
+      allTrainees: [],
+      traineesToCal: [],
       data: appointments,
       resources: [
         {
@@ -150,6 +138,8 @@ class Trainer_Calendar extends React.PureComponent {
           fieldName: 'Trainees',
           title: 'מתאמנים',
           instances: Trainees,
+
+          // instances: this.traineesToCal,
           allowMultiple: true,
         },
       ],
@@ -180,6 +170,7 @@ class Trainer_Calendar extends React.PureComponent {
 
 
   onAddedAppointmentChange(addedAppointment) {
+    console.log("addedAppointment",addedAppointment);
     this.setState({ addedAppointment });
     const { editingAppointment } = this.state;
     if (editingAppointment !== undefined) {
