@@ -1,7 +1,8 @@
 
 ul.unordered-list {
-  margin-top: 10px;
+    margin-top: 10px;
     padding: 0;
+   
   }
    
  li.list-item {
@@ -9,11 +10,22 @@ ul.unordered-list {
     transition: all 0.6s;
     display: flex;
     justify-content: flex-end;
+    flex-wrap: wrap;
     padding: 3px 0;
     color: #55215e;
     cursor: pointer;
   }
 
+  @media only screen and (max-width: 992px) {
+    ul.unordered-list{
+      display: flex;
+      flex-direction: row-reverse;
+      flex-wrap: wrap;
+    }
+    li.list-item {
+      padding: 0px 5px;
+    }
+  }
 
 
 
