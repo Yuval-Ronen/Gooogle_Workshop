@@ -26,9 +26,7 @@ const TraineesPage = (props) => {
         <div className='trainee-page'>
             <Container fluid>
             <Row>
-                {/*<PageHeader_Trainee authenticationData={props.authenticationData} alt={name}/>*/}
-                <PageHeader_Trainee />
-
+                <PageHeader_Trainee authenticationData={props.authenticationData} alt={name}/>
             </Row>
             <Row>
                     <TraineePageContent/>

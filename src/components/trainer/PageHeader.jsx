@@ -1,7 +1,7 @@
 import Image from "react-bootstrap/Image";
 import EitanLogoSmall from "../../EitanLogoSmall.PNG";
 import * as PropTypes from "prop-types";
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
 import styled from "styled-components";
 import NameAndPic from "../NameAndPic"
@@ -9,41 +9,37 @@ import NameAndPic from "../NameAndPic"
 
 const Navigation = styled.header`
   width: 100%;
-  border-bottom: 10px solid #55215e;
+  border-bottom: 8px solid #55215e;
   z-index: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 100px 0;
+  justify-content: space-around;
+  align-items: flex-end;
+  //padding: 0px 100px 0;
   height: 140px;
   margin-bottom: 30px;
   background: #FFF;
-
+  
   .google{
-    width: 15%;
-    height: 5%;
-    display: flex;
-    flex-direction: column;
-    clear: both;
-    text-decoration: none;
-    position: absolute;
-    left: 7%;
-    top: 4%;
-    bottom: 2%
+    // width: 15%;
+    // height: 5%;
+    // display: flex;
+    // flex-direction: column;
+    // clear: both;
+    // text-decoration: none;
+    // position: absolute;
+    // left: 7%;
+    // top: 4%;
+    // bottom: 2%
   }
 
   .logo  {
-    display: flex;
-    flex-direction: column;
-    clear: both;
-    text-decoration: none;
-    position: absolute;
-    right: 7%;
-    top: 2%;
-    p {
-      width: 50%;
-      display: block;
-    }
+    // display: flex;
+    // flex-direction: column;
+    // clear: both;
+    // text-decoration: none;
+    // position: absolute;
+    // right: 7%;
+    // top: 2%;
   }
 
   a {
@@ -65,17 +61,19 @@ const Navigation = styled.header`
       display: flex;
       justify-content: center;
       flex-direction: row;
+      align-items: center;
     }
     li {
       margin: 0 15px;
-      justify-content: center;
+      //justify-content: center;
       font-size: 1.3em;
+     // flex-grow: 14;
+     //width: 100%;
     }
     a {
       font-size: 1em;
       text-decoration: none;
-      .active {
-        color: tomato;
+
       }
     }
     a.active {
@@ -96,14 +94,18 @@ const Navigation = styled.header`
     display: block;
     position: relative;
     .logo {
-      width: 100%;
-      display: block;
-      padding-top: 20px;
-      margin: 0px;
-      margin-left: -5px;
-      a {
-        padding: 20px 0px;
-      }
+      //display: block;
+      //position: absolute;
+      //top: 10px;
+      //left: 10px;
+      //cursor: pointer;
+      max-width: 55%;
+      height: auto;
+      float: right;
+      padding-right: 0px;
+      //a {
+      //  padding: 20px 0px;
+      //}
     }
     .fa-bars {
       display: inline-block;
@@ -117,7 +119,7 @@ const Navigation = styled.header`
       visibility: hidden;
       padding-top: 40px;
       display: flex;
-      flex-direction: column;
+      flex-direction: column-reverse;
       justify-content: center;
       flex-wrap: wrap;
       align-items: flex-end;
@@ -126,7 +128,7 @@ const Navigation = styled.header`
       -moz-transition-duration: 0.4s;
       -webkit-transition-duration: 0.4s;
       -o-transition-duration: 0.4s;
-      transition-duration: 0.4s;
+      transition-duration: 0s;
       -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
       -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
       -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
@@ -158,71 +160,77 @@ const Navigation = styled.header`
 class PageHeader extends Component {
 
 
-    constructor(props) {
-      super(props);
-      this.state = {
-        isExpanded: false
-      };
-    }
-    handleToggle(e) {
-      e.preventDefault();
-      this.setState({
-        isExpanded: !this.state.isExpanded
-      });
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      isExpanded: false
+    };
+  }
+  handleToggle(e) {
+    e.preventDefault();
+    this.setState({
+      isExpanded: !this.state.isExpanded
+    });
+  }
 
-    render() {
-        const { isExpanded } = this.state;
-        return (
-    <Navigation>
+
+
+  render() {
+    const { isExpanded } = this.state;
+    return (
+      <Navigation>
 
         <nav className="nav">
-            <i
-                className="fa fa-bars"
-                aria-hidden="true"
-                onClick={e => this.handleToggle(e)}
-            />
-            <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
-                <NavLink activeClassName="active" to="/TrainerPage/exercise_history">
-                    <li>היסטוריית אימונים</li>
-                </NavLink>
+          <i
+            className="fa fa-bars"
+            aria-hidden="true"
+            onClick={e => this.handleToggle(e)}
+          />
+          <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
+            <li className="google">
 
-                <NavLink activeClassName="active" to="/TrainerPage/trainees">
-                    <li>מתאמנים</li>
-                </NavLink>
+              <NameAndPic authenticationData={this.props.authenticationData} alt={this.props.alt} />
 
-                <NavLink activeClassName="active" to="/TrainerPage/exercise_schedule">
-                    <li>לוח אימונים</li>
-                </NavLink>
-                <li>
-                    <div className="google">
-                        <NameAndPic/>
+            </li>
+            <NavLink activeClassName="active" to="/TrainerPage/exercise_history" >
+              <li>היסטוריית אימונים</li>
+            </NavLink>
 
-                    </div>
-                </li>
-                <li>
-                    <div className="logo">
-                        <Link to="/TrainerPage">
-                            <Image src={EitanLogoSmall}/>
-                        </Link>
-                    </div>
-                </li>
+            <NavLink activeClassName="active" to="/TrainerPage/trainees" >
+              <li>מתאמנים</li>
+            </NavLink>
 
-            </ul>
+            <NavLink activeClassName="active" to="/TrainerPage/exercise_schedule">
+              <li>לוח אימונים</li>
+            </NavLink>
+
+
+
+            <NavLink activeClassName="selected" to="/TrainerPage">
+              <li>
+                <div className="logo">
+                  {/* <Link > */}
+                  <Image src={EitanLogoSmall} />
+                  {/* </Link> */}
+                </div>
+              </li>
+            </NavLink>
+
+          </ul>
         </nav>
 
 
-    </Navigation>
+      </Navigation>
 
-);
-}
+    );
+  }
 }
 
 
 
 PageHeader.propTypes = {
-    authenticationData: PropTypes.any,
-    alt: PropTypes.string
+  authenticationData: PropTypes.any,
+  alt: PropTypes.string
 };
 
 export default PageHeader;

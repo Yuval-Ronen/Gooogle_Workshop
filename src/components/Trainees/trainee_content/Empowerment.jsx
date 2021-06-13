@@ -13,12 +13,12 @@ const Empowerment = () => {
     console.log(source2);
     return (
     <div className='empowerment'>
-                <Container >
-                <Row>
-                <Col xs={10} >
+                <Container fluid>
+                <Row xs={1}>
+                <Col  lg={10} >
                     <ShowGoogleDocs source = {source2}/>
                 </Col>
-                <Col >
+                <Col lg={2} xs={{ order: 'first' }} lg={{ order: 'last' }}>
                     <AllPersonalProgress onClickCallback={setSource}/>
                 </Col>
                 </Row>

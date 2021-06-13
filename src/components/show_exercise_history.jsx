@@ -123,8 +123,8 @@ const ShowExerciseHistory = (training_his) => {
   // ]);
 
   const [sorting, setSorting] = useState([
-     { columnName: 'train_type', direction: 'asc' },
-     { columnName: 'train_date', direction: 'asc' }
+    // { columnName: 'train_type', direction: 'asc' },
+     //{ columnName: 'train_date', direction: 'asc' }
    ]);
 
   const [dateColumns] = useState(['train_date']);
@@ -164,8 +164,8 @@ const ShowExerciseHistory = (training_his) => {
           <FilteringState defaultFilters={[]} />
           <IntegratedFiltering columnExtensions={filteringColumnExtensions} />
            <SortingState
-        sorting={sorting}
-        onSortingChange={setSorting}
+        //sorting={sorting}
+        //onSortingChange={setSorting}
       /> 
           <PagingState
             defaultCurrentPage={0}
@@ -208,7 +208,7 @@ const ShowExerciseHistory = (training_his) => {
             //  columnExtensions={tableColumnExtensions}
             tableComponent={TableComponent}
           />
-          <TableHeaderRow /*showSortingControls*/ />
+          <TableHeaderRow/>
 
         </Grid>
       </Paper>

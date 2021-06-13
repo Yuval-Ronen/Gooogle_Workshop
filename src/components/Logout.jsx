@@ -33,19 +33,19 @@ class Logout extends React.Component{
             return <Redirect to="/"/>;
         }
         return(
-        <div>
+        
               <GoogleLogout
                   clientId="476408447979-ksp3ikmql53717ucvohu0uhm8t7ld9f1.apps.googleusercontent.com"
                   render = {renderProps => (
                       
-                          <span onClick={renderProps.onClick}><p style={{color:'red', fontSize:11}}>התנתק/י</p></span>
+                    <p style={{color:'red', fontSize:11}} onClick={renderProps.onClick}>התנתק/י</p>
                       
             )}
                   onLogoutSuccess={this.logout}
                   onLogoutFailure={(response) => console.log(response)}
                 >
                 </GoogleLogout>
-        </div>)
+       )
     }
 }
 

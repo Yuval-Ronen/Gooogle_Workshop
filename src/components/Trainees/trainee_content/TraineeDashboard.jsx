@@ -15,9 +15,9 @@ const TraineeDashboard = (props) => {
 
 
     return(
-            <Container style={{padding: "0px"}}>
-                <Row>
-                     <Col>
+            <Container fluid>
+                <Row xs=  'auto'>
+                     <Col >
                         <TrainTypePie/>
                     </Col>
                     <Col>
