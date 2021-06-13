@@ -177,7 +177,7 @@ class Trainee_Calendar extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
-          height={500}
+          height="auto"
           locale={locale}
           timeZone={'Asia/Jerusalem'}
         >

@@ -27,8 +27,8 @@ const TraineeDashboard = (props) => {
                 </Row>
                 <Row>
                     <Col>
-            <p style = {{textAnchor: "middle",fontSize: "35px", color: "#55215e", textAlign: 'center'}} >אימונים אחרונים</p>
-                <ShowExerciseHistory training_his ={training_his}/>
+            <p style = {{textAnchor: "middle",fontSize: "35px", color: "#55215e", textAlign: 'center'}} >אימונים קרובים</p>
+                <ShowExerciseHistory training_his ={training_his} isDashbord={true}/>
             </Col>
                 </Row>
             </Container>

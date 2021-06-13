@@ -30,17 +30,16 @@ const TrainerDashboard = (props) => {
      //     })
      // },[])
 
-
     return(
         <Container style={{padding: "0px"}}>
             <Row>
                 <Col>
-                <TrainingCart id = {userInfo.ID} style ={{height:"200px"}}/>
+                <TrainingCart style ={{height:"200px"}}/>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >אימונים קרובים</p>
+                <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >אימונים אחרונים</p>
                 <ShowExerciseHistory training_his ={trainingHis}/>
                 </Col>
             </Row>
