@@ -13,9 +13,7 @@ CORS(app, supports_credentials=True)
 cors = CORS(app, resources={r"*": {"origins": "http://localhost:3000"}})
 
 
-
-
-
+translator = {1: "ינואר", 2: "פבואר", 3: "מרץ", 4: "אפריל", 5: "מאי", 6: "יוני", 7: "יולי", 8: "אוגוסט", 9: "ספטמבר", 10: "אוקטובר", 11: "נובמבר", 12: "דצמבר"}
 
 sql_c = ConnectSQL()
 
@@ -65,6 +63,7 @@ def checkIfTrainee(email):
 def getAllTrainingHistory_trainer(trainer_id):
     info = sql_c.get_all_training_history_trainer(trainer_id)
     result_list = ["מתאמנים", info]
+    print(result_list)
     return jsonify({"result": result_list}), 200
     # return result_list
 
@@ -74,6 +73,7 @@ def getAllTrainingHistory_trainer(trainer_id):
 def getAllTrainingHistory_trainee(trainee_id):
     info = sql_c.get_all_training_history_trainee(trainee_id)
     result_list = ["מאמן", info]
+    print(result_list)
     # return jsonify({"result": result_list}), 200
     return jsonify({"result": result_list}), 200
 
@@ -82,8 +82,16 @@ def getAllTrainingHistory_trainee(trainee_id):
 @error_handler
 def getTrainingAmountByMonth_trainer(trainer_id):
     info = sql_c.get_training_amount_by_month_trainer(trainer_id)
-    print(info)
-    return jsonify({"result": info}), 200
+    retVal = []
+    for element in translator:
+        for item in info:
+            if item["month"] == element:
+                retVal.append({"month": translator[element], "training_amount": item["training_amount"]})
+            else:
+                retVal.append({"month": translator[element], "training_amount": 0})
+
+    print(retVal)
+    return jsonify({"result": retVal}), 200
     # return info
 
 
@@ -105,6 +113,18 @@ def getAllTrainees(trainer_id):
     return jsonify({"result": info}), 200
     # return info
 
+
+@app.route("/api/createNewTrain/<trainer_id>/<trainees>/<train_type>/<train_date_start>/<train_date_end>/"
+           "<train_time_start>/<train_time_end>/<description>/<training_details_id>",
+           methods=['GET'])
+@error_handler
+def createNewTrain(trainer_id, trainees, train_type, train_date_start, train_date_end,  train_time_start, train_time_end, description, training_details_id):
+    print("in main.py")
+    info = sql_c.new_train(trainer_id, trainees.split(','), train_type, train_date_start, train_date_end,
+                           train_time_start, train_time_end, description, training_details_id)
+    # print(info)
+    return jsonify({"result": info}), 200
+
 # @app.route("/", methods=['GET'])
 # def react():
 #     return render_template("index.html")
@@ -118,5 +138,6 @@ def getAllTrainees(trainer_id):
 
 
 if __name__ == '__main__':
+    # TRAINID= createNewTrain(205380130, [205380132], "שחייה", "2021-06-19", "12:00:00", None, 1)
     app.run(host='127.0.0.1', port="5000", debug=True)
 

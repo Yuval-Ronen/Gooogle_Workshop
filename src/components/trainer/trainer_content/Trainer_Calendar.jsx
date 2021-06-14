@@ -17,7 +17,6 @@ import Button from '@material-ui/core/Button';
 import { appointments } from './Training'
 import { triningType, Trainees, TrainingDetails } from './TrainingTypeAndTreinees'
 import serverConnector from "../../../server-connector";
-import {pink} from "@material-ui/core/colors";
 
 
 
@@ -104,30 +103,31 @@ const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
     </AppointmentForm.BasicLayout>
   );
 };
+  function convert_date(str) {
+    let date = new Date(str),
+        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+}
+  function convert_time(str) {
+    let date = new Date(str),
+        hour = ("0" + (date.getHours())).slice(-2),
+        minutes = ("0" + date.getMinutes()).slice(-2),
+        sec = ("0" + date.getSeconds()).slice(-2);
+    return [hour, minutes, sec].join(":");
+}
 
-class Trainer_Calendar extends React.PureComponent {
+class Trainer_Calendar extends React.PureComponent{
   today = new Date();
-  componentDidMount(){
-    serverConnector.getAllTrainees(205380130).then(res => {
-      this.allTrainees = res;
-      console.log("allTrainees",this.allTrainees)
-     })
-    for (const trainee in this.allTrainees){
-      const newTrainee = {text: trainee.first_name + trainee.last_name,
-      id: trainee.trainee_id, color: pink[300]};
-      this.traineesToCal.concat(newTrainee);
-    }
-    console.log("traineesToCal",this.traineesToCal)
-
-  }
 
   constructor(props) {
     super(props);
     this.state = {
-      userInfo :205380130,
       allTrainees: [],
       traineesToCal: [],
       data: appointments,
+
+      // data: this.props.appointments,
       resources: [
         {
           fieldName: 'TrainingDetailsId',
@@ -137,9 +137,8 @@ class Trainer_Calendar extends React.PureComponent {
         {
           fieldName: 'Trainees',
           title: 'מתאמנים',
-          instances: Trainees,
-
-          // instances: this.traineesToCal,
+          //instances: Trainees,
+          instances: this.props.allTrainees,
           allowMultiple: true,
         },
       ],
@@ -165,8 +164,31 @@ class Trainer_Calendar extends React.PureComponent {
     this.changeAddedAppointment = this.changeAddedAppointment.bind(this);
     this.changeAppointmentChanges = this.changeAppointmentChanges.bind(this);
     this.changeEditingAppointment = this.changeEditingAppointment.bind(this);
+    console.log("allTrainees as props",this.props.allTrainees);
+    console.log("userInfo as props",this.props.userInfo);
+    // console.log("appointments as props",this.props.appointments);
+
+
 
   }
+
+
+  // componentDidMount(){
+  //   console.log("userInfo",this.props.userInfo)
+  //   serverConnector.getAllTrainees(this.props.userInfo.ID).then(res => {
+  //     this.setState({allTrainees :res});
+  //     console.log("res",res)
+  //
+  //    })
+  //   for (const trainee in res){
+  //       const newTrainee = {text: trainee.first_name + trainee.last_name,
+  //       id: trainee.trainee_id, color: pink[300]};
+  //       this.traineesToCal.concat(newTrainee);
+  //   }
+  //
+  //   console.log("traineesToCal",this.traineesToCal)
+  // }
+
 
 
   onAddedAppointmentChange(addedAppointment) {
@@ -179,6 +201,7 @@ class Trainer_Calendar extends React.PureComponent {
       });
     }
     this.setState({ editingAppointment: undefined, isNewAppointment: true });
+    // serverConnector.getAllTrainees()
   }
   setDeletedAppointmentId(id) {
     this.setState({ deletedAppointmentId: id });
@@ -226,8 +249,19 @@ class Trainer_Calendar extends React.PureComponent {
     this.setState((state) => {
       let { data } = state;
       if (added) {
+      console.log("added",added);
+      // console.log("info", this.props.userInfo.ID, added["Trainees"],
+      //   added["triningType"]?added["triningType"] : "ריצה" , convert_date(added["startDate"]),convert_time(added["startDate"]), added["moreInfo"]?added["moreInfo"] : "" , added["TrainingDetailsId"]);
+      const train_id = serverConnector.createNewTrain(this.props.userInfo.ID, added["Trainees"],
+        added["triningType"]?added["triningType"] : "ריצה" , convert_date(added["startDate"]),
+          convert_date(added["endDate"]), convert_time(added["startDate"]),convert_time(added["endDate"]),
+          added["moreInfo"]?added["moreInfo"] : null , added["TrainingDetailsId"]?added["TrainingDetailsId"]:1);
+        added["id"] = train_id;
+        console.log("added",added);
+
         const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
         data = [...data, { id: startingAddedId, ...added }];
+
       }
       if (changed) {
         data = data.map(appointment => (
@@ -237,6 +271,9 @@ class Trainer_Calendar extends React.PureComponent {
         this.setDeletedAppointmentId(deleted);
         this.toggleConfirmationVisible();
       }
+
+      console.log("data",data);
+
       return { data };
     });
   }

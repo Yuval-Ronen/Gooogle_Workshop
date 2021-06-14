@@ -1,4 +1,6 @@
 # server code
+import datetime
+
 import mysql.connector
 
 
@@ -47,30 +49,34 @@ class ConnectSQL:
         return final
 
     # need to change
-    # def new_train(self, trainer_id, trainees_or_group, train_type, trainDate, trainTime, description):
-    #     query_add_new_train = ("INSERT INTO eitan_database.all_training (trainer_id, train_type,  train_date,"
-    #                            " description, train_time, status)"
-    #                            "VALUES (%s, %s, %s, %s, %s, "Open")")
-    #     query_get_id = ("SELECT train_id "
-    #                     "FROM eitan_database.all_training t"
-    #                     "WHERE trainer_id = %s AND train_type = %s AND train_time = %s AND train_date = %s")
-    #     self.cursor.execute(query_add_new_train,
-    #                         (trainer_id, trainees_or_group, train_type, trainDate, description, trainTime))
-    #     self.cnx.commit()
-    #
-    #     self.cursor.execute(query_get_id, (trainer_id, train_type, trainTime, trainDate))
-    #     for (train_id) in self.cursor:
-    #         trainId = train_id
-    #         break
-    #
-    #     query_add_participants = ("INSERT INTO eitan_database.match_trainee_trainId (train_id, trainee_id)"
-    #                               "VALUES (%s, %s)")
-    #
-    #     for (trainee) in trainees_or_group:
-    #         self.cursor.execute(query_add_participants, (trainId, trainee_id))
-    #         self.cnx.commit()
-    #
-    #     return self.cursor
+    def new_train(self, trainer_id, trainees, train_type, train_date_start, train_date_end,
+                  train_time_start, train_time_end, description, training_details_id):
+        query_add_new_train = ("INSERT INTO eitan_database.all_exercise (trainer_id, train_type,  train_date_start, "
+                               "train_date_end, description, train_time_start, train_time_end, training_details_id)"
+                               " VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+                               )
+        query_get_id = ("SELECT train_id "
+                        "FROM eitan_database.all_exercise "
+                        " WHERE trainer_id = %s AND train_type = %s AND train_time_start = %s AND train_date_start = %s")
+        # data = (trainer_id, trainees, train_type, datetime.date(2012, 3, 23), description, datetime.time(08, 00, 00));
+        data = (trainer_id, train_type, train_date_start, train_date_end, description, train_time_start, train_time_end,
+                training_details_id)
+
+        self.cursor.execute(query_add_new_train, data)
+        self.cnx.commit()
+
+        self.cursor.execute(query_get_id, (trainer_id, train_type, train_time_start, train_date_start))
+        for (train_id) in self.cursor:
+            trainId = train_id
+            break
+        query_add_participants = ("INSERT INTO eitan_database.match_trainee_trainId (train_id, trainee_id)"
+                                  " VALUES (%s, %s)")
+        for (trainee) in trainees:
+            data = (trainId[0], trainee)
+            self.cursor.execute(query_add_participants, data)
+        self.cnx.commit()
+
+        return {"train_id": trainId}
 
     def get_personal_program(self, trainee_id):
         query = ("Select link, program_date "
@@ -96,81 +102,91 @@ class ConnectSQL:
     def get_all_training_history_trainer(self, trainer_id):
         query = (
             "SELECT GROUP_CONCAT(t3.first_name, ' ', t3.last_name, ', ') as all_trainees, "
-            "train_type, train_time, train_date, description "
-            "FROM eitan_database.all_training as t1, eitan_database.match_trainee_trainId as t2, "
+            "train_type, train_time_start, train_time_end, train_date_start, train_date_end, description, t1.train_id as train_id, training_details_id "
+            "FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2, "
             "eitan_database.trainee as t3 "
             " WHERE t3.ID = t2.trainee_id AND t1.train_id = t2.train_id AND t1.trainer_id = %s "
             " GROUP BY t1.train_id "
-            " ORDER BY t1.train_date, t1.train_time DESC ")
+            " ORDER BY t1.train_date_start, t1.train_time_start DESC ")
         self.cursor.execute(query, (trainer_id,))
         final = []
-        for (all_trainees, train_type, train_time, train_date, description) in self.cursor:
-            inside = {"train_date": str(train_date), "train_time": str(train_time), "all_trainees": all_trainees,
-                      "description": description, "train_type": train_type}
+        for (all_trainees, train_type, train_time_start, train_time_end,
+             train_date_start, train_date_end, description, train_id, training_details_id) in self.cursor:
+            inside = {"train_date_start": str(train_date_start),
+                      "train_date_end": str(train_date_end),
+                      "train_time_start": str(train_time_start),
+                      "train_time_end": str(train_time_end),
+                      "all_trainees": all_trainees, "description": description,
+                      "train_type": train_type, "train_id" : train_id, "training_details_id": training_details_id}
             final.append(inside)
         return final
 
     def get_all_training_history_trainee(self, trainee_id):
         query = (
             "SELECT GROUP_CONCAT(t3.first_name, ' ', t3.last_name) as all_trainees, "
-            "train_type, train_time, train_date, description "
-            "FROM eitan_database.all_training as t1, eitan_database.match_trainee_trainId as t2, "
+            "train_type, train_time_start, train_time_end, train_date_start, train_date_end, description, t1.train_id as train_id, training_details_id "
+            "FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2, "
             "eitan_database.trainer as t3"
             " WHERE t3.ID = t1.trainer_id AND t1.train_id = t2.train_id AND t2.trainee_id = %s"
             " GROUP BY t1.train_id"
-            " ORDER BY t1.train_date, t1.train_time DESC")
+            " ORDER BY t1.train_date_start, t1.train_time_start DESC")
         self.cursor.execute(query, (trainee_id,))
         final = []
 
-        for (all_trainees, train_type, train_time, train_date, description) in self.cursor:
-            inside = {"train_date": str(train_date), "train_time": str(train_time), "all_trainees": all_trainees,
-                      "description": description, "train_type": train_type}
+        for (all_trainees, train_type, train_time_start, train_time_end,
+             train_date_start, train_date_end, description, train_id, training_details_id) in self.cursor:
+            inside = {"train_date_start": str(train_date_start),
+                      "train_date_end": str(train_date_end),
+                      "train_time_start": str(train_time_start),
+                      "train_time_end": str(train_time_end),
+                      "all_trainees": all_trainees,  "description": description,
+                      "train_type": train_type, "train_id": train_id, "training_details_id": training_details_id}
             final.append(inside)
         return final
 
     def get_upcoming_exercise_trainer(self, trainer_id):
         query = (
-            "SELECT GROUP_CONCAT(t3.first_name, ' ', t3.last_name, ', ') as all_trainees, train_type, train_time, "
-            "train_date, description "
-            "FROM eitan_database.all_training as t1, eitan_database.match_trainee_trainId as t2, "
+            "SELECT GROUP_CONCAT(t3.first_name, ' ', t3.last_name, ', ') as all_trainees, train_type, train_time_start, "
+            "train_date_start, description "
+            "FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2, "
             "eitan_database.trainee as t3 "
             " WHERE t3.ID = t2.trainee_id AND t1.train_id = t2.train_id AND t1.trainer_id = %s "
-            "AND CONCAT(t1.train_date,' ',t1.train_time) >= NOW()"
+            "AND CONCAT(t1.train_date_start,' ',t1.train_time_start) >= NOW()"
             " GROUP BY t1.train_id"
-            " ORDER BY t1.train_date, t1.train_time DESC")
+            " ORDER BY t1.train_date_start, t1.train_time_start DESC")
         self.cursor.execute(query, (trainer_id,))
         final = []
-        for (all_trainees, train_type, train_time, train_date, description) in self.cursor:
-            inside = {"train_date": str(train_date), "train_time": str(train_time), "all_trainees": all_trainees,
+        for (all_trainees, train_type, train_time_start, train_date_start, description) in self.cursor:
+            inside = {"train_date_start": str(train_date_start), "train_time_start": str(train_time_start), "all_trainees": all_trainees,
                       "description": description, "train_type": train_type}
             final.append(inside)
         return final
 
     def get_upcoming_exercise_trainee(self, trainee_id):
         query = (
-            "SELECT GROUP_CONCAT(t3.first_name, ' ', t3.last_name, ', ') as all_trainees, train_type, train_time, "
-            "train_date, description "
-            "FROM eitan_database.all_training as t1, eitan_database.match_trainee_trainId as t2, "
+            "SELECT GROUP_CONCAT(t3.first_name, ' ', t3.last_name, ', ') as all_trainees, train_type, train_time_start, "
+            "train_date_start, description "
+            "FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2, "
             "eitan_database.trainer as t3 "
             " WHERE t3.ID = t1.trainer_id AND t1.train_id = t2.train_id AND t2.trainee_id = %s "
-            "AND CONCAT(t1.train_date,' ',t1.train_time) >= NOW()"
+            "AND CONCAT(t1.train_date_start,' ',t1.train_time_start) >= NOW()"
             " GROUP BY t1.train_id"
-            " ORDER BY t1.train_date, t1.train_time DESC")
+            " ORDER BY t1.train_date_start, t1.train_time_start DESC")
         self.cursor.execute(query, (trainee_id,))
         final = []
-        for (trainer, train_type, train_time, train_date, description) in self.cursor:
-            inside = {"train_date": str(train_date), "train_time": str(train_time), "all_trainees": trainer,
+        for (trainer, train_type, train_time_start, train_date_start, description) in self.cursor:
+            inside = {"train_date": str(train_date_start), "train_time": str(train_time_start), "all_trainees": trainer,
                       "description": description, "train_type": train_type}
             final.append(inside)
         return final
 
     def get_training_amount_by_month_trainer(self, trainer_id):
         query = (
-            "SELECT MONTH(t1.train_date) AS month, COUNT(*) AS training_amount"
-            " FROM eitan_database.all_training as t1"
-            " WHERE YEAR(t1.train_date) = YEAR(NOW()) AND t1.trainer_id = %s"
-            " GROUP BY MONTH(t1.train_date)"
-            " ORDER BY MONTH(t1.train_date) ASC")
+            "SELECT MONTH(t1.train_date_start) AS month, COUNT(*) AS training_amount"
+            " FROM eitan_database.all_exercise as t1"
+            " WHERE YEAR(t1.train_date_start) = YEAR(NOW()) AND t1.trainer_id = %s"
+            " GROUP BY MONTH(t1.train_date_start)"
+            " ORDER BY MONTH(t1.train_date_start) ASC")
         self.cursor.execute(query, (trainer_id,))
         final = []
         for (month, training_amount) in self.cursor:

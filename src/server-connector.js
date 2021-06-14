@@ -17,7 +17,6 @@ const serverConnector = {
 
     checkIfTrainer:async (email) =>{
         let res = await fetch(serverUrl + "/api/checkIfTrainer/" + email);
-        console.log("this is login res", res)
         return await res.json();
     },
 
@@ -32,25 +31,25 @@ const serverConnector = {
         let data =  await res.json();
         return await data["result"];
     },
-    createNewTrain:async (trainer_id, {trainees_or_group}, type, trainDate, trainTime, description) =>{
-        let res = await fetch(serverUrl+"/api/createNewTrain", {
-            method: 'POST',
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify({
-                trainer_id: trainer_id,
-                trainees: {trainees_or_group},
-                type: type,
-                trainDate:trainDate,
-                trainTime:trainTime,
-                description:description
-            })
-        })
-        // let status = await res.json();
-        return await res.json();
-        // return status;
-    },
+    createNewTrain:async (trainer_id, trainees, train_type, train_date_start, train_date_end,  train_time_start, train_time_end, description, training_details_id) =>{
+        let res = await fetch(serverUrl+"/api/createNewTrain/" + trainer_id +"/"+ [trainees] +"/"+ train_type +"/"+ train_date_start +"/"+ train_date_end +"/"+
+            train_time_start +"/"+train_time_end +"/"+ description +"/"+ training_details_id);
+        //     method: 'POST',
+        //     headers:{
+        //         "Content-Type":"application/json"
+        //     },
+        //     body: JSON.stringify({
+        //         trainer_id: trainer_id,
+        //         trainees: trainees,
+        //         train_type: train_type,
+        //         train_date: train_date,
+        //         train_time: train_time,
+        //         description:description
+        //     })
+        // })
+        let data = await res.json();
+        return data["result"];
+        },
 
     getPersonalProgram: async (trainee_id) => {
         let res = await fetch(serverUrl + "/api/getPersonalProgram/"+trainee_id)

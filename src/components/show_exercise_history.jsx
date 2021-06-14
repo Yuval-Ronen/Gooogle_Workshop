@@ -49,9 +49,9 @@ const ShowExerciseHistory = (training_his) => {
   let allTrainings = training_his.training_his[1]
   let trainerOrTrainee = training_his.training_his[0]
   let isDashbord = training_his.isDashbord
-  console.log("allTrainings", allTrainings)
-  console.log("trainerOrTrainee", trainerOrTrainee)
-  console.log("isDashbord", isDashbord)
+  // console.log("allTrainings", allTrainings)
+  // console.log("trainerOrTrainee", trainerOrTrainee)
+  // console.log("isDashbord", isDashbord)
 
   function trainings() {
     var rows = []
@@ -67,10 +67,10 @@ const ShowExerciseHistory = (training_his) => {
         rows.push({
           id: index,
           description: exercise.description,
-          train_type: exercise.type,  
-          trainerOrTrainee: exercise.trainer_or_group_members,
-          train_time: exercise.trainTime,
-          train_date: exercise.trainDate,
+          train_type: exercise.train_type,
+          trainerOrTrainee: (exercise.all_trainees).slice(0,exercise.all_trainees.length-1),
+          train_time: exercise.train_time_start,
+          train_date: exercise.train_date_start,
 
           //  train_type_icons: train_type_icons[exercise.type]
         })
@@ -83,8 +83,8 @@ const ShowExerciseHistory = (training_his) => {
           description: exercise.description,
           train_type: exercise.train_type,  
           trainerOrTrainee: exercise.all_trainees,
-          train_time: exercise.train_time,
-          train_date: exercise.train_date,
+          train_time: exercise.train_time_start,
+          train_date: exercise.train_date_start,
 
           //  train_type_icons: train_type_icons[exercise.type]
         })

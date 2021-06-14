@@ -5,19 +5,18 @@ import service from './month_data.js';
 import serverConnector from "../../server-connector";
 import {useLocalStorage} from "../../UtillHook";
 
-const dataSource = service.getMonthData();
+// const dataSource = service.getMonthData();
 
 const TrainingCart = () => {
+
   const [userInfo] = useLocalStorage("userInfo",{});
-    const [dataSource2, setDataSource2] = useState([]);
-    // useEffect( () =>{
-    //     serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
-    //         setDataSource2(res);
-    //         console.log("dataSource2 in chart",dataSource2)
-    //         console.log("res in chart",dataSource2)
-    //
-    //     })
-    // },[])
+  const [dataSource2, setDataSource2] = useState([]);
+
+  useEffect( () =>{
+      serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
+          setDataSource2(res);
+      })
+  },[])
 
     return (
       <div style = {{marginBottom:"20px"}}>
@@ -26,7 +25,7 @@ const TrainingCart = () => {
       <Chart
         id="chart"
         palette="Violet"
-        dataSource={dataSource}
+        dataSource={dataSource2}
       >
         <CommonSeriesSettings argumentField="month" type="stackedBar" />
         <Series

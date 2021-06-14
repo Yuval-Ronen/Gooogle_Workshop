@@ -16,7 +16,6 @@ const TrainerTrainees = (props) => {
             setAllTrainees(res);
         })
     },[])
-    console.log("this is allTrainees",allTrainees)
 
     return(
  

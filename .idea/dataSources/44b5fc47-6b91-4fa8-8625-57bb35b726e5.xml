@@ -840,10 +840,9 @@ program_date</ColNames>
       <DataType>time|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="256" parent="239" name="status">
+    <column id="256" parent="239" name="training_details_id">
       <Position>7</Position>
-      <DataType>varchar(45)|0s</DataType>
-      <NotNull>1</NotNull>
+      <DataType>int(11)|0s</DataType>
     </column>
     <key id="257" parent="239" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
