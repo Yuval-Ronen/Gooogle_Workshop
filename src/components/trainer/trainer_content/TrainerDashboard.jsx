@@ -40,7 +40,7 @@ const TrainerDashboard = (props) => {
             <Row>
                 <Col>
                 <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >אימונים אחרונים</p>
-                <ShowExerciseHistory training_his ={trainingHis}/>
+                <ShowExerciseHistory training_his ={trainingHis} isDashbord={true}/>
                 </Col>
             </Row>
         </Container>

@@ -9,6 +9,8 @@ import {
   TableFilterRow,
   Toolbar,
   ExportPanel,
+  TableSummaryRow,
+  TableSelection,
 } from '@devexpress/dx-react-grid-material-ui';
 import {
   SelectionState,
@@ -19,7 +21,10 @@ import {
   IntegratedSorting,
   FilteringState,
   IntegratedFiltering,
-  DataTypeProvider
+  DataTypeProvider,
+  SummaryState,
+  IntegratedSummary,
+  CustomSummary,
 } from '@devexpress/dx-react-grid';
 import DateRange from '@material-ui/icons/DateRange';
 import saveAs from 'file-saver';
@@ -62,26 +67,11 @@ const ShowExerciseHistory = (training_his) => {
       else {
         var numOfTrainings = allTrainings.length
       }
-      if (trainerOrTrainee == "מאמן"){
-        allTrainings?.length > 0 && allTrainings.slice(0, numOfTrainings).map((exercise, index) =>
+      allTrainings?.length > 0 && allTrainings.slice(0, numOfTrainings).map((exercise, index) =>
         rows.push({
           id: index,
           description: exercise.description,
-          train_type: exercise.type,  
-          trainerOrTrainee: exercise.trainer_or_group_members,
-          train_time: exercise.trainTime,
-          train_date: exercise.trainDate,
-
-          //  train_type_icons: train_type_icons[exercise.type]
-        })
-      )
-      }
-      else{
-        allTrainings?.length > 0 && allTrainings.slice(0, numOfTrainings).map((exercise, index) =>
-        rows.push({
-          id: index,
-          description: exercise.description,
-          train_type: exercise.train_type,  
+          train_type: exercise.train_type,
           trainerOrTrainee: exercise.all_trainees,
           train_time: exercise.train_time,
           train_date: exercise.train_date,
@@ -89,11 +79,11 @@ const ShowExerciseHistory = (training_his) => {
           //  train_type_icons: train_type_icons[exercise.type]
         })
       )
-      }
+
     }
     return rows
   }
-  
+
 
 
   const onSave = (workbook) => {
@@ -109,23 +99,35 @@ const ShowExerciseHistory = (training_his) => {
     { name: 'trainerOrTrainee', title: trainerOrTrainee },
     { name: 'train_time', title: 'שעה' },
     { name: 'train_date', title: 'תאריך' },
+    //{ name: 'id', title: 'מספר אימון' },
     // { name: 'train_type_icons', title: '*' },
   ];
 
   const rows = trainings()
   console.log("rows", rows)
-  // const [tableColumnExtensions] = useState([
-  //   { name: 'description', align: 'right', wordWrapEnabled: 'true',},
-  //   { name: 'train_type', align: 'right',  },
-  //   { name: trainer, align: 'left', },
-  //   { name: 'train_time', align: 'right',  },
-  //   { name: 'train_date', align: 'right', },
-  // ]);
+  const [tableColumnExtensions] = useState([
+    { columnName: 'description', align: 'right', wordWrapEnabled: 'true' },
+       { columnName: 'train_type', align: 'center'  },
+       { columnName: 'trainerOrTrainee', align: 'center' },
+       { columnName: 'train_time', align: 'center'  },
+    { columnName: 'train_date', align: 'center' },
+  ]);
 
   const [sorting, setSorting] = useState([
     // { columnName: 'train_type', direction: 'asc' },
-     //{ columnName: 'train_date', direction: 'asc' }
-   ]);
+    //{ columnName: 'train_date', direction: 'asc' }
+  ]);
+
+  const [selection, setSelection] = useState([]);
+
+  const getTotalSummaryValues = () => {
+    const selectionSet = new Set(selection);
+    const selectedRows = rows.filter((row, rowIndex) => selectionSet.has(rowIndex));
+    return totalSummaryItems.map((summary) => {
+      const { columnName, type } = summary;
+      return IntegratedSummary.defaultCalculator(type, selectedRows, row => row[columnName]);
+    });
+  };
 
   const [dateColumns] = useState(['train_date']);
   const [dateFilterOperations] = useState(['month', 'contains', 'startsWith', 'endsWith']);
@@ -149,41 +151,61 @@ const ShowExerciseHistory = (training_his) => {
     exporterRef.current.exportGrid();
   }, [exporterRef]);
 
+  const [totalSummaryItems] = useState([
+    { columnName: 'train_date', type: 'count' },
+
+  ]);
+
   if (isDashbord == false) {
     return (
-      <Paper style = {{marginBottom: "3%"}}>
+      <Paper style={{ marginBottom: "3%" }}>
         <Grid
           rows={rows}
           columns={columns}
         >
-
+          <SummaryState
+            totalItems={totalSummaryItems}
+          />
+          <IntegratedSummary />
+          <CustomSummary
+          totalValues={getTotalSummaryValues()}
+        />
           <DataTypeProvider
             for={dateColumns}
             availableFilterOperations={dateFilterOperations}
           />
           <FilteringState defaultFilters={[]} />
           <IntegratedFiltering columnExtensions={filteringColumnExtensions} />
-           <SortingState
-        //sorting={sorting}
-        //onSortingChange={setSorting}
-      /> 
+          <SortingState
+          //sorting={sorting}
+          //onSortingChange={setSorting}
+          />
+          <SelectionState
+          selection={selection}
+          onSelectionChange={setSelection}
+        />
+        <IntegratedSelection />
           <PagingState
             defaultCurrentPage={0}
             pageSize={10}
           />
           <IntegratedPaging />
-           <IntegratedSorting /> 
+          <IntegratedSorting />
           <PagingPanel />
           <Table
-            //  columnExtensions={tableColumnExtensions}
+             columnExtensions={tableColumnExtensions}
             tableComponent={TableComponent}
           />
           <TableHeaderRow showSortingControls />
+          <TableSummaryRow />
           <TableFilterRow
             showFilterSelector
             iconComponent={FilterIcon}
             messages={{ month: 'Month equals' }}
           />
+          <TableSelection
+          showSelectAll
+        />
           <Toolbar />
           <ExportPanel startExport={startExport} />
         </Grid>
@@ -199,7 +221,7 @@ const ShowExerciseHistory = (training_his) => {
   }
   else {
     return (
-      <Paper style = {{marginBottom: "3%"}}>
+      <Paper style={{ marginBottom: "3%" }}>
         <Grid
           rows={rows}
           columns={columns}
@@ -208,7 +230,7 @@ const ShowExerciseHistory = (training_his) => {
             //  columnExtensions={tableColumnExtensions}
             tableComponent={TableComponent}
           />
-          <TableHeaderRow/>
+          <TableHeaderRow />
 
         </Grid>
       </Paper>

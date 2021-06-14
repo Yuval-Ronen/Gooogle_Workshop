@@ -17,6 +17,7 @@ const TrainerPageContent = () =>
                <Route exact={true} path="/TrainerPage/exercise_schedule" component={TrainerExerciseSchedule}/>
                <Route exact={true} path="/TrainerPage/trainees" component={TrainerTrainees}/>
                <Route exact={true} path="/TrainerPage/exercise_history" component={ExerciseHistory} />
+               {/* <Route exact={true} path="/TrainerPage/traineeEmpowermentEdit" component={EmpowermentEdit}/> */}
            </Switch>
         </div>
 
