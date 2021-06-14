@@ -2,6 +2,7 @@ import {useState} from "react";
 import ShowGoogleDocs from "../Trainees/trainee_content/ShowGoogleDocs";
 import React from "react";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import StyledButton from "./Empowerment.jsx"
 
 const EmpowermentEdit = () => {
 
@@ -13,8 +14,8 @@ const EmpowermentEdit = () => {
     <div className='empowerment'>
 
 
-              <button style={{ margin: "2px 2px 4px" , width:"270px"}} onClick= {() =>  window.location.href=(`/TrainerPage/trainee?trainee_id=${traineeID}`)}>
-                  <ArrowBackIcon/> חזרה לעמוד מתאמן</button>
+              <StyledButton style={{ margin: "2px 2px 4px" , width:"270px"}} onClick= {() =>  window.location.href=(`/TrainerPage/trainee?trainee_id=${traineeID}`)}>
+                  <ArrowBackIcon/> חזרה לעמוד מתאמן</StyledButton>
                     <ShowGoogleDocs source = {source2}/>
 
 
