@@ -39,19 +39,3 @@ a:hover {
   color: #55215e;
   opacity: 0.5;
 }
-
-button {
-  color: #55215e;
-  background-color: white;
-  border: none;
-}
-
-button:hover {
-  opacity: 0.5;
-}  
- 
-button:focus  {
-  color: #ffc717;
-
-}
-

@@ -1,5 +1,4 @@
 import React, { useState, useRef, useCallback } from "react";
-//import { Table } from 'reactstrap';
 import Paper from '@material-ui/core/Paper';
 import {
   Grid,
@@ -53,15 +52,15 @@ const ShowExerciseHistory = (training_his) => {
   //let training_his = {ShowExerciseHistory}
   let allTrainings = training_his.training_his[1]
   let trainerOrTrainee = training_his.training_his[0]
-  let isDashbord = training_his.isDashbord
+  let isDashboard = training_his.isDashboard
   console.log("allTrainings", allTrainings)
   console.log("trainerOrTrainee", trainerOrTrainee)
-  console.log("isDashbord", isDashbord)
+  console.log("isDashboard", isDashboard)
 
   function trainings() {
     var rows = []
     {
-      if (isDashbord) {
+      if (isDashboard) {
         var numOfTrainings = 3
       }
       else {
@@ -105,11 +104,12 @@ const ShowExerciseHistory = (training_his) => {
 
   const rows = trainings()
   console.log("rows", rows)
+  
   const [tableColumnExtensions] = useState([
     { columnName: 'description', align: 'right', wordWrapEnabled: 'true' },
-       { columnName: 'train_type', align: 'center'  },
-       { columnName: 'trainerOrTrainee', align: 'center' },
-       { columnName: 'train_time', align: 'center'  },
+    { columnName: 'train_type', align: 'center' },
+    { columnName: 'trainerOrTrainee', align: 'center' },
+    { columnName: 'train_time', align: 'center' },
     { columnName: 'train_date', align: 'center' },
   ]);
 
@@ -156,7 +156,7 @@ const ShowExerciseHistory = (training_his) => {
 
   ]);
 
-  if (isDashbord == false) {
+  if (isDashboard == false) {
     return (
       <Paper style={{ marginBottom: "3%" }}>
         <Grid
@@ -166,46 +166,56 @@ const ShowExerciseHistory = (training_his) => {
           <SummaryState
             totalItems={totalSummaryItems}
           />
-          <IntegratedSummary />
-          <CustomSummary
-          totalValues={getTotalSummaryValues()}
-        />
-          <DataTypeProvider
-            for={dateColumns}
-            availableFilterOperations={dateFilterOperations}
-          />
-          <FilteringState defaultFilters={[]} />
-          <IntegratedFiltering columnExtensions={filteringColumnExtensions} />
+
+          <FilteringState />
+
           <SortingState
           //sorting={sorting}
           //onSortingChange={setSorting}
           />
+
           <SelectionState
-          selection={selection}
-          onSelectionChange={setSelection}
-        />
-        <IntegratedSelection />
-          <PagingState
-            defaultCurrentPage={0}
-            pageSize={10}
+            selection={selection}
+            onSelectionChange={setSelection}
           />
-          <IntegratedPaging />
+
+          <PagingState
+          //  defaultCurrentPage={0}
+          //  pageSize={10}
+          />
+
+          <IntegratedSummary />
+          <IntegratedFiltering columnExtensions={filteringColumnExtensions} />
           <IntegratedSorting />
-          <PagingPanel />
+          <IntegratedSelection />
+          <IntegratedPaging />
+
+          <CustomSummary
+            totalValues={getTotalSummaryValues()}
+          />
+
+          <DataTypeProvider
+            for={dateColumns}
+            availableFilterOperations={dateFilterOperations}
+          />
+
           <Table
-             columnExtensions={tableColumnExtensions}
+            columnExtensions={tableColumnExtensions}
             tableComponent={TableComponent}
           />
+          <TableSelection
+            showSelectAll
+          />
           <TableHeaderRow showSortingControls />
-          <TableSummaryRow />
           <TableFilterRow
             showFilterSelector
             iconComponent={FilterIcon}
             messages={{ month: 'Month equals' }}
           />
-          <TableSelection
-          showSelectAll
-        />
+          <PagingPanel />
+          <TableSummaryRow />
+          
+
           <Toolbar />
           <ExportPanel startExport={startExport} />
         </Grid>
