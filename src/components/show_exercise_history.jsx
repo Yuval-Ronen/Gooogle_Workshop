@@ -1,5 +1,4 @@
 import React, { useState, useRef, useCallback } from "react";
-//import { Table } from 'reactstrap';
 import Paper from '@material-ui/core/Paper';
 import {
   Grid,
@@ -42,13 +41,7 @@ const FilterIcon = ({ type, ...restProps }) => {
 //person can be trainer or trainee
 const ShowExerciseHistory = (training_his) => {
 
-  let train_type_icons = {
-    martialArts: "mdi:karate",
-    jog: "mdi:run",
-    swim: "mdi:swim",
-    crossfit: "mdi:weight-lifter",
-    dance: "mdi:yoga"
-  };
+
 
   //let training_his = {ShowExerciseHistory}
   let allTrainings = training_his.training_his[1]
@@ -105,7 +98,7 @@ const ShowExerciseHistory = (training_his) => {
 
   const rows = trainings()
   console.log("rows", rows)
-
+  
   const [tableColumnExtensions] = useState([
     { columnName: 'description', align: 'right', wordWrapEnabled: 'true' },
     { columnName: 'train_type', align: 'center' },
@@ -215,7 +208,7 @@ const ShowExerciseHistory = (training_his) => {
           />
           <PagingPanel />
           <TableSummaryRow />
-
+          
 
           <Toolbar />
           <ExportPanel startExport={startExport} />

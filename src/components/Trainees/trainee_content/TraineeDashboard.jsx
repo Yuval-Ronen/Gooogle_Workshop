@@ -34,9 +34,16 @@ const TraineeDashboard = (props) => {
     //       })
     // },[])
 
-    return(
+    return(<div>
+        
+        
+    
+        
             <Container fluid>
-                <Row xs=  'auto'>
+            <Row style={{justifyContent: 'flex-end', marginRight: '0.5%'}}>
+                <PopUpMedal newMedal = {false} />
+                </Row>
+                <Row sm=  {2} xs={1} >
                      <Col >
                         <TrainTypePie dataSource = {dataSource}/>
                     </Col>
@@ -46,14 +53,14 @@ const TraineeDashboard = (props) => {
 
                 </Row>
                 <Row>
-                    <Col>
+                    <Col >
             <p style = {{textAnchor: "middle",fontSize: "35px", color: "#55215e", textAlign: 'center'}} >אימונים קרובים</p>
                 <ShowExerciseHistory training_his ={trainingHis} isDashboard={true}/>
             </Col>
                 </Row>
             </Container>
 
-            
+            </div>
 
     )
 }

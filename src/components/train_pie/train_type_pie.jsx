@@ -1,5 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
+import service from "./pie_data";
+import Paper from '@material-ui/core/Paper';
 import PieChart, {Series,  Label,  Connector,  SmallValuesGrouping,  Legend,} from "devextreme-react/pie-chart";
 
 
@@ -10,8 +12,8 @@ const TrainTypePie = (props) => {
   }
   return (
     <div style = {{marginBottom:"20px"}}>
-    <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >סוגי אימון</p>
-  
+    <p style = {{textAnchor: "middle", fontSize: "25px", color: "#55215e", textAlign: 'center', marginTop: '10px'}} >סוגי אימון</p>
+    <Paper> 
     <PieChart
       id="pie"
       dataSource= {props.dataSource}
@@ -26,6 +28,7 @@ const TrainTypePie = (props) => {
       </Series>
       <Legend horizontalAlignment="center" verticalAlignment="bottom" columnCount={4} />
     </PieChart>
+    </Paper>
     </div>
   );
 }
