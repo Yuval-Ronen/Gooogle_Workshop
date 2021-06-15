@@ -8,7 +8,7 @@ import TrainingCart from "../../my_chart/chart_component";
 import TrainTypePie from "../../train_pie/train_type_pie";
 import {useLocalStorage} from "../../../UtillHook";
 import serverConnector from "../../../server-connector";
-
+import PopUpMedal from "../../Medals/popUpMedal"
 
 const TraineeDashboard = (props) => {
     const [userInfo] = useLocalStorage("userInfo",{});
@@ -35,11 +35,7 @@ const TraineeDashboard = (props) => {
     // },[])
 
     return(<div>
-        
-        
-    
-        
-            <Container fluid>
+             <Container fluid>
             <Row style={{justifyContent: 'flex-end', marginRight: '0.5%'}}>
                 <PopUpMedal newMedal = {false} />
                 </Row>

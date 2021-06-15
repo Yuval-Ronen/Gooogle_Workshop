@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import StarsRoundedIcon from '@material-ui/icons/StarsRounded';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -12,69 +12,57 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { purple } from '@material-ui/core/colors';
 import SendIcon from '@material-ui/icons/Send';
 import CancelIcon from '@material-ui/icons/Cancel';
-
-class Medals extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: '',
-            open: false,
-            sendToTrainee: false,
-            medalText: '',
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleClickOpen = this.handleClickOpen.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-    }
-
-    handleChange(event) {
-        this.setState({ value: event.target.value });
-    }
-
-    handleSubmit(event) {
-        this.setState({ open: false });
-        this.setState({ sendToTrainee: true });
-        this.setState({ medalText: this.state.value });
-        this.setState({ value: '' });
-        //console.error("medalText", this.state.medalText)
-        //console.log("medalText", this.state.medalText)
-
-    }
+import {useLocalStorage} from "../../UtillHook";
+import serverConnector from "../../server-connector"
 
 
-    handleClickOpen = () => {
-        this.setState({ open: true });
+export default function Medals (trainee) {
+    const [userInfo] = useLocalStorage("userInfo",{});
+    const [value, setValue] = useState('');
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState('');
+    console.log("trainee", trainee.trainee);
+
+    const handleChange = (event) => {
+        setValue(event.target.value);
     };
 
-    handleClose = () => {
-        this.setState({ open: false });
-    };
+    const handleSubmit = (event) => {
+        setOpen(false);
+        setMessage(value);
+        console.log("message", message);
+        serverConnector.sendMessage(trainee.trainee, userInfo.ID, message).then(res => {
+            setMessage(res)
+            console.log("res", res)
+        })
+        setValue('');
+    }
+
+
+    const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
 
 
     //console.log("medalText", medalText);
 
-    render() {
-        const { value,
-            open,
-            medalText,
-            sendToTrainee,
-          } = this.state;
         return (
             <div>
-                <StyledButton onClick={this.handleClickOpen}>
+                <StyledButton onClick={handleClickOpen}>
                     <p> <StarsRoundedIcon fontSize='large' /></p>
-                    <p>שליחת חיזוק למתאמן</p>
+                    <p>שליחת כוכב איתן</p>
                 </StyledButton>
 
-                <Dialog open={open} onClose={this.handleClose} aria-labelledby="alert-dialog-title">
+                <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title">
                     <DialogTitle id="form-dialog-title">חיזוק למתאמן</DialogTitle>
                     <DialogContent>
                         <TextField
                             value={value}
-                            onChange={this.handleChange}
+                            onChange={handleChange}
                             autoFocus
                             margin="normal"
                             label="כתוב חיזוק אישי למתאמן"
@@ -91,10 +79,10 @@ class Medals extends Component {
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} color="secondary" endIcon={<CancelIcon />}>
+                        <Button onClick={handleClose} color="secondary" endIcon={<CancelIcon />}>
                             בטל
                         </Button>
-                        <Button onClick={this.handleSubmit} color="primary" endIcon={<SendIcon />}>
+                        <Button onClick={handleSubmit} color="primary" endIcon={<SendIcon />}>
                             שלח
                         </Button>
                     </DialogActions>
@@ -102,9 +90,8 @@ class Medals extends Component {
             </div>
         )
     }
-}
 
-export default (Medals);
+
 
 
 

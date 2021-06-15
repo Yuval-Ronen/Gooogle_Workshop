@@ -7,6 +7,7 @@ import {extractUserData} from "../googleApi/GoogleApi";
 import serverConnector from "../../server-connector";
 import {useLocalStorage} from "../../UtillHook";
 import React from "react";
+import StyledButton from "../personal_progress/Empowerment"
 
 
 const loginFailureHandler = (response) => {
@@ -28,8 +29,16 @@ const LoginTrainee = (props) => {
             <GoogleLogin
             clientId="476408447979-ksp3ikmql53717ucvohu0uhm8t7ld9f1.apps.googleusercontent.com"
             render = {renderProps => (
-                <Button variant="outline-primary" href="/TraineesPage" size="lg" onClick={renderProps.onClick} disable = {renderProps.disabled} >
-                    כניסת מתאמנים</Button>
+                <StyledButton className={"login_trainer"}  href="/TrainerPage"  onClick={renderProps.onClick} disable = {renderProps.disabled} 
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    margin: 10,
+                    marginBottom: 100,
+                    marginTop: 100,
+                    }} >
+                    כניסת מתאמנים</StyledButton>
             )}
             buttonText={''}
             onSuccess={async (response) =>
