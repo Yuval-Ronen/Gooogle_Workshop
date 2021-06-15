@@ -33,7 +33,8 @@ class ConnectSQL:
         self.cursor.execute(query, (email,))
         final = {}
         for (ID, first_name, last_name, email, image, group_id) in self.cursor:
-            final = {"ID": ID}
+            final = {"ID": ID, "first_name": first_name, "last_name": last_name,
+                     "email": email, "image": image, "group_id": group_id}
         return final
 
     def get_all_trainees(self, trainer_id):
@@ -119,7 +120,7 @@ class ConnectSQL:
                       "train_date_end": str(train_date_end),
                       "train_time_start": str(train_time_start),
                       "train_time_end": str(train_time_end),
-                      "all_trainees": all_trainees[0:len(all_trainees)], "description": description,
+                      "all_trainees": all_trainees[0:len(all_trainees) -2], "description": description,
                       "train_type": train_type, "train_id": train_id, "training_details_id": training_details_id}
             final.append(inside)
         return final
@@ -145,7 +146,7 @@ class ConnectSQL:
                       "train_date_end": str(train_date_end),
                       "train_time_start": str(train_time_start),
                       "train_time_end": str(train_time_end),
-                      "all_trainees": all_trainees[0:len(all_trainees)], "description": description,
+                      "all_trainees": all_trainees[0:len(all_trainees)-2], "description": description,
                       "train_type": train_type, "train_id": train_id, "training_details_id": training_details_id}
             final.append(inside)
         return final
@@ -167,7 +168,7 @@ class ConnectSQL:
                 description = "אין תיאור"
 
             inside = {"train_date_start": str(train_date_start), "train_time_start": str(train_time_start),
-                      "all_trainees": all_trainees[0:len(all_trainees)],
+                      "all_trainees": all_trainees[0:len(all_trainees)-2],
                       "description": description, "train_type": train_type}
             final.append(inside)
         return final
@@ -262,7 +263,7 @@ class ConnectSQL:
         self.cursor.execute(query, trainee_id)
         inside = {}
         for (trainee_id, trainer_name, message, status) in self.cursor:
-            inside = {"trainee_id": trainee_id, "trainer_name": trainer_name, "message": message, "status":status}
+            inside = {"trainee_id": trainee_id, "trainer_name": trainer_name, "message": message, "status": status}
         return inside
 
     def change_message_status(self, trainee_id):

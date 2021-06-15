@@ -15,7 +15,7 @@ const TraineeDashboard = (props) => {
     const [dataSource, setDataSource] = useState([]);
     const [chartDataSource, setChartDataSource] = useState([]);
     const [trainingHis, setTrainingHis] = useState(["מאמן",[]]);
-     useEffect( () => {
+    useEffect( () => {
          serverConnector.getUpcomingExercise_trainee(userInfo.ID).then(res => {
              setTrainingHis(res);
              console.log("trainingHis", trainingHis)
