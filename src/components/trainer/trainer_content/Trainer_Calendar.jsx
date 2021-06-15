@@ -165,7 +165,7 @@ class Trainer_Calendar extends React.PureComponent{
     this.changeAppointmentChanges = this.changeAppointmentChanges.bind(this);
     this.changeEditingAppointment = this.changeEditingAppointment.bind(this);
     console.log("allTrainees as props",this.props.allTrainees);
-    console.log("userInfo as props",this.props.userInfo);
+    // console.log("userInfo as props",this.props.userInfo);
     // console.log("appointments as props",this.props.appointments);
 
 
