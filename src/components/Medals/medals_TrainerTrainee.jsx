@@ -58,7 +58,7 @@ export default function Medals (trainee) {
                 </StyledButton>
 
                 <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title">
-                    <DialogTitle id="form-dialog-title">חיזוק למתאמן</DialogTitle>
+                    <DialogTitle id="form-dialog-title">שלח כוכב איתן</DialogTitle>
                     <DialogContent>
                         <TextField
                             value={value}

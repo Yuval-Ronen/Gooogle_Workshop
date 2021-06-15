@@ -9,6 +9,8 @@ import Slide from '@material-ui/core/Slide';
 import Badge from '@material-ui/core/Badge';
 import Fab from '@material-ui/core/Fab';
 import { purple } from '@material-ui/core/colors';
+import StarsRoundedIcon from '@material-ui/icons/StarsRounded';
+import Divider from '@material-ui/core/Divider';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -22,7 +24,7 @@ export default function PopUpMedal(props) {
   console.log("newMedal",newMedal);
   const [open, setOpen] = useState(false);
 
-  const [invisible, setVisible] = useState(true);
+  const [invisible, setVisible] = useState(false);
   console.log("invisible",invisible);
 
   const handleBadgeVisibility = () => {
@@ -35,6 +37,7 @@ export default function PopUpMedal(props) {
 
   const handleClose = () => {
     setOpen(false);
+    setVisible(true);
   };
 
   if (newMedal == true) {
@@ -58,7 +61,7 @@ export default function PopUpMedal(props) {
           aria-label="add"
           onClick={handleClickOpen} 
           style={{ background:  '#55215e', color: 'white', fontFamily: 'Segoe UI' }}>
-          חיזוק מהמאמן
+          קיבלת כוכב איתן
         </Fab>
       </Badge>
 
@@ -70,19 +73,19 @@ export default function PopUpMedal(props) {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title">{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle style = {{fontFamily: 'Segoe UI'}}>קיבלת כוכב איתן מאיתן עמותה</DialogTitle>
+        <Divider />
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            Let Google help apps determine location. This means sending anonymous location data to
-            Google, even when no apps are running.
+        <DialogContentText style = {{textAnchor: "middle",fontSize: "35px", color: "#ffc717", textAlign: 'center', fontFamily: 'Segoe UI'}}>
+          <StarsRoundedIcon fontSize='large' style={{color: '#55215e'}}/>
+          </DialogContentText>
+          <DialogContentText style = {{textAnchor: "middle",fontSize: "35px", color: "#55215e", textAlign: 'center', fontFamily: 'Segoe UI'}}>
+            כל הכבוד!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Disagree
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Agree
+            תודה!
           </Button>
         </DialogActions>
       </Dialog>
