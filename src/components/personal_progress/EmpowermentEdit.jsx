@@ -12,11 +12,11 @@ const EmpowermentEdit = () => {
     console.log(traineeID);
     return (
     <div className='empowerment'>
-
-
-              <StyledButton style={{ margin: "2px 2px 4px" , width:"270px"}} onClick= {() =>  window.location.href=(`/TrainerPage/trainee?trainee_id=${traineeID}`)}>
+        <a href={`/TrainerPage/trainee?trainee_id=${traineeID}`} >
+              <StyledButton style={{ margin: "2px 2px 4px" , width:"270px"}} >
                   <ArrowBackIcon/> חזרה לעמוד מתאמן</StyledButton>
                     <ShowGoogleDocs source = {source2}/>
+        </a>
 
 
 

@@ -1,3 +1,4 @@
+from datetime import datetime
 from functools import wraps
 
 from flask_cors import CORS, cross_origin
@@ -192,5 +193,65 @@ def createNewTrain(trainer_id, trainees, train_type, train_date_start, train_dat
 
 if __name__ == '__main__':
     # TRAINID= getMessage(205380132)
+    # helper = []
+    # res = ['מתאמנים', [{'train_date_start': '2021-02-24', 'train_date_end': '2021-02-24', 'train_time_start': '9:00:00',
+    #                     'train_time_end': '10:00:00', 'all_trainees': 'שחר גרינברג ריניס', 'description': 'אין תיאור',
+    #                     'train_type': 'ריצה', 'train_id': 9, 'training_details_id': 2},
+    #                    {'train_date_start': '2021-03-23', 'train_date_end': '2021-03-23', 'train_time_start': '7:00:00',
+    #                     'train_time_end': '8:00:00', 'all_trainees': 'מיטל ברגר, ,אורי בירנבוים, ,שחר גרינברג ריניס',
+    #                     'description': 'אין תיאור', 'train_type': 'קארטה', 'train_id': 8, 'training_details_id': 1},
+    #                    {'train_date_start': '2021-04-13', 'train_date_end': '2021-04-13',
+    #                     'train_time_start': '10:00:00', 'train_time_end': '11:00:00', 'all_trainees': 'הודאל כהן',
+    #                     'description': 'להגיע בזמן', 'train_type': 'ריקוד', 'train_id': 4, 'training_details_id': 1},
+    #                    {'train_date_start': '2021-04-20', 'train_date_end': '2021-04-20',
+    #                     'train_time_start': '11:00:00', 'train_time_end': '12:00:00',
+    #                     'all_trainees': 'הודאל כהן, ,ירון פרידמן, ,שחר גרינברג ריניס', 'description': 'אין תיאור',
+    #                     'train_type': 'ריקוד', 'train_id': 11, 'training_details_id': 1},
+    #                    {'train_date_start': '2021-05-05', 'train_date_end': '2021-05-05',
+    #                     'train_time_start': '12:00:00', 'train_time_end': '13:00:00', 'all_trainees': 'יובל רונן',
+    #                     'description': 'אין תיאור', 'train_type': 'קארטה', 'train_id': 3, 'training_details_id': 1},
+    #                    {'train_date_start': '2021-05-31', 'train_date_end': '2021-05-31',
+    #                     'train_time_start': '11:00:00', 'train_time_end': '12:00:00',
+    #                     'all_trainees': 'שקד טרנר, ,שחר גרינברג ריניס', 'description': 'אין תיאור',
+    #                     'train_type': 'קרוספיט', 'train_id': 10, 'training_details_id': 2},
+    #                    {'train_date_start': '2021-06-16', 'train_date_end': '2021-06-16',
+    #                     'train_time_start': '12:00:00', 'train_time_end': '13:00:00',
+    #                     'all_trainees': 'שחר גרינברג ריניס', 'description': 'אין תיאור', 'train_type': 'שחייה',
+    #                     'train_id': 1, 'training_details_id': 1},
+    #                    {'train_date_start': '2021-06-17', 'train_date_end': '2021-06-17',
+    #                     'train_time_start': '17:00:00', 'train_time_end': '18:00:00',
+    #                     'all_trainees': 'אורי בירנבוים, ,שחר גרינברג ריניס', 'description': 'אין תיאור',
+    #                     'train_type': 'ריקוד', 'train_id': 7, 'training_details_id': 1},
+    #                    {'train_date_start': '2021-06-17', 'train_date_end': '2021-06-17',
+    #                     'train_time_start': '12:00:00', 'train_time_end': '13:00:00',
+    #                     'all_trainees': 'יובל רונן, ,שחר גרינברג ריניס', 'description': 'אין תיאור',
+    #                     'train_type': 'קרוספיט', 'train_id': 2, 'training_details_id': 2},
+    #                    {'train_date_start': '2021-07-04', 'train_date_end': '2021-07-04', 'train_time_start': '8:00:00',
+    #                     'train_time_end': '9:00:00', 'all_trainees': 'שחר גרינברג ריניס',
+    #                     'description': 'לא לשכוח משקפת', 'train_type': 'שחייה', 'train_id': 5,
+    #                     'training_details_id': 2}, {'train_date_start': '2021-07-12', 'train_date_end': '2021-07-12',
+    #                                                 'train_time_start': '10:00:00', 'train_time_end': '11:00:00',
+    #                                                 'all_trainees': 'יובל רונן, ,ירון פרידמן',
+    #                                                 'description': 'אין תיאור', 'train_type': 'קארטה', 'train_id': 6,
+    #                                                 'training_details_id': 1}]]
+    # for index in res[1]:
+    #     s_date = index['train_date_start'].split("-")
+    #     s_time = index['train_time_end'].split(":")
+    #     e_date = index['train_date_start'].split("-")
+    #     e_time = index['train_time_end'].split(":")
+    #     print(s_date)
+    #     print(e_date)
+    #     print(s_time)
+    #     print(e_time)
+    #
+    #     helper.append({'title': index['train_type'], 'triningType': index['train_type'],
+    #                                                 'startDate': datetime(int(s_date[0]), int(s_date[1]), int(s_date[2]), int(s_time[0]), int(s_time[1])),
+    #                                                'endDate': datetime(int(e_date[0]), int(e_date[1]), int(e_date[2]), int(e_time[0]), int(e_time[1])),
+    #     'id': index['train_id'],
+    #     'TrainingDetailsId': index['training_details_id'],
+    #     'Trainees': index['all_trainees'].split(","),
+    #     'moreInfo': index['description']
+    #     })
+    # print(helper)
     app.run(host='127.0.0.1', port="5000", debug=True)
 

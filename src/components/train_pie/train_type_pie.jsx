@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import PieChart, {Series,  Label,  Connector,  SmallValuesGrouping,  Legend,} from "devextreme-react/pie-chart";
+
 
 
 const TrainTypePie = (props) => {
