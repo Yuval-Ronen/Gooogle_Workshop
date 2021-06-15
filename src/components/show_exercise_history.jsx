@@ -53,10 +53,6 @@ const ShowExerciseHistory = (training_his) => {
   //let training_his = {ShowExerciseHistory}
   let allTrainings = training_his.training_his[1]
   let trainerOrTrainee = training_his.training_his[0]
-  let isDashbord = training_his.isDashbord
-  // console.log("allTrainings", allTrainings)
-  // console.log("trainerOrTrainee", trainerOrTrainee)
-  // console.log("isDashbord", isDashbord)
   let isDashboard = training_his.isDashboard
   console.log("allTrainings", allTrainings)
   console.log("trainerOrTrainee", trainerOrTrainee)
@@ -77,8 +73,8 @@ const ShowExerciseHistory = (training_his) => {
           description: exercise.description,
           train_type: exercise.train_type,
           trainerOrTrainee: exercise.all_trainees,
-          train_time: exercise.train_time,
-          train_date: exercise.train_date,
+          train_time_start: exercise.train_time_start,
+          train_date_start: exercise.train_date_start,
 
           //  train_type_icons: train_type_icons[exercise.type]
         })
@@ -101,8 +97,8 @@ const ShowExerciseHistory = (training_his) => {
     { name: 'description', title: 'תיאור' },
     { name: 'train_type', title: 'סוג אימון' },
     { name: 'trainerOrTrainee', title: trainerOrTrainee },
-    { name: 'train_time', title: 'שעה' },
-    { name: 'train_date', title: 'תאריך' },
+    { name: 'train_time_start', title: 'שעה' },
+    { name: 'train_date_start', title: 'תאריך' },
     //{ name: 'id', title: 'מספר אימון' },
     // { name: 'train_type_icons', title: '*' },
   ];
@@ -114,8 +110,8 @@ const ShowExerciseHistory = (training_his) => {
     { columnName: 'description', align: 'right', wordWrapEnabled: 'true' },
     { columnName: 'train_type', align: 'center' },
     { columnName: 'trainerOrTrainee', align: 'center' },
-    { columnName: 'train_time', align: 'center' },
-    { columnName: 'train_date', align: 'center' },
+    { columnName: 'train_time_start', align: 'center' },
+    { columnName: 'train_date_start', align: 'center' },
   ]);
 
   const [sorting, setSorting] = useState([
