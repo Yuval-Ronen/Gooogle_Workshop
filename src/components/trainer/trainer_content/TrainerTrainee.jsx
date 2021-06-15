@@ -16,11 +16,19 @@ const TrainerTrainee = () => {
     let trainee_id = parseInt(params.get("trainee_id")); // is the number 123
     console.log("trainee_id", trainee_id)
     const [trainingHis, setTrainingHis] = useState(["מתאמנים", []]);
+    const [dataSource, setDataSource] = useState([]);
+
     useEffect(() => {
         serverConnector.getAllTrainingHistory_trainee(trainee_id).then(res => {
             setTrainingHis(res);
         })
     }, [])
+
+      useEffect( () =>{
+          serverConnector.getTrainingAmountByMonth_trainee(trainee_id).then(res => {
+              setDataSource(res);
+          })
+      },[])
     return (
         <div>
             {/*    <h1> need to put name</h1>*/}
@@ -35,7 +43,7 @@ const TrainerTrainee = () => {
                         </p>
                     </Col>
                     <Col  sm={9} xs={20} >
-                        <TrainingCart />
+                        <TrainingCart dataSource = {dataSource}/>
                     </Col>
                 </Row>
                 <Row>

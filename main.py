@@ -95,6 +95,51 @@ def getTrainingAmountByMonth_trainer(trainer_id):
     # return info
 
 
+@app.route("/api/getTrainingAmountByMonth_trainee/<trainee_id>", methods=['GET'])
+@error_handler
+def getTrainingAmountByMonth_trainee(trainee_id):
+    info = sql_c.get_training_amount_by_month_trainee(trainee_id)
+    retVal = []
+    for element in translator:
+        for item in info:
+            if item["month"] == element:
+                retVal.append({"month": translator[element], "training_amount": item["training_amount"]})
+            else:
+                retVal.append({"month": translator[element], "training_amount": 0})
+
+    print(retVal)
+    return jsonify({"result": retVal}), 200
+    # return info
+
+
+@app.route("/api/getTypeAmount/<trainee_id>", methods=['GET'])
+@error_handler
+def getTypeAmount(trainee_id):
+    info = sql_c.get_type_amount(trainee_id)
+    print(info)
+    return jsonify({"result": info}), 200
+
+@app.route("/api/sendMessage/<trainee_id>/<trainer_id>/<message>", methods=['POST'])
+@error_handler
+def sendMessage(trainee_id, trainer_id, message):
+    sql_c.send_message(trainee_id, trainer_id, message)
+    return jsonify({"result": "message sent"}), 200
+
+
+@app.route("/api/getMessage/<trainee_id>", methods=['GET'])
+@error_handler
+def getMessage(trainee_id):
+    info = sql_c.get_message(trainee_id)
+    print(info)
+    return jsonify({"result": info}), 200
+
+
+@app.route("/api/changeMessageStatus/<trainee_id>", methods=['POST'])
+@error_handler
+def changeMessageStatus(trainee_id):
+    sql_c.change_message_status(trainee_id)
+    return jsonify({"result": "changed"}), 200
+
 @app.route("/api/getUpcomingExercise_trainer/<trainer_id>", methods=['GET'])
 @error_handler
 def getUpcomingExercise_trainer(trainer_id):
@@ -104,6 +149,14 @@ def getUpcomingExercise_trainer(trainer_id):
     return jsonify({"result": result_list}), 200
     # return result_list
 
+
+@app.route("/api/getUpcomingExercise_trainee/<trainee_id>", methods=['GET'])
+@error_handler
+def getUpcomingExercise_trainee(trainee_id):
+    info = sql_c.get_upcoming_exercise_trainee(trainee_id)
+    result_list = ["מאמן", info]
+    print(result_list)
+    return jsonify({"result": result_list}), 200
 
 @app.route("/api/getAllTrainees/<trainer_id>", methods=['GET'])
 @error_handler
@@ -138,6 +191,6 @@ def createNewTrain(trainer_id, trainees, train_type, train_date_start, train_dat
 
 
 if __name__ == '__main__':
-    # TRAINID= createNewTrain(205380130, [205380132], "שחייה", "2021-06-19", "12:00:00", None, 1)
+    # TRAINID= getMessage(205380132)
     app.run(host='127.0.0.1', port="5000", debug=True)
 

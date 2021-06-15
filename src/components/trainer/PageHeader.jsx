@@ -178,9 +178,9 @@ class PageHeader extends Component {
   render() {
     const { isExpanded } = this.state;
     return (
-      <Navigation>
+      <Navigation >
 
-        <nav className="nav">
+        <nav className="nav" >
           <i
             className="fa fa-bars"
             aria-hidden="true"

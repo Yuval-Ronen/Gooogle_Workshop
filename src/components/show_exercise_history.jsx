@@ -70,7 +70,7 @@ const ShowExerciseHistory = (training_his) => {
       allTrainings?.length > 0 && allTrainings.slice(0, numOfTrainings).map((exercise, index) =>
         rows.push({
           id: index,
-          description: exercise.description,
+          description: (exercise.description?exercise.description: ""),
           train_type: exercise.train_type,
           trainerOrTrainee: exercise.all_trainees,
           train_time_start: exercise.train_time_start,

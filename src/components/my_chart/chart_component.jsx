@@ -7,16 +7,10 @@ import {useLocalStorage} from "../../UtillHook";
 
 // const dataSource = service.getMonthData();
 
-const TrainingCart = () => {
+const TrainingCart = (props) => {
 
-  const [userInfo] = useLocalStorage("userInfo",{});
-  const [dataSource2, setDataSource2] = useState([]);
+  // const [userInfo] = useLocalStorage("userInfo",{});
 
-  useEffect( () =>{
-      serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
-          setDataSource2(res);
-      })
-  },[])
 
   return (
     <div style={{ marginBottom: "20px" }}>
@@ -25,7 +19,7 @@ const TrainingCart = () => {
         <Chart
           id="chart"
           palette="Violet"
-          dataSource={dataSource2}
+          dataSource={props.dataSource}
           width={'100%'}
         >
           <CommonSeriesSettings argumentField="month" type="stackedBar" />

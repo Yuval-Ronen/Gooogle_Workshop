@@ -112,12 +112,15 @@ class ConnectSQL:
         final = []
         for (all_trainees, train_type, train_time_start, train_time_end,
              train_date_start, train_date_end, description, train_id, training_details_id) in self.cursor:
+            if (description == 'null'):
+                description = "אין תיאור"
+
             inside = {"train_date_start": str(train_date_start),
                       "train_date_end": str(train_date_end),
                       "train_time_start": str(train_time_start),
                       "train_time_end": str(train_time_end),
-                      "all_trainees": all_trainees, "description": description,
-                      "train_type": train_type, "train_id" : train_id, "training_details_id": training_details_id}
+                      "all_trainees": all_trainees[0:len(all_trainees)], "description": description,
+                      "train_type": train_type, "train_id": train_id, "training_details_id": training_details_id}
             final.append(inside)
         return final
 
@@ -135,11 +138,14 @@ class ConnectSQL:
 
         for (all_trainees, train_type, train_time_start, train_time_end,
              train_date_start, train_date_end, description, train_id, training_details_id) in self.cursor:
+            if (description == 'null'):
+                description = "אין תיאור"
+
             inside = {"train_date_start": str(train_date_start),
                       "train_date_end": str(train_date_end),
                       "train_time_start": str(train_time_start),
                       "train_time_end": str(train_time_end),
-                      "all_trainees": all_trainees,  "description": description,
+                      "all_trainees": all_trainees[0:len(all_trainees)], "description": description,
                       "train_type": train_type, "train_id": train_id, "training_details_id": training_details_id}
             final.append(inside)
         return final
@@ -157,7 +163,11 @@ class ConnectSQL:
         self.cursor.execute(query, (trainer_id,))
         final = []
         for (all_trainees, train_type, train_time_start, train_date_start, description) in self.cursor:
-            inside = {"train_date_start": str(train_date_start), "train_time_start": str(train_time_start), "all_trainees": all_trainees,
+            if (description == 'null'):
+                description = "אין תיאור"
+
+            inside = {"train_date_start": str(train_date_start), "train_time_start": str(train_time_start),
+                      "all_trainees": all_trainees[0:len(all_trainees)],
                       "description": description, "train_type": train_type}
             final.append(inside)
         return final
@@ -174,8 +184,12 @@ class ConnectSQL:
             " ORDER BY t1.train_date_start, t1.train_time_start DESC")
         self.cursor.execute(query, (trainee_id,))
         final = []
-        for (trainer, train_type, train_time_start, train_date_start, description) in self.cursor:
-            inside = {"train_date": str(train_date_start), "train_time": str(train_time_start), "all_trainees": trainer,
+        for (all_trainees, train_type, train_time_start, train_date_start, description) in self.cursor:
+            if (description == 'null'):
+                description = "אין תיאור"
+
+            inside = {"train_date_start": str(train_date_start), "train_time_start": str(train_time_start),
+                      "all_trainees": all_trainees[0:len(all_trainees) - 2],
                       "description": description, "train_type": train_type}
             final.append(inside)
         return final
@@ -193,6 +207,70 @@ class ConnectSQL:
             inside = {"month": month, "training_amount": training_amount}
             final.append(inside)
         return final
+
+    def get_training_amount_by_month_trainee(self, trainee_id):
+        query = (" SELECT MONTH(t1.train_date_start) AS month, COUNT(*) AS training_amount"
+                 " FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2"
+                 " WHERE YEAR(t1.train_date_start) = YEAR(NOW()) AND t1.train_id = t2.train_id AND t2.trainee_id = %s"
+                 " GROUP BY MONTH(t1.train_date_start)"
+                 " ORDER BY MONTH(t1.train_date_start) ASC")
+        self.cursor.execute(query, (trainee_id,))
+        final = []
+        for (month, training_amount) in self.cursor:
+            inside = {"month": month, "training_amount": training_amount}
+            final.append(inside)
+        return final
+
+    def get_type_amount(self, trainee_id):
+        query = (" SELECT t1.train_type AS train_type, COUNT(*) AS amount"
+                 " FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2"
+                 " WHERE YEAR(t1.train_date_start) = YEAR(NOW()) AND t1.train_id = t2.train_id AND t2.trainee_id = %s"
+                 " GROUP BY t1.train_type")
+        self.cursor.execute(query, (trainee_id,))
+        final = []
+        for (train_type, amount) in self.cursor:
+            inside = {"train_type": train_type, "amount": amount}
+            final.append(inside)
+        return final
+
+    def send_message(self, trainee_id, trainer_id, mes):
+        query = (" SELECT trainee_id, trainer_id, message "
+                 " FROM eitan_database.messages"
+                 " where trainee_id = %s and trainer_id = %s")
+        self.cursor.execute(query, (trainee_id, trainer_id))
+        tmp = []
+        for (trainee_id, trainer_id, message) in self.cursor:
+            inside = {"trainee_id": trainee_id, "trainer_id": trainer_id, "message": message}
+            tmp.append(inside)
+            break
+        if len(tmp) == 0:
+            insertQ = (" INSERT INTO eitan_database.messages (trainee_id,trainer_id, message)"
+                       " VALUES (%s, %s, %s)")
+            self.cursor.execute(insertQ, (trainee_id, trainer_id, mes))
+            self.cnx.commit()
+        else:
+            changeQ = (" UPDATE eitan_database.messages "
+                       "SET message = %s, status = 'new' "
+                       " WHERE trainee_id = %s AND trainer_id = %s")
+            self.cursor.execute(changeQ, (mes, trainee_id, trainer_id))
+            self.cnx.commit()
+
+    def get_message(self, trainee_id):
+        query = (" SELECT trainee_id, CONCAT( first_name, ' ', last_name) as trainer_name , message, status"
+                 " FROM eitan_database.messages AS m, eitan_database.trainer AS t"
+                 " where trainee_id = 205380132 AND m.trainer_id = t.ID")
+        self.cursor.execute(query, trainee_id)
+        inside = {}
+        for (trainee_id, trainer_name, message, status) in self.cursor:
+            inside = {"trainee_id": trainee_id, "trainer_name": trainer_name, "message": message, "status":status}
+        return inside
+
+    def change_message_status(self, trainee_id):
+        changeQ = (" UPDATE eitan_database.messages "
+                   "SET status = 'old' "
+                   " WHERE trainee_id = %s ")
+        self.cursor.execute(changeQ, trainee_id)
+        self.cnx.commit()
 
     def auto_complete_trainee(self, string, trainer_id):
         string = string + "%"

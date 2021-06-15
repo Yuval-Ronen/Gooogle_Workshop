@@ -1,5 +1,5 @@
 
-const dataSource = [{
+export const dataSource2 = [{
     train_type: "קרוספיט",
     amount: 5
   },
@@ -19,6 +19,6 @@ const dataSource = [{
 
 export default {
   getPieData() {
-    return dataSource;
+    return dataSource2;
   }
 };

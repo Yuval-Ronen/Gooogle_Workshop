@@ -13,7 +13,7 @@ import Col from "react-bootstrap/Col";
 
 const TrainerDashboard = (props) => {
     const [userInfo] = useLocalStorage("userInfo",{});
-    const [dataSource2, setDataSource2] = useState([]);
+    const [dataSource, setDataSource] = useState([]);
 
     const [trainingHis, setTrainingHis] = useState(["מתאמנים",[]]);
      useEffect( () => {
@@ -22,24 +22,23 @@ const TrainerDashboard = (props) => {
              console.log("trainingHis", trainingHis)
          })
      },[])
-     //     useEffect( () => {
-     //     serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
-     //         setDataSource2(res);
-     //         console.log("dataSource2", dataSource2)
-     //         console.log(res)
-     //     })
-     // },[])
+    useEffect( () =>{
+          serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
+              setDataSource(res);
+          })
+      },[])
+
 
     return(
         <Container style={{padding: "0px"}}>
             <Row>
                 <Col>
-                <TrainingCart style ={{height:"200px"}}/>
+                <TrainingCart dataSource = {dataSource} style ={{height:"200px"}}/>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >אימונים אחרונים</p>
+                <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >אימונים קרובים</p>
                 <ShowExerciseHistory training_his ={trainingHis} isDashboard={true}/>
                 </Col>
             </Row>

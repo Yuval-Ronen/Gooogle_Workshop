@@ -85,6 +85,13 @@ const serverConnector = {
         // return await data;
         // return await res.json();
     },
+    getUpcomingExercise_trainee: async (trainee_id) => {
+        let res = await fetch(serverUrl + "/api/getUpcomingExercise_trainee/" + trainee_id)
+        let data = await res.json();
+        return data["result"];
+        // return await data;
+        // return await res.json();
+    },
     getTrainingAmountByMonth_trainer: async (trainer_id) => {
         let res = await fetch(serverUrl + "/api/getTrainingAmountByMonth_trainer/" + trainer_id)
         let data = await res.json();
@@ -94,6 +101,40 @@ const serverConnector = {
 //        return  await res.json();
 
         // return await data;
+    },
+    getTrainingAmountByMonth_trainee: async (trainee_id) => {
+        let res = await fetch(serverUrl + "/api/getTrainingAmountByMonth_trainee/" + trainee_id)
+        let data = await res.json();
+        // console.log(data["result"])
+        // console.log(data)
+        return data["result"];
+//        return  await res.json();
+
+        // return await data;
+    },
+    getTypeAmount: async (trainee_id) => {
+        let res = await fetch(serverUrl + "/api/getTypeAmount/" + trainee_id)
+        let data = await res.json();
+        return data["result"];
+
+    },
+    sendMessage: async (trainee_id, trainer_id, message) => {
+        let res = await fetch(serverUrl + "/api/sendMessage/" +trainee_id +"/"+ trainer_id +"/"+ message)
+        let data = await res.json();
+        return data["result"];
+
+    },
+    getMessage: async (trainee_id) => {
+        let res = await fetch(serverUrl + "/api/getMessage/" +trainee_id )
+        let data = await res.json();
+        return data["result"];
+
+    },
+    changeMessageStatus: async (trainee_id) => {
+        let res = await fetch(serverUrl + "/api/changeMessageStatus/" +trainee_id )
+        let data = await res.json();
+        return data["result"];
+
     },
     autoComplete_trainee: async (string, trainer_id) => {
         let res = await fetch(serverUrl + "/api/autoComplete_trainee/",{

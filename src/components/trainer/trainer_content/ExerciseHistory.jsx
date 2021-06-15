@@ -5,7 +5,7 @@ import serverConnector from "../../../server-connector";
 
 //person can be trainer or trainee
 const ExerciseHistory = () => {
-    const [userInfo,setUserInfo] = useLocalStorage("userInfo",{});
+    const [userInfo] = useLocalStorage("userInfo",{});
 
     const [trainingHis, setTrainingHis] = useState(["מתאמנים",[]]);
      useEffect( () =>{

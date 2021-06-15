@@ -777,182 +777,220 @@ SELECT|sys.sys_config
       <ObjectGrants>ALL PRIVILEGES!
 </ObjectGrants>
     </user>
-    <table id="238" parent="2" name="all_personal_program"/>
-    <table id="239" parent="2" name="all_training"/>
+    <table id="238" parent="2" name="all_exercise"/>
+    <table id="239" parent="2" name="all_personal_program"/>
     <table id="240" parent="2" name="match_trainee_trainId"/>
-    <table id="241" parent="2" name="train_type"/>
-    <table id="242" parent="2" name="trainee"/>
-    <table id="243" parent="2" name="trainer"/>
-    <table id="244" parent="2" name="trainer_trainee"/>
-    <column id="245" parent="238" name="trainee_id">
+    <table id="241" parent="2" name="messages"/>
+    <table id="242" parent="2" name="train_type"/>
+    <table id="243" parent="2" name="trainee"/>
+    <table id="244" parent="2" name="trainer"/>
+    <table id="245" parent="2" name="trainer_trainee"/>
+    <column id="246" parent="238" name="train_id">
       <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>mediumint(15)|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="246" parent="238" name="trainer_id">
+    <column id="247" parent="238" name="trainer_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="247" parent="238" name="program_date">
+    <column id="248" parent="238" name="train_type">
+      <Position>3</Position>
+      <DataType>varchar(10)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="249" parent="238" name="train_date_start">
+      <Position>4</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="250" parent="238" name="train_date_end">
+      <Position>5</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="251" parent="238" name="description">
+      <Position>6</Position>
+      <DataType>varchar(1000)|0s</DataType>
+    </column>
+    <column id="252" parent="238" name="train_time_start">
+      <Position>7</Position>
+      <DataType>time|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="253" parent="238" name="train_time_end">
+      <Position>8</Position>
+      <DataType>time|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="254" parent="238" name="training_details_id">
+      <Position>9</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="255" parent="238" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>train_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="256" parent="239" name="trainee_id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="257" parent="239" name="trainer_id">
+      <Position>2</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="258" parent="239" name="program_date">
       <Position>3</Position>
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="248" parent="238" name="link">
+    <column id="259" parent="239" name="link">
       <Position>4</Position>
       <DataType>varchar(45)|0s</DataType>
     </column>
-    <key id="249" parent="238" name="PRIMARY">
+    <key id="260" parent="239" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>trainee_id
 trainer_id
 program_date</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="250" parent="239" name="train_id">
-      <Position>1</Position>
-      <DataType>mediumint(15)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>null</SequenceIdentity>
-    </column>
-    <column id="251" parent="239" name="trainer_id">
-      <Position>2</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="252" parent="239" name="train_type">
-      <Position>3</Position>
-      <DataType>varchar(10)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="253" parent="239" name="train_date">
-      <Position>4</Position>
-      <DataType>date|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="254" parent="239" name="description">
-      <Position>5</Position>
-      <DataType>varchar(1000)|0s</DataType>
-    </column>
-    <column id="255" parent="239" name="train_time">
-      <Position>6</Position>
-      <DataType>time|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="256" parent="239" name="training_details_id">
-      <Position>7</Position>
-      <DataType>int(11)|0s</DataType>
-    </column>
-    <key id="257" parent="239" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>train_id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="258" parent="240" name="train_id">
+    <column id="261" parent="240" name="train_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="259" parent="240" name="trainee_id">
+    <column id="262" parent="240" name="trainee_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="260" parent="240" name="PRIMARY">
+    <key id="263" parent="240" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>train_id
 trainee_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="261" parent="241" name="train_type">
+    <column id="264" parent="241" name="trainee_id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="265" parent="241" name="trainer_id">
+      <Position>2</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="266" parent="241" name="message">
+      <Position>3</Position>
+      <DataType>varchar(100)|0s</DataType>
+    </column>
+    <column id="267" parent="241" name="status">
+      <Position>4</Position>
+      <DataType>varchar(45)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&quot;new&quot;&apos;</DefaultExpression>
+    </column>
+    <key id="268" parent="241" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>trainee_id
+trainer_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="269" parent="242" name="train_type">
       <Position>1</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="262" parent="241" name="PRIMARY">
+    <key id="270" parent="242" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>train_type</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="263" parent="242" name="ID">
+    <column id="271" parent="243" name="ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="264" parent="242" name="first_name">
+    <column id="272" parent="243" name="first_name">
       <Position>2</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="265" parent="242" name="last_name">
+    <column id="273" parent="243" name="last_name">
       <Position>3</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="266" parent="242" name="email">
+    <column id="274" parent="243" name="email">
       <Position>4</Position>
       <DataType>varchar(60)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="267" parent="242" name="image">
+    <column id="275" parent="243" name="image">
       <Position>5</Position>
       <DataType>varchar(100)|0s</DataType>
     </column>
-    <column id="268" parent="242" name="group_id">
+    <column id="276" parent="243" name="group_id">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
     </column>
-    <key id="269" parent="242" name="PRIMARY">
+    <key id="277" parent="243" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="270" parent="243" name="ID">
+    <column id="278" parent="244" name="ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="271" parent="243" name="first_name">
+    <column id="279" parent="244" name="first_name">
       <Position>2</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="272" parent="243" name="last_name">
+    <column id="280" parent="244" name="last_name">
       <Position>3</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="273" parent="243" name="email">
+    <column id="281" parent="244" name="email">
       <Position>4</Position>
       <DataType>varchar(60)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="274" parent="243" name="image">
+    <column id="282" parent="244" name="image">
       <Position>5</Position>
       <DataType>varchar(100)|0s</DataType>
     </column>
-    <column id="275" parent="243" name="admin">
+    <column id="283" parent="244" name="admin">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="276" parent="243" name="PRIMARY">
+    <key id="284" parent="244" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="277" parent="244" name="trainer_id">
+    <column id="285" parent="245" name="trainer_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="278" parent="244" name="trainee_id">
+    <column id="286" parent="245" name="trainee_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="279" parent="244" name="PRIMARY">
+    <key id="287" parent="245" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>trainer_id
 trainee_id</ColNames>
