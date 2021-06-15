@@ -39,7 +39,7 @@ const TrainerTrainee = () => {
                             <PersonalProgress trainee={trainee_id} />
                         </p>
                         <p>
-                            <Medals />
+                            <Medals trainee={trainee_id}/>
                         </p>
                     </Col>
                     <Col  sm={9} xs={20} >

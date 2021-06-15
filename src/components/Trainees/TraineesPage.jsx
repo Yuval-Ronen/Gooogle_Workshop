@@ -24,7 +24,9 @@ const TraineesPage = (props) => {
 
     return(
         <div className='trainee-page'>
+            
             <Container fluid>
+
             <Row>
                 <PageHeader_Trainee />
             </Row>

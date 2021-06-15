@@ -7,49 +7,44 @@ import 'devextreme/dist/css/dx.light.css';
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from 'react-bootstrap/Image';
+import eitan_logo from './eitan_logo.jpg';
 import EitanLogo from './EitanLogo.PNG';
 import LoginTrainer from "./components/trainer/LoginTrainer";
 import LoginTrainee from "./components/Trainees/LoginTrainee";
-
+import photo_eitan from "./photo_eitan.jpg"
+import "./App.css"
+import StyledButton from "./components/personal_progress/Empowerment"
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function App() {
-  return(
-        <div className="App">
+  return (
+ 
+        <div className="transbox">
+          <Container fluid>
+            <Row style={{ justifyContent: 'center' }}>
+              <div className="logo" style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 100
+              }}>
+              </div>
+              <Image src={EitanLogo} width="240px" style={{ marginTop: 100}}/>
+            </Row>
+            <Row style={{ justifyContent: 'center' }}>
+              <LoginTrainer />
+              <LoginTrainee />
+            </Row>
+          </Container>
 
-          <div className="logo" style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              margin: 30,
-              marginTop: 100
-          }}>
-            <Image src={EitanLogo} width="240px"   />
-          </div>
 
-          <div className="buttons" style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center"
-          }}>
-             <div className="buttonTrainer" style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              margin: 10
-          }}>
-             <LoginTrainer/>
 
-             </div>
-             <div className="buttonTraining" style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              margin: 10
-          }}>
-             <LoginTrainee/>
-             </div>
-             </div>
+
         </div>
+
+  
   )
 }
 

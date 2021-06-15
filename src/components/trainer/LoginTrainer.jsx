@@ -7,6 +7,7 @@ import {extractUserData} from "../googleApi/GoogleApi";
 import {setCurState, setUserData} from '../../redux/actions'
 import serverConnector from '../../server-connector';
 import {useLocalStorage} from "../../UtillHook"
+import StyledButton from "../personal_progress/Empowerment"
 
 
 
@@ -29,8 +30,15 @@ const LoginTrainer = (props) => {
             <GoogleLogin
             clientId="476408447979-ksp3ikmql53717ucvohu0uhm8t7ld9f1.apps.googleusercontent.com"
             render = {renderProps => (
-                <Button className={"login_trainer"} variant="outline-primary" href="/TrainerPage" size="lg" onClick={renderProps.onClick} disable = {renderProps.disabled} >
-                    כניסת מאמנים</Button>
+                <StyledButton className={"login_trainer"}  href="/TrainerPage"  onClick={renderProps.onClick} disable = {renderProps.disabled} 
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    margin: 10,
+                    marginBottom: 100,
+                    marginTop: 100,}} >
+                    כניסת מאמנים</StyledButton>
             )}
             buttonText={''}
             onSuccess={async (response) =>
