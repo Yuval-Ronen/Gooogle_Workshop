@@ -1,43 +1,32 @@
 import React from "react";
-import "../Trainees/trainee_content/personal_program_listStyle.css"
+import StyledButton from "./Empowerment.jsx"
+import EditIcon from '@material-ui/icons/Edit';
 
-const PersonalProgress = (props) => {
+
+
+const PersonalProgress = (trainee) => {
     let all_personal_program = [
-        {month: "מאי", year: "2021", docs_link: "https://docs.google.com/document/d/1CwdtJIqoWhAn88FMqw3wSaMMvXUgoFY1hCqIiXgFvGw/edit"},
-        {month: "אפריל", year: "2021", docs_link: "https://docs.google.com/document/d/1CwdtJIqoWhAn88FMqw3wSaMMvXUgoFY1hCqIiXgFvGw/edit"},
-        {month: "מרץ", year: "2021", docs_link: "https://docs.google.com/document/d/1CwdtJIqoWhAn88FMqw3wSaMMvXUgoFY1hCqIiXgFvGw/edit"},
-        {month: "פבואר", year: "2021", docs_link: "https://docs.google.com/document/d/1CwdtJIqoWhAn88FMqw3wSaMMvXUgoFY1hCqIiXgFvGw/edit"},
-        {month: "ינואר", year: "2021", docs_link: "https://docs.google.com/document/d/1CwdtJIqoWhAn88FMqw3wSaMMvXUgoFY1hCqIiXgFvGw/edit"}
-        ]
-    const myChangeHandler = (event) => {
-        // this.setState({username: event.target.value});
-    }
-// style="white-space: pre; font-size: 28px; font-family: "Segoe UI Light", "Helvetica Neue Light", "Segoe UI", "Helvetica Neue", "Trebuchet MS", Verdana, sans-serif; font-weight: 200; fill: rgb(35, 35, 35); cursor: default;"
-   return (
-       <div style = {{marginBottom:"20px", marginRight:"20px" }}>
-        <p style = {{textAnchor: "middle",fontSize: "25px", color: "#55215e", textAlign: 'center'}} >מערכי העצמה</p>
-           <ul className="unordered-list">
-       {all_personal_program?.length > 0 && all_personal_program.map((program, index)=>
-            <li  key={program.month + program.year + index} className="list-item"  >
-                <a href = {program.docs_link} target = "_blank">{program.month + ' '+ program.year}</a>
-                            {/*<div key={program.month + program.year + index} className={style.traineeResult}>*/}
-                        
-            </li> )
-            } </ul>
-            <form>
-                <p></p>
-                <p style = {{fontSize: "15px", color: "#ffc717"}}>:הוסף מערך העצמה חדש</p>
-                <input
-                    type ="text"
-                    placeholder = " google docs הכניסו קישור של "
-                    onChange={myChangeHandler}
-                style = {{width:"90%",height:"10%", textAlign:"right"}}/>
+        { month: "מאי", year: "2021", docs_link: "https://docs.google.com/document/d/1CwdtJIqoWhAn88FMqw3wSaMMvXUgoFY1hCqIiXgFvGw/edit" },
+        { month: "אפריל", year: "2021", docs_link: "https://docs.google.com/document/d/1CwdtJIqoWhAn88FMqw3wSaMMvXUgoFY1hCqIiXgFvGw/edit" },
+        { month: "מרץ", year: "2021", docs_link: "https://docs.google.com/document/d/1CwdtJIqoWhAn88FMqw3wSaMMvXUgoFY1hCqIiXgFvGw/edit" },
+        { month: "פבואר", year: "2021", docs_link: "https://docs.google.com/document/d/1CwdtJIqoWhAn88FMqw3wSaMMvXUgoFY1hCqIiXgFvGw/edit" },
+        { month: "ינואר", year: "2021", docs_link: "https://docs.google.com/document/d/1CwdtJIqoWhAn88FMqw3wSaMMvXUgoFY1hCqIiXgFvGw/edit" }
+    ]
 
-            </form>
 
-            </div>)
+    // style="white-space: pre; font-size: 28px; font-family: "Segoe UI Light", "Helvetica Neue Light", "Segoe UI", "Helvetica Neue", "Trebuchet MS", Verdana, sans-serif; font-weight: 200; fill: rgb(35, 35, 35); cursor: default;"
+    return (
+        
+            <StyledButton style={{ marginTop: "60px"  }} onClick= {() =>  window.location.href=(`/TrainerPage/traineeEmpowerment?trainee_id=${trainee}`)}>
+               <p> <EditIcon fontSize='large'/></p>
+                <p>עריכת מערך העצמה</p>
+            </StyledButton>
+     
 
-        }
+
+    )
+
+}
 
 
 export default PersonalProgress;

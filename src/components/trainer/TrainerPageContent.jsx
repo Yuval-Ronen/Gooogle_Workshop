@@ -5,7 +5,7 @@ import TrainerExerciseSchedule from "./trainer_content/TrainerExerciseSchedule";
 import TrainerTrainees from "./trainer_content/TrainerTrainees";
 import ExerciseHistory from "./trainer_content/ExerciseHistory";
 import TrainerDashboard from "./trainer_content/TrainerDashboard";
-
+import EmpowermentEdit from "../personal_progress/EmpowermentEdit"
 
 
 const TrainerPageContent = () =>
@@ -17,6 +17,7 @@ const TrainerPageContent = () =>
                <Route exact={true} path="/TrainerPage/exercise_schedule" component={TrainerExerciseSchedule}/>
                <Route exact={true} path="/TrainerPage/trainees" component={TrainerTrainees}/>
                <Route exact={true} path="/TrainerPage/exercise_history" component={ExerciseHistory} />
+               <Route exact={true} path="/TrainerPage/traineeEmpowerment" component={EmpowermentEdit}/> 
            </Switch>
         </div>
 

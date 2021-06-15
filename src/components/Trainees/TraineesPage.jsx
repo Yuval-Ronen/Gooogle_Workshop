@@ -26,7 +26,7 @@ const TraineesPage = (props) => {
         <div className='trainee-page'>
             <Container fluid>
             <Row>
-                <PageHeader_Trainee/>
+                <PageHeader_Trainee />
             </Row>
             <Row>
                     <TraineePageContent/>
