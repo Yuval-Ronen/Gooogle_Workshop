@@ -202,7 +202,7 @@ class PageHeader_Trainee extends Component {
               <li>לוח אימונים</li>
             </NavLink>
 
-            <NavLink activeClassName="selected" to="/TraineePage">
+            <NavLink activeClassName="selected" to="/TraineesPage">
               <li>
                 <div className="logo">
                   {/* <Link > */}

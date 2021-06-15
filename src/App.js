@@ -34,6 +34,7 @@ function App() {
               <Image src={EitanLogo} width="240px" style={{ marginTop: 100}}/>
             </Row>
             <Row style={{ justifyContent: 'center' }}>
+              
               <LoginTrainer />
               <LoginTrainee />
             </Row>
