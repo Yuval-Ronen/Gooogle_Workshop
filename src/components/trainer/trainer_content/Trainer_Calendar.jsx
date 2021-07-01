@@ -125,7 +125,7 @@ class Trainer_Calendar extends React.PureComponent{
     this.state = {
       allTrainees: [],
       traineesToCal: [],
-      data: appointments,
+      data: [],
 
       // data: this.props.appointments,
       resources: [
@@ -173,21 +173,31 @@ class Trainer_Calendar extends React.PureComponent{
   }
 
 
-  // componentDidMount(){
-  //   console.log("userInfo",this.props.userInfo)
-  //   serverConnector.getAllTrainees(this.props.userInfo.ID).then(res => {
-  //     this.setState({allTrainees :res});
-  //     console.log("res",res)
-  //
-  //    })
-  //   for (const trainee in res){
-  //       const newTrainee = {text: trainee.first_name + trainee.last_name,
-  //       id: trainee.trainee_id, color: pink[300]};
-  //       this.traineesToCal.concat(newTrainee);
-  //   }
-  //
-  //   console.log("traineesToCal",this.traineesToCal)
-  // }
+  componentDidMount(){
+    console.log("userInfo",this.props.userInfo)
+    serverConnector.getAllTrainingHistory_trainer(this.props.userInfo.ID).then(res => {
+      // this.setState({allTrainees :res});
+       let helper = []
+       let result = res[1]
+       for (const index in res[1]){
+           var s_date = result[index].train_date_start.split("-");
+           var s_time = result[index].train_time_start.split(":");
+           var e_date = result[index].train_date_end.split("-");
+           var e_time = result[index].train_time_end.split(":");
+           helper = helper.concat({title: result[index].train_type, triningType: result[index].train_type,
+               startDate: new Date(s_date[0], s_date[1] -1, s_date[2], s_time[0], s_time[1]),
+               endDate: new Date(e_date[0], e_date[1] -1, e_date[2], e_time[0], e_time[1]),
+               id: result[index].train_id,
+               TrainingDetailsId : result[index].training_details_id,
+               Trainees: result[index].all_trainees.split(","),
+               moreInfo: result[index].description
+               });
+       }
+       this.setState({data: helper});
+      console.log("res in mount",helper)
+
+     })
+  }
 
 
 

@@ -59,6 +59,14 @@ def checkIfTrainee(email):
     return info
 
 
+@app.route("/api/get_all_trainee_dashboard/<trainee_id>", methods=['GET'])
+@error_handler
+def get_all_trainee_dashboard(trainee_id):
+    info = sql_c.get_all_trainee_dashboard(trainee_id)
+    print(info)
+    # return jsonify({"result": result_list}), 200
+    return jsonify({"result": info}), 200
+
 @app.route("/api/getAllTrainingHistory_trainer/<trainer_id>", methods=['GET'])
 @error_handler
 def getAllTrainingHistory_trainer(trainer_id):

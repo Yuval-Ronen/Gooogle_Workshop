@@ -63,6 +63,13 @@ const serverConnector = {
         // let data = await res.json();
         // return data["result"];
     },
+
+    GetAllTraineeDashboard: async (trainee_id) => {
+        let res = await fetch(serverUrl + "/api/get_all_trainee_dashboard/" + trainee_id)
+        // return await res.json();
+        let data = await res.json();
+        return data["result"];
+    },
     getAllTrainingHistory_trainer: async (trainer_id) => {
         let res = await fetch(serverUrl + "/api/getAllTrainingHistory_trainer/" + trainer_id)
         // return await res.json();
@@ -88,6 +95,7 @@ const serverConnector = {
     getUpcomingExercise_trainee: async (trainee_id) => {
         let res = await fetch(serverUrl + "/api/getUpcomingExercise_trainee/" + trainee_id)
         let data = await res.json();
+        console.log("im in server connector doing getUpcomingExercise_trainee ", data["result"])
         return data["result"];
         // return await data;
         // return await res.json();
@@ -105,7 +113,7 @@ const serverConnector = {
     getTrainingAmountByMonth_trainee: async (trainee_id) => {
         let res = await fetch(serverUrl + "/api/getTrainingAmountByMonth_trainee/" + trainee_id)
         let data = await res.json();
-        // console.log(data["result"])
+        console.log("im in server connector doing getTrainingAmountByMonth_trainee ", data["result"])
         // console.log(data)
         return data["result"];
 //        return  await res.json();
@@ -115,6 +123,8 @@ const serverConnector = {
     getTypeAmount: async (trainee_id) => {
         let res = await fetch(serverUrl + "/api/getTypeAmount/" + trainee_id)
         let data = await res.json();
+        console.log("im in server connector doing getTypeAmount ", data["result"])
+
         return data["result"];
 
     },

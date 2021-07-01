@@ -41,15 +41,10 @@ const FilterIcon = ({ type, ...restProps }) => {
 //person can be trainer or trainee
 const ShowExerciseHistory = (training_his) => {
 
-
-
   //let training_his = {ShowExerciseHistory}
   let allTrainings = training_his.training_his[1]
   let trainerOrTrainee = training_his.training_his[0]
   let isDashboard = training_his.isDashboard
-  console.log("allTrainings", allTrainings)
-  console.log("trainerOrTrainee", trainerOrTrainee)
-  console.log("isDashboard", isDashboard)
 
   function trainings() {
     var rows = []
@@ -97,8 +92,7 @@ const ShowExerciseHistory = (training_his) => {
   ];
 
   const rows = trainings()
-  console.log("rows", rows)
-  
+
   const [tableColumnExtensions] = useState([
     { columnName: 'description', align: 'right', wordWrapEnabled: 'true' },
     { columnName: 'train_type', align: 'center' },

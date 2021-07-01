@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState, } from '@devexpress/dx-react-scheduler';
+import { ViewState, } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   Resources,
@@ -11,32 +11,14 @@ import {
   ViewSwitcher,
   Appointments,
   AppointmentTooltip,
-  AppointmentForm,
   DateNavigator,
   TodayButton,
   CurrentTimeIndicator,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { connectProps } from '@devexpress/dx-react-core';
-import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
 import { withStyles } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
-import TextField from '@material-ui/core/TextField';
-import LocationOn from '@material-ui/icons/LocationOn';
-import Notes from '@material-ui/icons/Notes';
-import Close from '@material-ui/icons/Close';
-import CalendarToday from '@material-ui/icons/CalendarToday';
-import Create from '@material-ui/icons/Create';
 import { appointments } from '../../trainer/trainer_content/Training'
 import {TrainingDetails, Trainees} from '../../trainer/trainer_content/TrainingTypeAndTreinees'
+import serverConnector from "../../../server-connector";
 
 
 const styles = theme => ({
@@ -53,9 +35,13 @@ class Trainee_Calendar extends React.PureComponent {
   today = new Date();
 
   constructor(props) {
+    console.log("in constructor", props.userInfo)
+    console.log("in constructor props appoin", props.appointments)
+    console.log("in constructor appointments", appointments)
+
     super(props);
     this.state = {
-      data: appointments,
+      data: [],
       resources: [
         {
           fieldName: 'TrainingDetailsId',
@@ -82,88 +68,40 @@ class Trainee_Calendar extends React.PureComponent {
       locale: 'he-IS',
     };
 
-    this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
-    this.commitDeletedAppointment = this.commitDeletedAppointment.bind(this);
-    this.toggleEditingFormVisibility = this.toggleEditingFormVisibility.bind(this);
-    this.onAddedAppointmentChange = this.onAddedAppointmentChange.bind(this);
-
-    this.commitChanges = this.commitChanges.bind(this);
-    this.changeAddedAppointment = this.changeAddedAppointment.bind(this);
-    this.changeAppointmentChanges = this.changeAppointmentChanges.bind(this);
-    this.changeEditingAppointment = this.changeEditingAppointment.bind(this);
 
   }
 
+  componentDidMount(){
+    console.log("userInfo",this.props.userInfo)
+    serverConnector.getAllTrainingHistory_trainee(this.props.userInfo.ID).then(res => {
+      // this.setState({allTrainees :res});
+       let helper = []
+       let result = res[1]
+       for (const index in res[1]){
+           var s_date = result[index].train_date_start.split("-");
+           var s_time = result[index].train_time_start.split(":");
+           var e_date = result[index].train_date_end.split("-");
+           var e_time = result[index].train_time_end.split(":");
+           helper = helper.concat({title: result[index].train_type, triningType: result[index].train_type,
+               startDate: new Date(s_date[0], s_date[1] -1, s_date[2], s_time[0], s_time[1]),
+               endDate: new Date(e_date[0], e_date[1] -1, e_date[2], e_time[0], e_time[1]),
+               id: result[index].train_id,
+               TrainingDetailsId : result[index].training_details_id,
+               Trainees: result[index].all_trainees.split(","),
+               moreInfo: result[index].description
+               });
+       }
+       this.setState({data: helper});
+      console.log("res in mount",helper)
 
-  onAddedAppointmentChange(addedAppointment) {
-    this.setState({ addedAppointment });
-    const { editingAppointment } = this.state;
-    if (editingAppointment !== undefined) {
-      this.setState({
-        previousAppointment: editingAppointment,
-      });
-    }
-    this.setState({ editingAppointment: undefined, isNewAppointment: true });
+     })
+
+    // console.log("traineesToCal",this.traineesToCal)
   }
-
-  onEditingAppointmentChange(editingAppointment) {
-    this.setState({ editingAppointment });
-  }
-
-  changeAddedAppointment(addedAppointment) {
-    this.setState({ addedAppointment });
-  }
-
-  changeAppointmentChanges(appointmentChanges) {
-    this.setState({ appointmentChanges });
-  }
-
-  changeEditingAppointment(editingAppointment) {
-    this.setState({ editingAppointment });
-  }
-
-  toggleEditingFormVisibility() {
-    const { editingFormVisible } = this.state;
-    this.setState({
-      editingFormVisible: !editingFormVisible,
-    });
-  }
-
-  toggleConfirmationVisible() {
-    const { confirmationVisible } = this.state;
-    this.setState({ confirmationVisible: !confirmationVisible });
-  }
-
-  commitDeletedAppointment() {
-    this.setState((state) => {
-      const { data, deletedAppointmentId } = state;
-      const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
-
-      return { data: nextData, deletedAppointmentId: null };
-    });
-    this.toggleConfirmationVisible();
-  }
-
-  commitChanges({ added, changed, deleted }) {
-    this.setState((state) => {
-      let { data } = state;
-      if (added) {
-        const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [...data, { id: startingAddedId, ...added }];
-      }
-      if (changed) {
-        data = data.map(appointment => (
-          changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
-      }
-      if (deleted !== undefined) {
-        this.setDeletedAppointmentId(deleted);
-        this.toggleConfirmationVisible();
-      }
-      return { data };
-    });
-  }
-
   render() {
+    console.log("in render", this.props.userInfo)
+    console.log("in render", this.props.appointments)
+
     const { data,
        resources,
         currentDate,

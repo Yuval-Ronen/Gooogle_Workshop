@@ -31,10 +31,10 @@ export default function Medals (trainee) {
         setOpen(false);
         setMessage(value);
         console.log("message", message);
-        serverConnector.sendMessage(trainee.trainee, userInfo.ID, message).then(res => {
-            setMessage(res)
-            console.log("res", res)
-        })
+        // serverConnector.sendMessage(trainee.trainee, userInfo.ID, message).then(res => {
+        //     setMessage(res)
+        //     console.log("res", res)
+        // })
         setValue('');
     }
 
