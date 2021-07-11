@@ -104,7 +104,7 @@ class ConnectSQL:
 
     def get_all_training_history_trainer(self, trainer_id):
         query = (
-            "SELECT GROUP_CONCAT(t3.first_name, ' ', t3.last_name, ', ') as all_trainees, "
+            "SELECT GROUP_CONCAT(' ' ,t3.first_name, ' ', t3.last_name) as all_trainees, "
             "train_type, train_time_start, train_time_end, train_date_start, train_date_end, description, "
             "t1.train_id as train_id, training_details_id "
             "FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2, "
@@ -123,7 +123,7 @@ class ConnectSQL:
                       "train_date_end": str(train_date_end),
                       "train_time_start": str(train_time_start),
                       "train_time_end": str(train_time_end),
-                      "all_trainees": all_trainees[0:len(all_trainees) -2], "description": description,
+                      "all_trainees": all_trainees[1:len(all_trainees)], "description": description,
                       "train_type": train_type, "train_id": train_id, "training_details_id": training_details_id}
             final.append(inside)
         return final
@@ -157,7 +157,7 @@ class ConnectSQL:
 
     def get_upcoming_exercise_trainer(self, trainer_id):
         query = (
-            "SELECT GROUP_CONCAT(t3.first_name, ' ', t3.last_name, ', ') as all_trainees, train_type, train_time_start, "
+            "SELECT GROUP_CONCAT(' ', t3.first_name, ' ', t3.last_name) as all_trainees, train_type, train_time_start, "
             "train_date_start, description "
             "FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2, "
             "eitan_database.trainee as t3 "
@@ -172,7 +172,7 @@ class ConnectSQL:
                 description = "אין תיאור"
 
             inside = {"train_date_start": str(train_date_start), "train_time_start": str(train_time_start),
-                      "all_trainees": all_trainees[0:len(all_trainees)-2],
+                      "all_trainees": all_trainees[1:len(all_trainees)],
                       "description": description, "train_type": train_type}
             final.append(inside)
         return final
