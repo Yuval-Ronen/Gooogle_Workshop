@@ -8,17 +8,17 @@ const TrainerExerciseSchedule = (props) => {
     const [userInfo] = useLocalStorage("userInfo",{});
     const [allTrainees, setAllTrainees] = useState([{'text': 'יובל רונן', 'id': 205380132, 'color': '#f06292'}, {'text': 'מתאמן א', 'id': 205380133, 'color': '#f06292'}, {'text': 'הודאל כהן', 'id': 205380134, 'color': '#f06292'}, {'text': 'ירון פרידמן', 'id': 205380135, 'color': '#f06292'}, {'text': 'שקד טרנר', 'id': 205380136, 'color': '#f06292'}, {'text': 'לירון בר-מגן', 'id': 205380137, 'color': '#f06292'}, {'text': 'מיטל ברגר', 'id': 205380138, 'color': '#f06292'}, {'text': 'אורי בירנבוים', 'id': 205380139, 'color': '#f06292'}, {'text': 'שחר גרינברג ריניס', 'id': 305339285, 'color': '#f06292'}]);
 
-     useEffect( () =>{
-         let helper = [];
-         serverConnector.getAllTrainees(userInfo.ID).then(res => {
-             for (const index in res){
-                 helper = helper.concat({text: res[index].first_name +' '+ res[index].last_name,
-                     id: res[index].trainee_id, color: pink[300]});
-             }
-             setAllTrainees(helper)
-             console.log("allTrainees",allTrainees)
-         })
-    },[])
+    //  useEffect( () =>{
+    //      let helper = [];
+    //      serverConnector.getAllTrainees(userInfo.ID).then(res => {
+    //          for (const index in res){
+    //              helper = helper.concat({text: res[index].first_name +' '+ res[index].last_name,
+    //                  id: res[index].trainee_id, color: pink[300]});
+    //          }
+    //          setAllTrainees(helper)
+    //          console.log("allTrainees",allTrainees)
+    //      })
+    // },[])
     //  useEffect( () =>{
     //      // let helper = [];
     //      serverConnector.getAllTrainingHistory_trainer(userInfo.ID).then(res => {

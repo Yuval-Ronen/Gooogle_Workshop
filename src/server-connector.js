@@ -63,7 +63,12 @@ const serverConnector = {
         // let data = await res.json();
         // return data["result"];
     },
-
+    getAllTrainerCalendar: async (trainer_id) => {
+        let res = await fetch(serverUrl + "/api/get_all_trainer_calendar/" + trainer_id)
+        // return await res.json();
+        let data = await res.json();
+        return data["result"];
+    },
     GetAllTraineeDashboard: async (trainee_id) => {
         let res = await fetch(serverUrl + "/api/get_all_trainee_dashboard/" + trainee_id)
         // return await res.json();

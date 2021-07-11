@@ -177,6 +177,42 @@ class ConnectSQL:
             final.append(inside)
         return final
 
+    def get_all_trainer_calendar(self, trainer_id):
+        query = ("SELECT eitan_database.trainee.ID, eitan_database.trainee.first_name, "
+                 "eitan_database.trainee.last_name, eitan_database.trainee.image "
+                 "FROM eitan_database.trainer_trainee JOIN eitan_database.trainee ON trainee_id = ID"
+                 " WHERE trainer_id = %s")
+        self.cursor.execute(query, (trainer_id,))
+        allTrainees = []
+        for (ID, first_name, last_name, image) in self.cursor:
+            inside = {"trainee_id": ID, "first_name": first_name, "last_name": last_name, "image": image}
+            allTrainees.append(inside)
+
+        query2 = (
+            "SELECT GROUP_CONCAT(t3.first_name, ' ', t3.last_name, ', ') as all_trainees, "
+            "train_type, train_time_start, train_time_end, train_date_start, train_date_end, description, "
+            "t1.train_id as train_id, training_details_id "
+            "FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2, "
+            "eitan_database.trainee as t3 "
+            " WHERE t3.ID = t2.trainee_id AND t1.train_id = t2.train_id AND t1.trainer_id = %s "
+            " GROUP BY t1.train_id "
+            " ORDER BY t1.train_date_start, t1.train_time_start DESC ")
+        self.cursor.execute(query2, (trainer_id,))
+        allExercise = []
+        for (all_trainees, train_type, train_time_start, train_time_end,
+             train_date_start, train_date_end, description, train_id, training_details_id) in self.cursor:
+            if description == 'null':
+                description = "אין תיאור"
+
+            inside = {"train_date_start": str(train_date_start),
+                      "train_date_end": str(train_date_end),
+                      "train_time_start": str(train_time_start),
+                      "train_time_end": str(train_time_end),
+                      "all_trainees": all_trainees[0:len(all_trainees) -2], "description": description,
+                      "train_type": train_type, "train_id": train_id, "training_details_id": training_details_id}
+            allExercise.append(inside)
+        return {"allTrainees": allTrainees, "allExercise": ["מאמן", allExercise]}
+
     def get_all_trainee_dashboard(self, trainee_id):
         query = (
             "SELECT GROUP_CONCAT(t3.first_name, ' ', t3.last_name) as all_trainees, train_type, train_time_start, "

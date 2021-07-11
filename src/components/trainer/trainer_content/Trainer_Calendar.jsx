@@ -17,6 +17,7 @@ import Button from '@material-ui/core/Button';
 import { appointments } from './Training'
 import { triningType, Trainees, TrainingDetails } from './TrainingTypeAndTreinees'
 import serverConnector from "../../../server-connector";
+import {pink} from "@material-ui/core/colors";
 
 
 
@@ -121,13 +122,10 @@ class Trainer_Calendar extends React.PureComponent{
   today = new Date();
 
   constructor(props) {
+    console.log("in constructor")
     super(props);
     this.state = {
-      allTrainees: [],
-      traineesToCal: [],
       data: [],
-
-      // data: this.props.appointments,
       resources: [
         {
           fieldName: 'TrainingDetailsId',
@@ -137,8 +135,8 @@ class Trainer_Calendar extends React.PureComponent{
         {
           fieldName: 'Trainees',
           title: 'מתאמנים',
-          //instances: Trainees,
-          instances: this.props.allTrainees,
+          instances: [],
+          //instances: this.props.allTrainees,
           allowMultiple: true,
         },
       ],
@@ -164,22 +162,33 @@ class Trainer_Calendar extends React.PureComponent{
     this.changeAddedAppointment = this.changeAddedAppointment.bind(this);
     this.changeAppointmentChanges = this.changeAppointmentChanges.bind(this);
     this.changeEditingAppointment = this.changeEditingAppointment.bind(this);
-    console.log("allTrainees as props",this.props.allTrainees);
-    console.log("userInfo as props",this.props.userInfo);
+    // console.log("allTrainees as props",this.props.allTrainees);
+    // console.log("userInfo as props",this.props.userInfo);
     // console.log("appointments as props",this.props.appointments);
 
 
 
   }
 
-
+//get all the trainees of the trainer and get all the history for the calendar
   componentDidMount(){
-    console.log("userInfo",this.props.userInfo)
-    serverConnector.getAllTrainingHistory_trainer(this.props.userInfo.ID).then(res => {
-      // this.setState({allTrainees :res});
+    console.log("in componentDidMount")
+    let my_helper = [];
+    serverConnector.getAllTrainerCalendar(this.props.userInfo.ID).then(res => {
+      let allTrainees = res.allTrainees
+      for (const index in res.allTrainees){
+        my_helper = my_helper.concat({text: allTrainees[index].first_name +' '+ allTrainees[index].last_name,
+          id: allTrainees[index].trainee_id, color: pink[300]});
+      }
+      //the temp is helper to change only the instances of the second field in resources
+      let temp = this.state.resources[1]
+      temp.instances = my_helper;
+      this.setState({resources : [this.state.resources[0], temp]});
+
+      //this is manipulation on the data after it returns from the server so it will be in the same format as the server
        let helper = []
-       let result = res[1]
-       for (const index in res[1]){
+       let result = res.allExercise[1]
+       for (const index in res.allExercise[1]){
            var s_date = result[index].train_date_start.split("-");
            var s_time = result[index].train_time_start.split(":");
            var e_date = result[index].train_date_end.split("-");
@@ -194,8 +203,7 @@ class Trainer_Calendar extends React.PureComponent{
                });
        }
        this.setState({data: helper});
-      console.log("res in mount",helper)
-
+       console.log("res in mount",helper)
      })
   }
 
@@ -291,6 +299,8 @@ class Trainer_Calendar extends React.PureComponent{
 
 
   render() {
+    console.log("in render")
+
     const { data,
       resources,
       currentDate,
