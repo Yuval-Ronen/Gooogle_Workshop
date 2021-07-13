@@ -1,4 +1,6 @@
 // const serverUrl = "http://localhost:45556";
+
+
 const serverUrl = "http://localhost:5000";
 
 
@@ -34,19 +36,14 @@ const serverConnector = {
     createNewTrain:async (trainer_id, trainees, train_type, train_date_start, train_date_end,  train_time_start, train_time_end, description, training_details_id) =>{
         let res = await fetch(serverUrl+"/api/createNewTrain/" + trainer_id +"/"+ [trainees] +"/"+ train_type +"/"+ train_date_start +"/"+ train_date_end +"/"+
             train_time_start +"/"+train_time_end +"/"+ description +"/"+ training_details_id);
-        //     method: 'POST',
-        //     headers:{
-        //         "Content-Type":"application/json"
-        //     },
-        //     body: JSON.stringify({
-        //         trainer_id: trainer_id,
-        //         trainees: trainees,
-        //         train_type: train_type,
-        //         train_date: train_date,
-        //         train_time: train_time,
-        //         description:description
-        //     })
-        // })
+        let data = await res.json();
+        return data["result"];
+        },
+
+    updateExercise:async (changed_data) =>{
+        let str = JSON.stringify(changed_data);
+        console.log("my_str", str)
+        let res = await fetch(serverUrl+"/api/updateExercise/" + str);
         let data = await res.json();
         return data["result"];
         },
@@ -79,7 +76,6 @@ const serverConnector = {
         let res = await fetch(serverUrl + "/api/getAllTrainingHistory_trainer/" + trainer_id)
         // return await res.json();
         let data = await res.json();
-        console.log(data)
         console.log(data["result"])
         return data["result"];
 

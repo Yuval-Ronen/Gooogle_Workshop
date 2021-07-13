@@ -1,12 +1,11 @@
 import Trainer_Calendar from "./Trainer_Calendar";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useLocalStorage} from "../../../UtillHook";
-import serverConnector from "../../../server-connector";
-import {pink} from "@material-ui/core/colors";
+
 
 const TrainerExerciseSchedule = (props) => {
     const [userInfo] = useLocalStorage("userInfo",{});
-    const [allTrainees, setAllTrainees] = useState([{'text': 'יובל רונן', 'id': 205380132, 'color': '#f06292'}, {'text': 'מתאמן א', 'id': 205380133, 'color': '#f06292'}, {'text': 'הודאל כהן', 'id': 205380134, 'color': '#f06292'}, {'text': 'ירון פרידמן', 'id': 205380135, 'color': '#f06292'}, {'text': 'שקד טרנר', 'id': 205380136, 'color': '#f06292'}, {'text': 'לירון בר-מגן', 'id': 205380137, 'color': '#f06292'}, {'text': 'מיטל ברגר', 'id': 205380138, 'color': '#f06292'}, {'text': 'אורי בירנבוים', 'id': 205380139, 'color': '#f06292'}, {'text': 'שחר גרינברג ריניס', 'id': 305339285, 'color': '#f06292'}]);
+    const [allTrainees] = useState([]);
 
     //  useEffect( () =>{
     //      let helper = [];
@@ -43,7 +42,6 @@ const TrainerExerciseSchedule = (props) => {
     //          // console.log(helper);
     //      })
     // },[])
-    console.log("im here in ")
     return (
         <div className='trainer-exercise-schedule'>
             <Trainer_Calendar userInfo = {userInfo} allTrainees = {allTrainees} />

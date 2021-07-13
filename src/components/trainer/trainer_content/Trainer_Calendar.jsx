@@ -14,7 +14,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import { appointments } from './Training'
 import { triningType, Trainees, TrainingDetails } from './TrainingTypeAndTreinees'
 import serverConnector from "../../../server-connector";
 import {pink} from "@material-ui/core/colors";
@@ -198,7 +197,7 @@ class Trainer_Calendar extends React.PureComponent{
                endDate: new Date(e_date[0], e_date[1] -1, e_date[2], e_time[0], e_time[1]),
                id: result[index].train_id,
                TrainingDetailsId : result[index].training_details_id,
-               Trainees: result[index].all_trainees.split(","),
+               Trainees: result[index].all_trainees.split(", "),
                moreInfo: result[index].description
                });
        }
@@ -222,26 +221,40 @@ class Trainer_Calendar extends React.PureComponent{
     // serverConnector.getAllTrainees()
   }
   setDeletedAppointmentId(id) {
+    console.log("setDeletedAppointmentId", id)
+
     this.setState({ deletedAppointmentId: id });
   }
 
   onEditingAppointmentChange(editingAppointment) {
+    console.log("onEditingAppointmentChange", editingAppointment)
     this.setState({ editingAppointment });
   }
 
   changeAddedAppointment(addedAppointment) {
+    console.log("changeAddedAppointment", addedAppointment)
+
     this.setState({ addedAppointment });
   }
 
   changeAppointmentChanges(appointmentChanges) {
+    console.log("changeAppointmentChanges", appointmentChanges)
+    if(Object.keys(appointmentChanges).length != 0){
+      console.log("put in server", Object.keys(appointmentChanges).length )
+    }
+
     this.setState({ appointmentChanges });
   }
 
   changeEditingAppointment(editingAppointment) {
+        console.log("editingAppointment",editingAppointment)
+        console.log("state",this.state)
+
     this.setState({ editingAppointment });
   }
 
   toggleEditingFormVisibility() {
+    console.log("toggleEditingFormVisibility", )
     const { editingFormVisible } = this.state;
     this.setState({
       editingFormVisible: !editingFormVisible,
@@ -249,11 +262,14 @@ class Trainer_Calendar extends React.PureComponent{
   }
 
   toggleConfirmationVisible() {
+    console.log("toggleConfirmationVisible", )
+
     const { confirmationVisible } = this.state;
     this.setState({ confirmationVisible: !confirmationVisible });
   }
 
   commitDeletedAppointment() {
+    console.log("commitDeletedAppointment", )
     this.setState((state) => {
       const { data, deletedAppointmentId } = state;
       const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
@@ -264,6 +280,8 @@ class Trainer_Calendar extends React.PureComponent{
   }
 
   commitChanges({ added, changed, deleted }) {
+    console.log("commitChanges","added-", added, "changed-", changed, "deleted-", deleted )
+
     this.setState((state) => {
       let { data } = state;
       if (added) {
@@ -282,9 +300,28 @@ class Trainer_Calendar extends React.PureComponent{
 
       }
       if (changed) {
+        console.log("in if changed")
         data = data.map(appointment => (
-          changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
+            changed[appointment.id] ? {...appointment, ...changed[appointment.id]} : appointment));
+
+        let changed_data = changed[Object.keys(changed)[0]];
+        changed_data["train_id"] = parseInt(Object.keys(changed)[0]);
+        if(changed_data["startDate"] !== undefined){
+          changed_data["train_time_start"] = convert_time(changed_data["startDate"]);
+          changed_data["train_date_start"] = convert_date(changed_data["startDate"]);
+        }
+        if(changed_data["endDate"] !== undefined) {
+          changed_data["train_time_end"] = convert_time(changed_data["endDate"]);
+          changed_data["train_date_end"] = convert_date(changed_data["endDate"]);
+        }
+        delete changed_data["startDate"]
+        delete changed_data["endDate"]
+
+        console.log("changed_data",changed_data)
+        serverConnector.updateExercise(changed_data).then(res => {
+        });
       }
+
       if (deleted !== undefined) {
         this.setDeletedAppointmentId(deleted);
         this.toggleConfirmationVisible();
@@ -297,7 +334,7 @@ class Trainer_Calendar extends React.PureComponent{
   }
 
 
-
+//==render==============================================================================================================
   render() {
     console.log("in render")
 

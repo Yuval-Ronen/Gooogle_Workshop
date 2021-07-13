@@ -1,6 +1,7 @@
 from datetime import datetime
 from functools import wraps
-
+from sqlite3.dbapi2 import Date
+import json
 from flask_cors import CORS, cross_origin
 # import CORS as CORS
 from flask import Flask, render_template, jsonify
@@ -12,7 +13,6 @@ app = Flask(__name__)
 
 CORS(app, supports_credentials=True)
 cors = CORS(app, resources={r"*": {"origins": "http://localhost:3000"}})
-
 
 translator = {1: "ינואר", 2: "פבואר", 3: "מרץ", 4: "אפריל", 5: "מאי", 6: "יוני", 7: "יולי", 8: "אוגוסט", 9: "ספטמבר", 10: "אוקטובר", 11: "נובמבר", 12: "דצמבר"}
 
@@ -190,10 +190,25 @@ def getAllTrainees(trainer_id):
            methods=['GET'])
 @error_handler
 def createNewTrain(trainer_id, trainees, train_type, train_date_start, train_date_end,  train_time_start, train_time_end, description, training_details_id):
-    print("in main.py")
     info = sql_c.new_train(trainer_id, trainees.split(','), train_type, train_date_start, train_date_end,
                            train_time_start, train_time_end, description, training_details_id)
-    # print(info)
+    return jsonify({"result": info}), 200
+
+
+@app.route("/api/updateExercise/<changed_data>", methods=['GET'])
+@error_handler
+def updateExercise(changed_data):
+    changed_data = json.loads(changed_data)
+    print("changed_data", changed_data)
+    data_keys = changed_data.keys()
+    print(data_keys)
+    new_keys = {"title": "train_type", "moreInfo": "description", "TrainingDetailsId": "training_details_id"}
+    for my_key in list(data_keys):
+        if my_key != "train_id" and my_key in new_keys.keys():
+            changed_data[new_keys[my_key]] = changed_data[my_key]
+            del changed_data[my_key]
+    print(changed_data)
+    info = sql_c.update_exercise(changed_data)
     return jsonify({"result": info}), 200
 
 # @app.route("/", methods=['GET'])

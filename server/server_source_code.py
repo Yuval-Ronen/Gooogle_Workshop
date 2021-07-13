@@ -1,9 +1,8 @@
 # server code
-import datetime
-
 import mysql.connector
 
-translator = {1: "ינואר", 2: "פבואר", 3: "מרץ", 4: "אפריל", 5: "מאי", 6: "יוני", 7: "יולי", 8: "אוגוסט", 9: "ספטמבר", 10 : "אוקטובר", 11: "נובמבר", 12: "דצמבר"}
+translator = {1: "ינואר", 2: "פבואר", 3: "מרץ", 4: "אפריל", 5: "מאי", 6: "יוני", 7: "יולי", 8: "אוגוסט", 9: "ספטמבר",
+              10: "אוקטובר", 11: "נובמבר", 12: "דצמבר"}
 
 
 class ConnectSQL:
@@ -51,7 +50,6 @@ class ConnectSQL:
             final.append(inside)
         return final
 
-    # need to change
     def new_train(self, trainer_id, trainees, train_type, train_date_start, train_date_end,
                   train_time_start, train_time_end, description, training_details_id):
         query_add_new_train = ("INSERT INTO eitan_database.all_exercise (trainer_id, train_type,  train_date_start, "
@@ -80,6 +78,55 @@ class ConnectSQL:
         self.cnx.commit()
 
         return {"train_id": trainId}
+
+    def update_exercise(self, changed_data):
+        # i want to get the the old data so i wont have to do the chnage in a loop
+        get_event_query = (
+            "SELECT trainer_id, train_type, train_date_start, train_date_end, description, train_time_start, "
+            "train_time_end, training_details_id, allDay, rRule "
+            " FROM eitan_database.all_exercise "
+            " WHERE train_id = %s ")
+        print(" in mysql", changed_data)
+        self.cursor.execute(get_event_query, (changed_data["train_id"],))
+        for (trainer_id, train_type, train_date_start, train_date_end, description, train_time_start, train_time_end,
+             training_details_id, allDay, rRule) in self.cursor:
+            info = {"trainer_id": trainer_id, "train_type": train_type, "train_date_start": train_date_start,
+                    "train_date_end": train_date_end, "description": description,
+                    "train_time_start": train_time_start, "train_time_end": train_time_end,
+                    "training_details_id": training_details_id, "allDay": allDay, "rRule": rRule}
+        # insert to changed the missing data
+        for field in info.keys():
+            if field not in changed_data.keys():
+                changed_data[field] = info[field]
+
+        query = ("UPDATE eitan_database.all_exercise "
+                 "SET train_type = %s,  train_date_start = %s, train_date_end = %s, description = %s, "
+                 "train_time_start = %s, train_time_end = %s, training_details_id = %s, "
+                 "allDay = %s, rRule = %s"
+                 " WHERE train_id = %s"
+                 )
+        self.cursor.execute(query, (
+            changed_data["train_type"], changed_data["train_date_start"], changed_data["train_date_end"],
+            changed_data["description"],
+            changed_data["train_time_start"], changed_data["train_time_end"], changed_data["training_details_id"],
+            changed_data["allDay"], changed_data["rRule"], changed_data["train_id"]))
+
+        # if we changed the trainees in the event need to change the match in the train id
+        if "Trainees" in changed_data.keys():
+            query_add_participants = ("INSERT INTO eitan_database.match_trainee_trainId (train_id, trainee_id)"
+                                      " VALUES (%s, %s)")
+
+            # delete the old participants
+            query_to_delete = "DELETE FROM eitan_database.match_trainee_trainId WHERE train_id = %s"
+            self.cursor.execute(query_to_delete, changed_data["train_id"])
+            # change participants
+            for trainee in changed_data["Trainees"]:
+                data = (changed_data["train_id"], trainee)
+                self.cursor.execute(query_add_participants, data)
+        self.cnx.commit()
+        print("finish update")
+
+        return {}
 
     def get_personal_program(self, trainee_id):
         query = ("Select link, program_date "
@@ -189,7 +236,7 @@ class ConnectSQL:
             allTrainees.append(inside)
 
         query2 = (
-            "SELECT GROUP_CONCAT(t3.first_name, ' ', t3.last_name, ', ') as all_trainees, "
+            "SELECT GROUP_CONCAT(' ', t3.first_name, ' ', t3.last_name) as all_trainees, "
             "train_type, train_time_start, train_time_end, train_date_start, train_date_end, description, "
             "t1.train_id as train_id, training_details_id "
             "FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2, "
@@ -208,7 +255,7 @@ class ConnectSQL:
                       "train_date_end": str(train_date_end),
                       "train_time_start": str(train_time_start),
                       "train_time_end": str(train_time_end),
-                      "all_trainees": all_trainees[0:len(all_trainees) -2], "description": description,
+                      "all_trainees": all_trainees[1:len(all_trainees)], "description": description,
                       "train_type": train_type, "train_id": train_id, "training_details_id": training_details_id}
             allExercise.append(inside)
         return {"allTrainees": allTrainees, "allExercise": ["מאמן", allExercise]}
@@ -233,10 +280,10 @@ class ConnectSQL:
                       "description": description, "train_type": train_type}
             trainingHis.append(inside)
         query2 = (" SELECT MONTH(t1.train_date_start) AS month, COUNT(*) AS training_amount"
-                 " FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2"
-                 " WHERE YEAR(t1.train_date_start) = YEAR(NOW()) AND t1.train_id = t2.train_id AND t2.trainee_id = %s"
-                 " GROUP BY MONTH(t1.train_date_start)"
-                 " ORDER BY MONTH(t1.train_date_start) ASC")
+                  " FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2"
+                  " WHERE YEAR(t1.train_date_start) = YEAR(NOW()) AND t1.train_id = t2.train_id AND t2.trainee_id = %s"
+                  " GROUP BY MONTH(t1.train_date_start)"
+                  " ORDER BY MONTH(t1.train_date_start) ASC")
         self.cursor.execute(query2, (trainee_id,))
         chartDataSource = []
         for (month, training_amount) in self.cursor:
@@ -250,18 +297,15 @@ class ConnectSQL:
         #     chartDataSource.append(inside)
 
         query3 = (" SELECT t1.train_type AS train_type, COUNT(*) AS amount"
-                 " FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2"
-                 " WHERE YEAR(t1.train_date_start) = YEAR(NOW()) AND t1.train_id = t2.train_id AND t2.trainee_id = %s"
-                 " GROUP BY t1.train_type")
+                  " FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2"
+                  " WHERE YEAR(t1.train_date_start) = YEAR(NOW()) AND t1.train_id = t2.train_id AND t2.trainee_id = %s"
+                  " GROUP BY t1.train_type")
         self.cursor.execute(query3, (trainee_id,))
         dataSource = []
         for (train_type, amount) in self.cursor:
             inside = {"train_type": train_type, "amount": amount}
             dataSource.append(inside)
         return {"dataSource": dataSource, "chartDataSource": chartDataSource, "trainingHis": ["מאמן", trainingHis]}
-
-
-
 
     def get_upcoming_exercise_trainee(self, trainee_id):
         query = (
