@@ -17,6 +17,8 @@ import StyledButton from "./components/personal_progress/Empowerment"
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import LanguageRoundedIcon from '@material-ui/icons/LanguageRounded';
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 
 function App() {
   return (
@@ -32,6 +34,14 @@ function App() {
               }}>
               </div>
               <Image src={EitanLogo} width="240px" style={{ marginTop: 100}}/>
+            </Row>
+            <Row style={{
+              justifyContent: 'center',
+              width:"240px"
+            }}>
+              <FaFacebook/>
+              <FaInstagram/>
+              <LanguageRoundedIcon/>
             </Row>
             <Row style={{ justifyContent: 'center' }}>
               

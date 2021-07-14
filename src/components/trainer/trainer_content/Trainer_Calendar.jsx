@@ -36,8 +36,11 @@ const messages = {
   detailsLabel: '',
 };
 
-const SelectEditor = (props) => {
-  return <AppointmentForm.SelectEditor {...props} />;
+const BooleanEditor = (props) => {
+  if (props.label === "All Day") {
+    return null;
+  }
+  return <AppointmentForm.BooleanEditor {...props} />;
 };
 
 
@@ -402,6 +405,7 @@ class Trainer_Calendar extends React.PureComponent{
             basicLayoutComponent={BasicLayout}
             textEditorComponent={TextEditor}
             messages={messages}
+            booleanEditorComponent={BooleanEditor}
           />
           <Resources
             data={resources}
