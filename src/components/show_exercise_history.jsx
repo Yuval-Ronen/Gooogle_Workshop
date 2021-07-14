@@ -29,13 +29,69 @@ import DateRange from '@material-ui/icons/DateRange';
 import saveAs from 'file-saver';
 import { GridExporter } from '@devexpress/dx-react-grid-export';
 import { TableComponent } from "./TableComponentBase";
+import { TableHeaderContent } from "./TableHeaderContentBase";
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiTableCell: {
+      root: {
+        fontFamily: "Rubik",
+
+      },
+      footer: {
+        color: 'rgba(255, 199, 23, 0.15)',
+      }
+    },
+    TableHeaderCell: {
+      cell: {
+        color: '#ffc717',
+        fontSize: 16,
+        fontFamily: "Rubik",
+        fontWeight: "600",
+      },
+    },
+    MuiIconButton: {
+      colorSecondary: {
+        color: '#ffc717',
+      }
+    },
+    MuiCheckbox: {
+      root: {
+        color: '#55215e',
+      },
+      colorSecondary: {
+        '&.Mui-checked': {
+          color: '#ffc717',
+          '&:hover': {
+            backgroundColor: 'rgba(255, 199, 23, 0.15)',
+          }
+        },
+      },
+      colorPrimary: {
+        '&.Mui-checked': {
+          color: '#ffc717',
+          '&:hover': {
+            backgroundColor: 'rgba(255, 199, 23, 0.15)',
+          }
+        },
+      },
+    },
+    Mui: {
+      checked: {}
+    },
+   
+  },
+});
+
 
 
 const FilterIcon = ({ type, ...restProps }) => {
   if (type === 'month') return <DateRange {...restProps} />;
   return <TableFilterRow.Icon type={type} {...restProps} />;
 };
-
 
 
 //person can be trainer or trainee
@@ -58,13 +114,11 @@ const ShowExerciseHistory = (training_his) => {
       allTrainings?.length > 0 && allTrainings.slice(0, numOfTrainings).map((exercise, index) =>
         rows.push({
           id: index,
-          description: (exercise.description?exercise.description: ""),
+          description: (exercise.description ? exercise.description : ""),
           train_type: exercise.train_type,
           trainerOrTrainee: exercise.all_trainees,
           train_time_start: exercise.train_time_start,
           train_date_start: exercise.train_date_start,
-
-          //  train_type_icons: train_type_icons[exercise.type]
         })
       )
 
@@ -76,7 +130,7 @@ const ShowExerciseHistory = (training_his) => {
 
   const onSave = (workbook) => {
     workbook.xlsx.writeBuffer().then((buffer) => {
-      saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'EitanData_.xlsx');
+      saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'EitanData.xlsx');
     });
   };
 
@@ -87,18 +141,16 @@ const ShowExerciseHistory = (training_his) => {
     { name: 'trainerOrTrainee', title: trainerOrTrainee },
     { name: 'train_time_start', title: 'שעה' },
     { name: 'train_date_start', title: 'תאריך' },
-    //{ name: 'id', title: 'מספר אימון' },
-    // { name: 'train_type_icons', title: '*' },
   ];
 
   const rows = trainings()
 
   const [tableColumnExtensions] = useState([
-    { columnName: 'description', align: 'right', wordWrapEnabled: 'true' },
-    { columnName: 'train_type', align: 'center' },
-    { columnName: 'trainerOrTrainee', align: 'center' },
-    { columnName: 'train_time_start', align: 'center' },
-    { columnName: 'train_date_start', align: 'center' },
+    { columnName: 'description', align: 'right', wordWrapEnabled: true },
+    { columnName: 'train_type', align: 'right' },
+    { columnName: 'trainerOrTrainee', align: 'right', wordWrapEnabled: true },
+    { columnName: 'train_time_start', align: 'right' },
+    { columnName: 'train_date_start', align: 'right' },
   ]);
 
   const [sorting, setSorting] = useState([
@@ -117,11 +169,11 @@ const ShowExerciseHistory = (training_his) => {
     });
   };
 
-  const [dateColumns] = useState(['train_date']);
-  const [dateFilterOperations] = useState(['month', 'contains', 'startsWith', 'endsWith']);
+  const [dateColumns] = useState(['train_date_start']);
+  const [dateFilterOperations] = useState(['month', 'contains']);
   const [filteringColumnExtensions] = useState([
     {
-      columnName: 'train_date',
+      columnName: 'train_date_start',
       predicate: (value, filter, row) => {
         if (!filter.value.length) return true;
         if (filter && filter.operation === 'month') {
@@ -133,105 +185,150 @@ const ShowExerciseHistory = (training_his) => {
     },
   ]);
 
+  const [timeColumns] = useState(['train_time_start']);
+  const [descriptionColumns] = useState(['description']);
+  const [typeColumns] = useState(['train_type']);
+  const [trainerOrTraineeColumns] = useState(['trainerOrTrainee']);
+  const [filterOperations] = useState([]);
+
   const exporterRef = useRef(null);
 
-  const startExport = useCallback(() => {
-    exporterRef.current.exportGrid();
+  const startExport = useCallback((options) => {
+    exporterRef.current.exportGrid(options);
   }, [exporterRef]);
 
   const [totalSummaryItems] = useState([
-    { columnName: 'train_date', type: 'count' },
+    { columnName: 'train_date_start', type: 'count' },
 
   ]);
 
+  const messages = {
+    count: 'סה"כ אימונים',
+  };
+
   if (isDashboard == false) {
     return (
-      <Paper style={{ marginBottom: "3%" }}>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <SummaryState
-            totalItems={totalSummaryItems}
-          />
+      <ThemeProvider theme={theme}>
+        <Paper style={{ marginBottom: "3%" }}>
+          <Grid
+            rows={rows}
+            columns={columns}
 
-          <FilteringState />
+          >
+            <SummaryState
+              totalItems={totalSummaryItems}
+            />
 
-          <SortingState
-          //sorting={sorting}
-          //onSortingChange={setSorting}
-          />
+            <FilteringState />
 
-          <SelectionState
+            <SortingState
+            //sorting={sorting}
+            //onSortingChange={setSorting}
+            />
+
+            <SelectionState
+              selection={selection}
+              onSelectionChange={setSelection}
+            />
+
+            <PagingState
+              //  defaultCurrentPage={0}
+              pageSize={20}
+            />
+
+            <IntegratedSummary />
+            <IntegratedFiltering columnExtensions={filteringColumnExtensions} />
+            <IntegratedSorting />
+            <IntegratedSelection />
+            <IntegratedPaging />
+
+            <CustomSummary
+              totalValues={getTotalSummaryValues()}
+            />
+
+            <DataTypeProvider
+              for={dateColumns}
+              availableFilterOperations={dateFilterOperations}
+            />
+
+            <DataTypeProvider
+              for={timeColumns}
+              availableFilterOperations={filterOperations}
+            />
+
+            <DataTypeProvider
+              for={descriptionColumns}
+              availableFilterOperations={filterOperations}
+            />
+
+            <DataTypeProvider
+              for={typeColumns}
+              availableFilterOperations={filterOperations}
+            />
+
+            <DataTypeProvider
+              for={trainerOrTraineeColumns}
+              availableFilterOperations={filterOperations}
+            />
+
+            <Table
+              columnExtensions={tableColumnExtensions}
+              tableComponent={TableComponent}
+
+            />
+            <TableSelection
+              showSelectAll
+            />
+
+            <TableHeaderRow
+              showSortingControls
+              contentComponent={TableHeaderContent}
+            />
+
+            <TableFilterRow
+              showFilterSelector
+              iconComponent={FilterIcon}
+              messages={{ month: 'Month equals' }}
+            />
+            <PagingPanel />
+            <TableSummaryRow
+              messages={messages} />
+
+
+            <Toolbar />
+            <ExportPanel startExport={startExport} />
+          </Grid>
+          <GridExporter
+            ref={exporterRef}
+            rows={rows}
+            columns={columns}
             selection={selection}
-            onSelectionChange={setSelection}
+            onSave={onSave}
           />
-
-          <PagingState
-          //  defaultCurrentPage={0}
-          //  pageSize={10}
-          />
-
-          <IntegratedSummary />
-          <IntegratedFiltering columnExtensions={filteringColumnExtensions} />
-          <IntegratedSorting />
-          <IntegratedSelection />
-          <IntegratedPaging />
-
-          <CustomSummary
-            totalValues={getTotalSummaryValues()}
-          />
-
-          <DataTypeProvider
-            for={dateColumns}
-            availableFilterOperations={dateFilterOperations}
-          />
-
-          <Table
-            columnExtensions={tableColumnExtensions}
-            tableComponent={TableComponent}
-          />
-          <TableSelection
-            showSelectAll
-          />
-          <TableHeaderRow showSortingControls />
-          <TableFilterRow
-            showFilterSelector
-            iconComponent={FilterIcon}
-            messages={{ month: 'Month equals' }}
-          />
-          <PagingPanel />
-          <TableSummaryRow />
-          
-
-          <Toolbar />
-          <ExportPanel startExport={startExport} />
-        </Grid>
-        <GridExporter
-          ref={exporterRef}
-          rows={rows}
-          columns={columns}
-          onSave={onSave}
-        />
-      </Paper>
+        </Paper>
+      </ThemeProvider>
     )
 
   }
   else {
     return (
-      <Paper style={{ marginBottom: "3%" }}>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <Table
-            //  columnExtensions={tableColumnExtensions}
-            tableComponent={TableComponent}
-          />
-          <TableHeaderRow />
+      <ThemeProvider theme={theme}>
+        <Paper style={{ marginBottom: "3%" }}>
+          <Grid
+            rows={rows}
+            columns={columns}
+          >
+            <Table
+              columnExtensions={tableColumnExtensions}
+              tableComponent={TableComponent}
+            />
+            <TableHeaderRow
+              contentComponent={TableHeaderContent}
+            />
 
-        </Grid>
-      </Paper>
+          </Grid>
+        </Paper>
+      </ThemeProvider>
     );
   }
 

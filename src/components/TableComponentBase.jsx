@@ -8,15 +8,9 @@ export const styles = theme => ({
       '& tbody tr:nth-of-type(odd)': {
         backgroundColor: fade(theme.palette.primary.main, 0.15),
       },
+    
     },
-    root: {
-      margin: theme.spacing(1),
-    },
-    numericInput: {
-      fontSize: '14px',
-      textAlign: 'right',
-      width: '100%',
-    },
+
   });
 
 const TableComponentBase = ({ classes, ...restProps }) => (

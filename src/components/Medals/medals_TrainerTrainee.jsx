@@ -14,7 +14,11 @@ import SendIcon from '@material-ui/icons/Send';
 import CancelIcon from '@material-ui/icons/Cancel';
 import {useLocalStorage} from "../../UtillHook";
 import serverConnector from "../../server-connector"
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
+const theme = createMuiTheme({
+    direction: 'rtl', // Both here and <body dir="rtl">
+  });
 
 export default function Medals (trainee) {
     const [userInfo] = useLocalStorage("userInfo",{});
@@ -57,6 +61,8 @@ export default function Medals (trainee) {
                     <p>שליחת כוכב איתן</p>
                 </StyledButton>
 
+                <ThemeProvider theme={theme}>
+                <div dir="rtl">
                 <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title">
                     <DialogTitle id="form-dialog-title">שלח כוכב איתן</DialogTitle>
                     <DialogContent>
@@ -69,6 +75,7 @@ export default function Medals (trainee) {
                             fullWidth
                             multiline
                             variant="outlined"
+                            rtlEnabled
                             InputProps={{
                                 startAdornment: (
                                     <InputAdornment position="start">
@@ -87,6 +94,8 @@ export default function Medals (trainee) {
                         </Button>
                     </DialogActions>
                 </Dialog>
+                </div>
+                </ThemeProvider>
             </div>
         )
     }
