@@ -25,7 +25,7 @@ const TraineeDashboard = (props) => {
              setDataSource(res.dataSource);
              setChartDataSource(res.chartDataSource);
              setAllMessages(res.allMessages)
-             console.log(res.allMessages)
+             console.log("allMessages", res.allMessages)
          })
      },[])
 
