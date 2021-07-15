@@ -188,13 +188,13 @@ def getAllTrainees(trainer_id):
 
 
 @app.route("/api/createNewTrain/<trainer_id>/<trainees>/<train_type>/<train_date_start>/<train_date_end>/"
-           "<train_time_start>/<train_time_end>/<description>/<training_details_id>/<rRule>", methods=['GET'])
+           "<train_time_start>/<train_time_end>/<description>/<training_details_id>/<rRule>/<exDate>", methods=['GET'])
 @error_handler
 def createNewTrain(trainer_id, trainees, train_type, train_date_start, train_date_end, train_time_start,
-                   train_time_end, description, training_details_id, rRule):
+                   train_time_end, description, training_details_id, rRule, exDate):
     print("in main")
     info = sql_c.new_train(trainer_id, trainees.split(','), train_type, train_date_start, train_date_end,
-                           train_time_start, train_time_end, description, training_details_id, rRule)
+                           train_time_start, train_time_end, description, training_details_id, rRule, exDate)
     return jsonify({"result": info}), 200
 
 

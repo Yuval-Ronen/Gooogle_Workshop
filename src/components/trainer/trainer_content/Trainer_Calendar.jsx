@@ -202,7 +202,7 @@ class Trainer_Calendar extends React.PureComponent{
                id: result[index].train_id,
                TrainingDetailsId : result[index].training_details_id,
                Trainees: result[index].all_trainees.split(", ").map(x=>+x),//this parse the str to string
-               moreInfo: result[index].description
+               moreInfo: result[index].description, rRule: result[index].rRule, exDate: result[index].exDate
                });
        }
        this.setState({data: helper});
@@ -285,6 +285,7 @@ class Trainer_Calendar extends React.PureComponent{
 
   commitChanges({ added, changed, deleted }) {
     console.log("commitChanges","added-", added, "changed-", changed, "deleted-", deleted )
+    // console.log(this.state)
 
     this.setState((state) => {
       let { data } = state;
@@ -295,7 +296,7 @@ class Trainer_Calendar extends React.PureComponent{
         added["triningType"]?added["triningType"] : "ריצה" , convert_date(added["startDate"]),
           convert_date(added["endDate"]), convert_time(added["startDate"]),convert_time(added["endDate"]),
           added["moreInfo"]?added["moreInfo"] : null , added["TrainingDetailsId"]?added["TrainingDetailsId"]:1,
-          added["rRule"]?added["rRule"]: null);
+          added["rRule"]?added["rRule"]: null, added["exDate"]?added["exDate"]: null);
         added["id"] = train_id;
         console.log("added",added);
 

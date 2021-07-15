@@ -87,8 +87,8 @@ class Trainee_Calendar extends React.PureComponent {
                endDate: new Date(e_date[0], e_date[1] -1, e_date[2], e_time[0], e_time[1]),
                id: result[index].train_id,
                TrainingDetailsId : result[index].training_details_id,
-               Trainees: result[index].all_trainees.split(","),
-               moreInfo: result[index].description
+               Trainees: result[index].all_trainees.split(", ").map(x=>+x),//this parse the str to string
+               moreInfo: result[index].description, rRule: result[index].rRule, exDate: result[index].exDate
                });
        }
        this.setState({data: helper});
