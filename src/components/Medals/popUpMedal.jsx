@@ -8,7 +8,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Badge from '@material-ui/core/Badge';
 import Fab from '@material-ui/core/Fab';
-import { purple } from '@material-ui/core/colors';
 import StarsRoundedIcon from '@material-ui/icons/StarsRounded';
 import Divider from '@material-ui/core/Divider';
 

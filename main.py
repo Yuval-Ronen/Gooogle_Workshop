@@ -137,7 +137,8 @@ def getTypeAmount(trainee_id):
     print(info)
     return jsonify({"result": info}), 200
 
-@app.route("/api/sendMessage/<trainee_id>/<trainer_id>/<message>", methods=['POST'])
+
+@app.route("/api/sendMessage/<trainee_id>/<trainer_id>/<message>", methods=['GET'])
 @error_handler
 def sendMessage(trainee_id, trainer_id, message):
     sql_c.send_message(trainee_id, trainer_id, message)
@@ -176,6 +177,7 @@ def getUpcomingExercise_trainee(trainee_id):
     print(result_list)
     return jsonify({"result": result_list}), 200
 
+
 @app.route("/api/getAllTrainees/<trainer_id>", methods=['GET'])
 @error_handler
 def getAllTrainees(trainer_id):
@@ -186,12 +188,13 @@ def getAllTrainees(trainer_id):
 
 
 @app.route("/api/createNewTrain/<trainer_id>/<trainees>/<train_type>/<train_date_start>/<train_date_end>/"
-           "<train_time_start>/<train_time_end>/<description>/<training_details_id>",
-           methods=['GET'])
+           "<train_time_start>/<train_time_end>/<description>/<training_details_id>/<rRule>", methods=['GET'])
 @error_handler
-def createNewTrain(trainer_id, trainees, train_type, train_date_start, train_date_end,  train_time_start, train_time_end, description, training_details_id):
+def createNewTrain(trainer_id, trainees, train_type, train_date_start, train_date_end, train_time_start,
+                   train_time_end, description, training_details_id, rRule):
+    print("in main")
     info = sql_c.new_train(trainer_id, trainees.split(','), train_type, train_date_start, train_date_end,
-                           train_time_start, train_time_end, description, training_details_id)
+                           train_time_start, train_time_end, description, training_details_id, rRule)
     return jsonify({"result": info}), 200
 
 

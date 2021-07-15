@@ -15,6 +15,8 @@ const TraineeDashboard = (props) => {
     const [dataSource, setDataSource] = useState([]);
     const [chartDataSource, setChartDataSource] = useState([]);
     const [trainingHis, setTrainingHis] = useState(["מאמן",[]]);
+    const [allMessages, setAllMessages] = useState([]);
+
 
     useEffect( () => {
          serverConnector.GetAllTraineeDashboard(userInfo.ID).then(res => {
@@ -22,13 +24,15 @@ const TraineeDashboard = (props) => {
              setTrainingHis(res.trainingHis);
              setDataSource(res.dataSource);
              setChartDataSource(res.chartDataSource);
+             setAllMessages(res.allMessages)
+             console.log(res.allMessages)
          })
      },[])
 
     return(<div>
              <Container fluid>
             <Row style={{justifyContent: 'flex-end', marginRight: '0.5%'}}>
-                <PopUpMedal newMedal = {false} />
+                <PopUpMedal allMessages = {allMessages} newMedal = {false} />
                 </Row>
                 <Row sm=  {2} xs={1} >
                      <Col >

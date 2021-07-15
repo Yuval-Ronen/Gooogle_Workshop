@@ -186,6 +186,7 @@ class Trainer_Calendar extends React.PureComponent{
       let temp = this.state.resources[1]
       temp.instances = my_helper;
       this.setState({resources : [this.state.resources[0], temp]});
+       // console.log("allTrainees in mount",temp)
 
       //this is manipulation on the data after it returns from the server so it will be in the same format as the server
        let helper = []
@@ -200,15 +201,14 @@ class Trainer_Calendar extends React.PureComponent{
                endDate: new Date(e_date[0], e_date[1] -1, e_date[2], e_time[0], e_time[1]),
                id: result[index].train_id,
                TrainingDetailsId : result[index].training_details_id,
-               Trainees: result[index].all_trainees.split(", "),
+               Trainees: result[index].all_trainees.split(", ").map(x=>+x),//this parse the str to string
                moreInfo: result[index].description
                });
        }
        this.setState({data: helper});
-       console.log("res in mount",helper)
+       // console.log("res in mount",helper)
      })
   }
-
 
 
   onAddedAppointmentChange(addedAppointment) {
@@ -259,6 +259,7 @@ class Trainer_Calendar extends React.PureComponent{
   toggleEditingFormVisibility() {
     console.log("toggleEditingFormVisibility", )
     const { editingFormVisible } = this.state;
+    console.log("editingFormVisible", )
     this.setState({
       editingFormVisible: !editingFormVisible,
     });
@@ -289,12 +290,12 @@ class Trainer_Calendar extends React.PureComponent{
       let { data } = state;
       if (added) {
       console.log("added",added);
-      // console.log("info", this.props.userInfo.ID, added["Trainees"],
-      //   added["triningType"]?added["triningType"] : "ריצה" , convert_date(added["startDate"]),convert_time(added["startDate"]), added["moreInfo"]?added["moreInfo"] : "" , added["TrainingDetailsId"]);
+
       const train_id = serverConnector.createNewTrain(this.props.userInfo.ID, added["Trainees"],
         added["triningType"]?added["triningType"] : "ריצה" , convert_date(added["startDate"]),
           convert_date(added["endDate"]), convert_time(added["startDate"]),convert_time(added["endDate"]),
-          added["moreInfo"]?added["moreInfo"] : null , added["TrainingDetailsId"]?added["TrainingDetailsId"]:1);
+          added["moreInfo"]?added["moreInfo"] : null , added["TrainingDetailsId"]?added["TrainingDetailsId"]:1,
+          added["rRule"]?added["rRule"]: null);
         added["id"] = train_id;
         console.log("added",added);
 

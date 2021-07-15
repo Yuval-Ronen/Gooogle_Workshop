@@ -33,9 +33,10 @@ const serverConnector = {
         let data =  await res.json();
         return await data["result"];
     },
-    createNewTrain:async (trainer_id, trainees, train_type, train_date_start, train_date_end,  train_time_start, train_time_end, description, training_details_id) =>{
+    createNewTrain:async (trainer_id, trainees, train_type, train_date_start, train_date_end,  train_time_start, train_time_end, description, training_details_id, rRule) =>{
+        console.log("all new train info", rRule)
         let res = await fetch(serverUrl+"/api/createNewTrain/" + trainer_id +"/"+ [trainees] +"/"+ train_type +"/"+ train_date_start +"/"+ train_date_end +"/"+
-            train_time_start +"/"+train_time_end +"/"+ description +"/"+ training_details_id);
+            train_time_start +"/"+train_time_end +"/"+ description +"/"+ training_details_id +"/"+ rRule);
         let data = await res.json();
         return data["result"];
         },
