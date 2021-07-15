@@ -32,7 +32,7 @@ const TraineeDashboard = (props) => {
     return(<div>
              <Container fluid>
             <Row style={{justifyContent: 'flex-end', marginRight: '0.5%'}}>
-                <PopUpMedal allMessages = {allMessages} newMedal = {false} />
+                <PopUpMedal allMessages = {allMessages}/>
                 </Row>
                 <Row sm=  {2} xs={1} >
                      <Col >
