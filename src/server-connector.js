@@ -142,8 +142,8 @@ const serverConnector = {
         return data["result"];
 
     },
-    changeMessageStatus: async (trainee_id) => {
-        let res = await fetch(serverUrl + "/api/changeMessageStatus/" +trainee_id )
+    changeMessageStatus: async (trainee_id, trainer_id) => {
+        let res = await fetch(serverUrl + "/api/changeMessageStatus/" +trainee_id  +"/"+ trainer_id)
         let data = await res.json();
         return data["result"];
 

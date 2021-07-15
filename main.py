@@ -153,9 +153,9 @@ def getMessage(trainee_id):
     return jsonify({"result": info}), 200
 
 
-@app.route("/api/changeMessageStatus/<trainee_id>", methods=['POST'])
+@app.route("/api/changeMessageStatus/<trainee_id>/<trainer_id>", methods=['POST'])
 @error_handler
-def changeMessageStatus(trainee_id):
+def changeMessageStatus(trainee_id, trainer_id):
     sql_c.change_message_status(trainee_id)
     return jsonify({"result": "changed"}), 200
 

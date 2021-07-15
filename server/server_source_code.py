@@ -303,13 +303,13 @@ class ConnectSQL:
             inside = {"train_type": train_type, "amount": amount}
             dataSource.append(inside)
 
-        query4 = (" SELECT CONCAT( first_name, ' ', last_name) as trainer_name , message, status"
+        query4 = (" SELECT CONCAT( first_name, ' ', last_name) as trainer_name, m.trainer_id as trainer_id , message, status"
                   " FROM eitan_database.messages AS m, eitan_database.trainer AS t"
                   " where m.trainee_id = %s AND m.trainer_id = t.ID")
         self.cursor.execute(query4, (trainee_id, ))
         all_messages = []
-        for (trainer_name, message, status) in self.cursor:
-            all_messages.append({"trainer_name": trainer_name, "message": message, "status": status})
+        for (trainer_name, trainer_id, message, status) in self.cursor:
+            all_messages.append({"trainer_name": trainer_name, "trainer_id": trainer_id, "message": message, "status": status})
 
         return {"dataSource": dataSource, "chartDataSource": chartDataSource, "trainingHis": ["מאמן", trainingHis],
                 "allMessages": all_messages}
@@ -407,11 +407,11 @@ class ConnectSQL:
             inside = {"trainee_id": trainee_id, "trainer_name": trainer_name, "message": message, "status": status}
         return inside
 
-    def change_message_status(self, trainee_id):
+    def change_message_status(self, trainee_id, trainer_id):
         changeQ = (" UPDATE eitan_database.messages "
                    "SET status = 'old' "
-                   " WHERE trainee_id = %s ")
-        self.cursor.execute(changeQ, trainee_id)
+                   " WHERE trainee_id = %s AND trainer_id = %s")
+        self.cursor.execute(changeQ, trainee_id, trainer_id)
         self.cnx.commit()
 
     def auto_complete_trainee(self, string, trainer_id):
