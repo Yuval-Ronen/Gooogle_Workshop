@@ -35,8 +35,7 @@ const LoginTrainee = (props) => {
                     justifyContent: "center",
                     alignItems: "center",
                     margin: 10,
-                    marginBottom: 100,
-                    marginTop: 100,
+
                     }} >
                     כניסת מתאמנים</StyledButton>
             )}
