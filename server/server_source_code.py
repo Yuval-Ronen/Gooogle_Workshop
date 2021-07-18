@@ -316,13 +316,20 @@ class ConnectSQL:
         query4 = (" SELECT CONCAT( first_name, ' ', last_name) as trainer_name, m.trainer_id as trainer_id , message, status"
                   " FROM eitan_database.messages AS m, eitan_database.trainer AS t"
                   " where m.trainee_id = %s AND m.trainer_id = t.ID")
+
         self.cursor.execute(query4, (trainee_id, ))
-        all_messages = []
+        final_old_message = []
+        final_new_message = []
+        res_status = "old"
         for (trainer_name, trainer_id, message, status) in self.cursor:
-            all_messages.append({"trainer_name": trainer_name, "trainer_id": trainer_id, "message": message, "status": status})
+            if status == "new":
+                res_status = "new"
+                final_new_message.append({"trainer_name": trainer_name, "trainer_id": trainer_id, "message": message, "status": status})
+            else:
+                final_old_message.append({"trainer_name": trainer_name, "trainer_id": trainer_id, "message": message, "status": status})
 
         return {"dataSource": dataSource, "chartDataSource": chartDataSource, "trainingHis": ["מאמן", trainingHis],
-                "allMessages": all_messages}
+                "allMessages": [res_status, final_new_message + final_old_message]}
 
     def get_upcoming_exercise_trainee(self, trainee_id):
         query = (
@@ -411,7 +418,7 @@ class ConnectSQL:
         query = (" SELECT trainee_id, CONCAT( first_name, ' ', last_name) as trainer_name , message, status"
                  " FROM eitan_database.messages AS m, eitan_database.trainer AS t"
                  " where trainee_id = %s AND m.trainer_id = t.ID")
-        self.cursor.execute(query, trainee_id)
+        self.cursor.execute(query, (trainee_id, ))
         final_old_message = []
         final_new_message = []
         res_status = "old"
