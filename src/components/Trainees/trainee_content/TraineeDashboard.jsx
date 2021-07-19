@@ -28,11 +28,20 @@ const TraineeDashboard = (props) => {
              console.log("allMessages", res.allMessages)
          })
      },[])
+    
+    const hideNewMassege = () => {
+        if (allMessages[0]  == "new") {
+            return false;
+        }
+        else{
+            return true;
+        }
+    };
 
     return(<div>
              <Container fluid>
             <Row style={{justifyContent: 'flex-end', marginRight: '0.5%'}}>
-                <PopUpMedal allMessages = {allMessages}/>
+                <PopUpMedal allMessages = {allMessages} hideNewMassege = {hideNewMassege()}/>
                 </Row>
                 <Row sm=  {2} xs={1} >
                      <Col >
