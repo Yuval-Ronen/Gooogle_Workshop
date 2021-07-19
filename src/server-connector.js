@@ -50,18 +50,6 @@ const serverConnector = {
         return data["result"];
         },
 
-    getPersonalProgram: async (trainee_id) => {
-        let res = await fetch(serverUrl + "/api/getPersonalProgram/"+trainee_id)
-        // let data = await res.json();
-       return  await res.json();
-
-        // return data;
-    },
-    setPersonalProgram: async (trainer_id,trainee_id, program) => {
-        // let res = await fetch(serverUrl + "/api/setPersonalProgram/")
-        // let data = await res.json();
-        // return data["result"];
-    },
     getAllTrainerCalendar: async (trainer_id) => {
         let res = await fetch(serverUrl + "/api/get_all_trainer_calendar/" + trainer_id)
         // return await res.json();
@@ -181,8 +169,22 @@ const serverConnector = {
     getAllTrain_type: async (string) => {
         let res = await fetch(serverUrl + "/api/getAllTrain_type/" + string)
         return await res.json();
-        // let data = await res.json();
-        // return data["result"];
+
+    },
+    getPersonalProgramLink:  async (trainee_id) => {
+        let res = await fetch(serverUrl + "/api/getPersonalProgramLink/" + trainee_id)
+        let data = await res.json();
+        return data["result"];
+    },
+    insertNewPersonalProgramLink:  async (trainee_id, trainer_id, link) => {
+        let res = await fetch(serverUrl + "/api/insertNewPersonalProgramLink/" + trainee_id +"/"+  trainer_id +"/"+ link)
+        let data = await res.json();
+        return data["result"];
+    },
+    updatePersonalProgramLink:  async (trainee_id, link) => {
+        let res = await fetch(serverUrl + "/api/updatePersonalProgramLink/" + trainee_id +"/"+ link)
+        let data = await res.json();
+        return data["result"];
     }
 
 }

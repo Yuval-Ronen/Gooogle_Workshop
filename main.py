@@ -214,6 +214,26 @@ def updateExercise(changed_data):
     info = sql_c.update_exercise(changed_data)
     return jsonify({"result": info}), 200
 
+@app.route("/api/getPersonalProgramLink/<trainee_id>", methods=['GET'])
+@error_handler
+def getPersonalProgramLink(trainee_id):
+    link = sql_c.get_personal_program_link(trainee_id)
+    return jsonify({"result": link}), 200
+
+
+@app.route("/api/insertNewPersonalProgramLink/<trainee_id>/<trainer_id>/<link>", methods=['GET'])
+@error_handler
+def insertNewPersonalProgramLink(trainee_id, trainer_id, link):
+    sql_c.insert_new_personal_program_link(trainee_id, trainer_id, link)
+    return jsonify({"result": "uploaded"}), 200
+
+
+@app.route("/api/updatePersonalProgramLink/<trainee_id>/<link>", methods=['GET'])
+@error_handler
+def updatePersonalProgramLink(trainee_id, link):
+    sql_c.update_personal_program_link(trainee_id, link)
+    return jsonify({"result": "updated"}), 200
+
 # @app.route("/", methods=['GET'])
 # def react():
 #     return render_template("index.html")

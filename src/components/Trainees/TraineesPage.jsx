@@ -9,19 +9,6 @@ import PageHeader_Trainee from "./PageHeader_Trainee";
 
 
 const TraineesPage = (props) => {
-
-    // const [name, setName] = useState("");
-    // const [url, setUrl] = useState("");
-    // const responseGoogle = (response) => {
-    // console.log(response);
-    // setName(response.profileObj.name);
-    // setUrl(response.profileObj.imageUrl);
-    // }
-    //
-    // console.log(props.authenticationData);
-
-    // Todo take this to a new file and give it a new name if needed
-
     return(
         <div className='trainee-page'>
             

@@ -135,27 +135,6 @@ class ConnectSQL:
 
         return {}
 
-    def get_personal_program(self, trainee_id):
-        query = ("Select link, program_date "
-                 "FROM eitan_database.all_personal_programs"
-                 " Where trainee_id = %s"
-                 " ORDER BY program_date DESC")
-        self.cursor.execute(query, trainee_id)
-        final = {}
-
-        for (link, program_date) in self.cursor:
-            final = {"link": link, "program_date": program_date}
-        return final
-
-    # need to check
-    def set_personal_program(self, trainer_id, trainee_id, program):
-        query = ("INSERT INTO eitan_database.all_personal_programs (trainee_id, trainer_id, program_date, program)"
-                 "VALUES (%s, %s, NOW(), %s)")
-        self.cursor.execute(query, (trainee_id, trainer_id, program))
-        self.cnx.commit()
-
-        return self.cursor
-
     def get_all_training_history_trainer(self, trainer_id):
         query = (
             "SELECT GROUP_CONCAT(' ' ,t3.first_name, ' ', t3.last_name) as all_trainees, "
@@ -196,7 +175,8 @@ class ConnectSQL:
         final = []
 
         for (all_trainees, train_type, train_time_start, train_time_end,
-             train_date_start, train_date_end, description, train_id, training_details_id, rRule, exDate) in self.cursor:
+             train_date_start, train_date_end, description, train_id, training_details_id, rRule,
+             exDate) in self.cursor:
             if description == 'null':
                 description = "אין תיאור"
 
@@ -255,7 +235,8 @@ class ConnectSQL:
         self.cursor.execute(query_all_exercise, (trainer_id,))
         allExercise = []
         for (all_trainees, train_type, train_time_start, train_time_end,
-             train_date_start, train_date_end, description, train_id, training_details_id, rRule, exDate) in self.cursor:
+             train_date_start, train_date_end, description, train_id, training_details_id, rRule,
+             exDate) in self.cursor:
             if description == 'null':
                 description = "אין תיאור"
 
@@ -302,7 +283,6 @@ class ConnectSQL:
                 else:
                     chartDataSource.append({"month": translator[element], "training_amount": 0})
 
-
         query3 = (" SELECT t1.train_type AS train_type, COUNT(*) AS amount"
                   " FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2"
                   " WHERE YEAR(t1.train_date_start) = YEAR(NOW()) AND t1.train_id = t2.train_id AND t2.trainee_id = %s"
@@ -313,20 +293,23 @@ class ConnectSQL:
             inside = {"train_type": train_type, "amount": amount}
             dataSource.append(inside)
 
-        query4 = (" SELECT CONCAT( first_name, ' ', last_name) as trainer_name, m.trainer_id as trainer_id , message, status"
-                  " FROM eitan_database.messages AS m, eitan_database.trainer AS t"
-                  " where m.trainee_id = %s AND m.trainer_id = t.ID")
+        query4 = (
+            " SELECT CONCAT( first_name, ' ', last_name) as trainer_name, m.trainer_id as trainer_id , message, status"
+            " FROM eitan_database.messages AS m, eitan_database.trainer AS t"
+            " where m.trainee_id = %s AND m.trainer_id = t.ID")
 
-        self.cursor.execute(query4, (trainee_id, ))
+        self.cursor.execute(query4, (trainee_id,))
         final_old_message = []
         final_new_message = []
         res_status = "old"
         for (trainer_name, trainer_id, message, status) in self.cursor:
             if status == "new":
                 res_status = "new"
-                final_new_message.append({"trainer_name": trainer_name, "trainer_id": trainer_id, "message": message, "status": status})
+                final_new_message.append(
+                    {"trainer_name": trainer_name, "trainer_id": trainer_id, "message": message, "status": status})
             else:
-                final_old_message.append({"trainer_name": trainer_name, "trainer_id": trainer_id, "message": message, "status": status})
+                final_old_message.append(
+                    {"trainer_name": trainer_name, "trainer_id": trainer_id, "message": message, "status": status})
 
         return {"dataSource": dataSource, "chartDataSource": chartDataSource, "trainingHis": ["מאמן", trainingHis],
                 "allMessages": [res_status, final_new_message + final_old_message]}
@@ -418,17 +401,19 @@ class ConnectSQL:
         query = (" SELECT trainee_id, CONCAT( first_name, ' ', last_name) as trainer_name , message, status"
                  " FROM eitan_database.messages AS m, eitan_database.trainer AS t"
                  " where trainee_id = %s AND m.trainer_id = t.ID")
-        self.cursor.execute(query, (trainee_id, ))
+        self.cursor.execute(query, (trainee_id,))
         final_old_message = []
         final_new_message = []
         res_status = "old"
         for (trainee_id, trainer_name, message, status) in self.cursor:
             if status == "new":
                 res_status = "new"
-                final_new_message.append({"trainee_id": trainee_id, "trainer_name": trainer_name, "message": message, "status": status})
+                final_new_message.append(
+                    {"trainee_id": trainee_id, "trainer_name": trainer_name, "message": message, "status": status})
             else:
 
-                final_old_message.append({"trainee_id": trainee_id, "trainer_name": trainer_name, "message": message, "status": status})
+                final_old_message.append(
+                    {"trainee_id": trainee_id, "trainer_name": trainer_name, "message": message, "status": status})
         return [res_status, final_new_message + final_old_message]
 
     def change_message_status(self, trainee_id, trainer_id):
@@ -438,24 +423,49 @@ class ConnectSQL:
         self.cursor.execute(changeQ, trainee_id, trainer_id)
         self.cnx.commit()
 
-    def auto_complete_trainee(self, string, trainer_id):
-        string = string + "%"
-        query = ("SELECT CONCAT( first_name, ' ', last_name) as full_name, ID "
-                 "FROM eitan_database.trainee as t, eitan_database.trainer_trainee as t2"
-                 " WHERE t2.trainee_id = t.ID AND t2.trainer_id = %s AND CONCAT( first_name, ' ', last_name) LIKE %s")
-        self.cursor.execute(query, (trainer_id, string))
-        # for (full_name, ID) in self.cursor:
-        #     final = {"full_name": full_name, "trainee_id": ID}
-        # return final
-        return [full_name for (full_name,) in self.cursor]
+    def get_personal_program_link(self, trainee_id):
+        getLinkQ = (" SELECT trainer_id, link "
+                    "FROM eitan_database.all_personal_program"
+                    " WHERE trainee_id = %s")
+        self.cursor.execute(getLinkQ, (int(trainee_id),))
+        ret_link = ""
+        for (trainer_id, link) in self.cursor:
+            ret_link = link
+            break
+        return ret_link
 
-    def auto_complete_train_type(self, string):
-        string = string + "%"
-        query = ("SELECT train_type "
-                 "FROM eitan_database.train_type"
-                 " WHERE type LIKE %s")
-        self.cursor.execute(query, (string,))
-        return [train_type for (train_type,) in self.cursor]
+    def insert_new_personal_program_link(self, trainee_id, trainer_id, link):
+        getLinkQ = (" INSERT INTO eitan_database.all_personal_program (trainee_id, trainer_id, link)"
+                    " VALUES (%s, %s, %s ")
+        self.cursor.execute(getLinkQ, (int(trainee_id), int(trainer_id), link))
+        self.cnx.commit()
+
+    def update_personal_program_link(self, trainee_id, link):
+        getLinkQ = (" UPDATE eitan_database.all_personal_program"
+                    " SET link = %s"
+                    " WHERE trainee_id = %s")
+        self.cursor.execute(getLinkQ, (link, int(trainee_id),))
+        self.cnx.commit()
+
+
+    # def auto_complete_trainee(self, string, trainer_id):
+    #     string = string + "%"
+    #     query = ("SELECT CONCAT( first_name, ' ', last_name) as full_name, ID "
+    #              "FROM eitan_database.trainee as t, eitan_database.trainer_trainee as t2"
+    #              " WHERE t2.trainee_id = t.ID AND t2.trainer_id = %s AND CONCAT( first_name, ' ', last_name) LIKE %s")
+    #     self.cursor.execute(query, (trainer_id, string))
+    #     # for (full_name, ID) in self.cursor:
+    #     #     final = {"full_name": full_name, "trainee_id": ID}
+    #     # return final
+    #     return [full_name for (full_name,) in self.cursor]
+    #
+    # def auto_complete_train_type(self, string):
+    #     string = string + "%"
+    #     query = ("SELECT train_type "
+    #              "FROM eitan_database.train_type"
+    #              " WHERE type LIKE %s")
+    #     self.cursor.execute(query, (string,))
+    #     return [train_type for (train_type,) in self.cursor]
 
     def get_all_train_type(self):
         query = ("SELECT train_type "
