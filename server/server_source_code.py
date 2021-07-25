@@ -78,6 +78,7 @@ class ConnectSQL:
         for (train_id) in self.cursor:
             trainId = train_id
             break
+        print("train_id", trainId)
         query_add_participants = ("INSERT INTO eitan_database.match_trainee_trainId (train_id, trainee_id)"
                                   " VALUES (%s, %s)")
         for (trainee) in trainees:
@@ -116,7 +117,7 @@ class ConnectSQL:
             changed_data["train_type"], changed_data["train_date_start"], changed_data["train_date_end"],
             changed_data["description"],
             changed_data["train_time_start"], changed_data["train_time_end"], changed_data["training_details_id"],
-            changed_data["rRule"], changed_data["exDate"], changed_data["train_id"]))
+            changed_data["rRule"], changed_data["exDate"], changed_data["train_id"], ))
 
         # if we changed the trainees in the event need to change the match in the train id
         if "Trainees" in changed_data.keys():
@@ -125,7 +126,7 @@ class ConnectSQL:
 
             # delete the old participants
             query_to_delete = "DELETE FROM eitan_database.match_trainee_trainId WHERE train_id = %s"
-            self.cursor.execute(query_to_delete, changed_data["train_id"])
+            self.cursor.execute(query_to_delete, (changed_data["train_id"], ))
             # change participants
             for trainee in changed_data["Trainees"]:
                 data = (changed_data["train_id"], trainee)
@@ -134,6 +135,16 @@ class ConnectSQL:
         print("finish update")
 
         return {}
+
+    def delete_exercise(self, train_id):
+        delete_query_all_exercise = "DELETE FROM eitan_database.all_exercise WHERE train_id = %s"
+        self.cursor.execute(delete_query_all_exercise, (train_id, ))
+        self.cnx.commit()
+        delete_query_match_trainee_trainId = "DELETE FROM eitan_database.match_trainee_trainId WHERE train_id = %s"
+        self.cursor.execute(delete_query_match_trainee_trainId, (train_id, ))
+        self.cnx.commit()
+        return {}
+
 
     def get_all_training_history_trainer(self, trainer_id):
         query = (
@@ -249,6 +260,16 @@ class ConnectSQL:
                       "rRule": rRule, "exDate": exDate}
             allExercise.append(inside)
         return {"allTrainees": allTrainees, "allExercise": ["מאמן", allExercise]}
+
+    def get_all_trainer_dashboard(self, trainer_id):
+        trainingHis = self.get_upcoming_exercise_trainer(trainer_id)
+        dataSource = self.get_training_amount_by_month_trainer(trainer_id)
+        return {"trainingHis": ["מתאמנים", trainingHis], "dataSource": dataSource}
+
+    def get_all_for_trainee_page_in_trainer(self, trainee_id):
+        trainingHis = self.get_all_training_history_trainee(trainee_id)
+        dataSource = self.get_training_amount_by_month_trainee(trainee_id)
+        return {"trainingHis": ["מאמן", trainingHis], "dataSource": dataSource}
 
     def get_all_trainee_dashboard(self, trainee_id):
         query = (
@@ -417,11 +438,13 @@ class ConnectSQL:
         return [res_status, final_new_message + final_old_message]
 
     def change_message_status(self, trainee_id, trainer_id):
-        changeQ = (" UPDATE eitan_database.messages "
-                   "SET status = 'old' "
+        changeQ = (" UPDATE eitan_database.messages"
+                   " SET status = 'old'"
                    " WHERE trainee_id = %s AND trainer_id = %s")
-        self.cursor.execute(changeQ, trainee_id, trainer_id)
+        self.cursor.execute(changeQ, (int(trainee_id), int(trainer_id),), multi=True)
         self.cnx.commit()
+        print(self.cursor)
+        return "changed"
 
     def get_personal_program_link(self, trainee_id):
         getLinkQ = (" SELECT trainer_id, link "
@@ -437,7 +460,7 @@ class ConnectSQL:
     def insert_new_personal_program_link(self, trainee_id, trainer_id, link):
         getLinkQ = (" INSERT INTO eitan_database.all_personal_program (trainee_id, trainer_id, link)"
                     " VALUES (%s, %s, %s ")
-        self.cursor.execute(getLinkQ, (int(trainee_id), int(trainer_id), link))
+        self.cursor.execute(getLinkQ, (int(trainee_id), int(trainer_id), link, ))
         self.cnx.commit()
 
     def update_personal_program_link(self, trainee_id, link):

@@ -17,16 +17,22 @@ const TrainerDashboard = (props) => {
 
     const [trainingHis, setTrainingHis] = useState(["מתאמנים",[]]);
      useEffect( () => {
-         serverConnector.getUpcomingExercise_trainer(userInfo.ID).then(res => {
-             setTrainingHis(res);
-             console.log("trainingHis", trainingHis)
+         serverConnector.GetAllTrainerDashboard(userInfo.ID).then(res =>{
+             setTrainingHis(res.trainingHis);
+             setDataSource(res.dataSource);
+             console.log("trainingHis",trainingHis,"dataSource",dataSource)
+
          })
+         // serverConnector.getUpcomingExercise_trainer(userInfo.ID).then(res => {
+         //     setTrainingHis(res);
+         //     console.log("trainingHis", trainingHis)
+         // })
      },[])
-    useEffect( () =>{
-          serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
-              setDataSource(res);
-          })
-      },[])
+    // useEffect( () =>{
+    //       serverConnector.getTrainingAmountByMonth_trainer(userInfo.ID).then(res => {
+    //           setDataSource(res);
+    //       })
+    //   },[])
 
 
     return(

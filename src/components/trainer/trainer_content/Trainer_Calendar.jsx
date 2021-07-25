@@ -277,13 +277,20 @@ class Trainer_Calendar extends React.PureComponent{
     this.setState((state) => {
       const { data, deletedAppointmentId } = state;
       const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
+    console.log("deletedAppointmentId",deletedAppointmentId );
+    serverConnector.deleteExercise(deletedAppointmentId).then(res =>{})
 
       return { data: nextData, deletedAppointmentId: null };
     });
     this.toggleConfirmationVisible();
   }
+  create_new_event(trainer_id, trainees, train_type, train_date_start, train_date_end,  train_time_start,
+                          train_time_end, description, training_details_id, rRule, exDate){
+     return serverConnector.createNewTrain(trainer_id, trainees, train_type, train_date_start, train_date_end,  train_time_start,
+                          train_time_end, description, training_details_id, rRule, exDate).then(train_id =>{ return train_id})
+  }
 
-  commitChanges({ added, changed, deleted }) {
+  async commitChanges({ added, changed, deleted }) {
     console.log("commitChanges","added-", added, "changed-", changed, "deleted-", deleted )
     // console.log(this.state)
 
@@ -292,12 +299,13 @@ class Trainer_Calendar extends React.PureComponent{
       if (added) {
       console.log("added",added);
 
-      const train_id = serverConnector.createNewTrain(this.props.userInfo.ID, added["Trainees"],
+      this.create_new_event(this.props.userInfo.ID, added["Trainees"],
         added["triningType"]?added["triningType"] : "ריצה" , convert_date(added["startDate"]),
           convert_date(added["endDate"]), convert_time(added["startDate"]),convert_time(added["endDate"]),
           added["moreInfo"]?added["moreInfo"] : null , added["TrainingDetailsId"]?added["TrainingDetailsId"]:1,
-          added["rRule"]?added["rRule"]: null, added["exDate"]?added["exDate"]: null);
-        added["id"] = train_id;
+          added["rRule"]?added["rRule"]: null, added["exDate"]?added["exDate"]: null).then(id =>{
+                    added["id"] = id;
+      });
         console.log("added",added);
 
         const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;

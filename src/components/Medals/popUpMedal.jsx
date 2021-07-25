@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Badge from '@material-ui/core/Badge';
 import Fab from '@material-ui/core/Fab';
-import Divider from '@material-ui/core/Divider';
 import { useLocalStorage } from "../../UtillHook";
 import serverConnector from "../../server-connector";
 import SwipeableViews from 'react-swipeable-views';
@@ -17,15 +14,12 @@ import Typography from '@material-ui/core/Typography';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import Paper from '@material-ui/core/Paper';
 import GradeRoundedIcon from '@material-ui/icons/GradeRounded';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import Zoom from '@material-ui/core/Zoom';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
-import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import StarsRoundedIcon from '@material-ui/icons/StarsRounded';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -197,8 +191,11 @@ export default function PopUpMedal(props) {
     setOpen(false);
     let newMassegeCount = 0;
     newMessages.map((message) => {
+      console.log("message",message)
       if (message.status == "old") {
-        serverConnector.changeMessageStatus(traineeID, message.trainer_id);
+        console.log("traineeID", traineeID,"trainer_id", message.trainer_id)
+        serverConnector.changeMessageStatus(traineeID, message.trainer_id).then(res =>{
+            });
       }
       else {
         newMassegeCount++;

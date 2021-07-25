@@ -19,15 +19,20 @@ const TrainerTrainee = () => {
     const [dataSource, setDataSource] = useState([]);
 
     useEffect(() => {
-        serverConnector.getAllTrainingHistory_trainee(trainee_id).then(res => {
-            setTrainingHis(res);
-        })
-    }, [])
+        serverConnector.getAllForTraineePageInTrainer(trainee_id).then(res => {
+            setTrainingHis(res.trainingHis);
+            setDataSource(res.dataSource);
 
-      useEffect( () =>{
-          serverConnector.getTrainingAmountByMonth_trainee(trainee_id).then(res => {
-              setDataSource(res);
-          })
+        })
+    //     serverConnector.getAllTrainingHistory_trainee(trainee_id).then(res => {
+    //         setTrainingHis(res);
+    //     })
+    // }, [])
+    //
+    //   useEffect( () =>{
+    //       serverConnector.getTrainingAmountByMonth_trainee(trainee_id).then(res => {
+    //           setDataSource(res);
+    //       })
       },[])
     return (
         <div>

@@ -4,7 +4,6 @@ import React from "react";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import StyledButton from "./Empowerment.jsx"
 import serverConnector from "../../server-connector";
-import {useLocalStorage} from "../../UtillHook";
 import {useLocation} from "react-router-dom";
 
 
@@ -21,11 +20,10 @@ const EmpowermentEdit = () => {
         setTraineeId(trainee_id)
         if(traineeId != 0){
             serverConnector.getPersonalProgramLink(traineeId).then(res => {
-                console.log("link",res)
+                console.log("link in EmpowermentEdit",res)
                 setLink(res);
             })
         }
-
      },[traineeId])
 
 

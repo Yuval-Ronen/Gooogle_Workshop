@@ -4,6 +4,8 @@
 const serverUrl = "http://localhost:5000";
 
 
+
+
 const serverConnector = {
     delayBy: async (timeout = 100) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
@@ -33,13 +35,13 @@ const serverConnector = {
         let data =  await res.json();
         return await data["result"];
     },
-    createNewTrain:async (trainer_id, trainees, train_type, train_date_start, train_date_end,  train_time_start,
+    createNewTrain: async (trainer_id, trainees, train_type, train_date_start, train_date_end,  train_time_start,
                           train_time_end, description, training_details_id, rRule, exDate) =>{
         console.log("all new train info", rRule)
         let res = await fetch(serverUrl+"/api/createNewTrain/" + trainer_id +"/"+ [trainees] +"/"+ train_type +"/"+ train_date_start +"/"+ train_date_end +"/"+
             train_time_start +"/"+train_time_end +"/"+ description +"/"+ training_details_id +"/"+ rRule +"/"+ exDate);
         let data = await res.json();
-        return data["result"];
+        return await data["result"];
         },
 
     updateExercise:async (changed_data) =>{
@@ -49,7 +51,11 @@ const serverConnector = {
         let data = await res.json();
         return data["result"];
         },
-
+    deleteExercise:async (train_id) =>{
+        let res = await fetch(serverUrl+"/api/deleteExercise/" + train_id);
+        let data = await res.json();
+        return data["result"];
+        },
     getAllTrainerCalendar: async (trainer_id) => {
         let res = await fetch(serverUrl + "/api/get_all_trainer_calendar/" + trainer_id)
         // return await res.json();
@@ -62,6 +68,11 @@ const serverConnector = {
         let data = await res.json();
         return data["result"];
     },
+    GetAllTrainerDashboard: async (trainer_id) => {
+        let res = await fetch(serverUrl + "/api/get_all_trainer_dashboard/" + trainer_id)
+        let data = await res.json();
+        return data["result"];
+    },
     getAllTrainingHistory_trainer: async (trainer_id) => {
         let res = await fetch(serverUrl + "/api/getAllTrainingHistory_trainer/" + trainer_id)
         // return await res.json();
@@ -70,6 +81,12 @@ const serverConnector = {
         return data["result"];
 
     },
+    getAllForTraineePageInTrainer:async (trainee_id) => {
+        let res = await fetch(serverUrl + "/api/getAllForTraineePageInTrainer/" + trainee_id)
+        let data = await res.json();
+        return data["result"];
+    },
+
     getAllTrainingHistory_trainee: async (trainee_id) => {
         let res = await fetch(serverUrl + "/api/getAllTrainingHistory_trainee/" + trainee_id)
         // return await res.json();
@@ -132,10 +149,21 @@ const serverConnector = {
 
     },
     changeMessageStatus: async (trainee_id, trainer_id) => {
-        let res = await fetch(serverUrl + "/api/changeMessageStatus/" +trainee_id  +"/"+ trainer_id)
+        // let res = await fetch(serverUrl + "/api/changeMessageStatus/" +trainee_id  +"/"+ trainer_id)
+        // let data = await res.json();
+        // return data["result"];
+        let res = await fetch(serverUrl + "/api/changeMessageStatus/",{
+            method: 'POST',
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({
+                trainee_id: trainee_id,
+                trainer_id: trainer_id
+            })
+        })
         let data = await res.json();
         return data["result"];
-
     },
     autoComplete_trainee: async (string, trainer_id) => {
         let res = await fetch(serverUrl + "/api/autoComplete_trainee/",{
