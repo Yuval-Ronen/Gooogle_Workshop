@@ -74,6 +74,7 @@ const theme2 = createMuiTheme({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        width: '-webkit-fill-available',
       }
     },
   
@@ -325,8 +326,10 @@ export default function PopUpMedal(props) {
                 textAlign: 'center',
                 fontFamily: 'Segoe UI',
                 backgroundColor: "#ffc717",
-                width: '300%',
                 fontSize: '1rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '-webkit-fill-available',
               }}
               steps={maxSteps}
               position="static"
