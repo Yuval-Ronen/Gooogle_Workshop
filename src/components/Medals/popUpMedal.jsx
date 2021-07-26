@@ -181,29 +181,40 @@ export default function PopUpMedal(props) {
 
   const changeMessageStatusLocaly = (numMessage) => {
     if (numOfMedals > 0 && newMessages[numMessage].status == "new") {
-      newMessages[numMessage].status = "old";
+      newMessages[numMessage].status = "oldLocal";
     }
     console.log("Changed", numMessage);
   }
 
   const handleClose = () => {
+    let newMark = "old";
+    const messagesUpdate = [traineeID];
     changeMessageStatusLocaly(activeStep);
     setOpen(false);
     let newMassegeCount = 0;
     newMessages.map((message) => {
       console.log("message",message)
-      if (message.status == "old") {
+      if (message.status == "oldLocal") {
+        messagesUpdate.push(message);
+         message.status = "old";
         console.log("traineeID", traineeID,"trainer_id", message.trainer_id)
-        serverConnector.changeMessageStatus(traineeID, message.trainer_id).then(res =>{
-            });
       }
-      else {
+      else if (message.status == "new"){
         newMassegeCount++;
+      }
+      if(message.status == "new"){
+        newMark = "new"
       }
     });
     console.log("newMassegeCount", newMassegeCount);
     if (newMassegeCount == 0) {
       setVisible(true);
+    }
+    props.allMessages[0] = newMark;
+    if(messagesUpdate.length > 1){
+      console.log("messagesUpdate",messagesUpdate)
+      serverConnector.changeMessageStatus(messagesUpdate).then(res =>{
+      });
     }
   };
 
@@ -232,7 +243,7 @@ export default function PopUpMedal(props) {
             aria-label="כוכב איתן"
             onClick={handleClickOpen}
             style={{ background: '#55215e', color: 'white', fontFamily: 'Segoe UI', direction:'rtl' }}>
-          <StarsRoundedIcon fontSize='small' style={{ color: '#ffc717', paddingLeft: '1px' }}/>כוכב איתן
+          <StarsRoundedIcon fontSize='small' style={{ color: '#ffc717', paddingLeft: '2px' }}/>כוכב איתן
           </Fab>
         </Badge>
 

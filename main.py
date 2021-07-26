@@ -1,3 +1,4 @@
+import copy
 from functools import wraps
 import json
 from flask_cors import CORS, cross_origin
@@ -19,6 +20,20 @@ translator = {1: "ינואר", 2: "פבואר", 3: "מרץ", 4: "אפריל", 5:
 
 sql_c = ConnectSQL()
 
+
+def custom_train_amount_per_month(info):
+    translator = {1: "ינואר", 2: "פבואר", 3: "מרץ", 4: "אפריל", 5: "מאי", 6: "יוני", 7: "יולי", 8: "אוגוסט",
+                  9: "ספטמבר", 10: "אוקטובר", 11: "נובמבר", 12: "דצמבר"}
+    retVal = [0] * 12
+
+    info_keys = info["dataSource"]["all_months"]
+    month_not_in_infok = list(translator.keys() - info_keys)
+
+    for item in info["dataSource"]["final"]:
+        retVal[item["month"] - 1] = {"month": translator[item["month"]], "training_amount": item["training_amount"]}
+    for element in month_not_in_infok:
+        retVal[element - 1] = {"month": translator[element], "training_amount": 0}
+    return retVal
 
 def error_handler(f):
     @wraps(f)
@@ -82,14 +97,7 @@ def get_all_trainee_dashboard(trainee_id):
 @error_handler
 def get_all_trainer_dashboard(trainer_id):
     info = sql_c.get_all_trainer_dashboard(trainer_id)
-    retVal = []
-    for element in translator:
-        for item in info["dataSource"]:
-            if item["month"] == element:
-                retVal.append({"month": translator[element], "training_amount": item["training_amount"]})
-            else:
-                retVal.append({"month": translator[element], "training_amount": 0})
-    info["dataSource"] = retVal
+    info["dataSource"] = custom_train_amount_per_month(info)
     print(info)
     # return jsonify({"result": result_list}), 200
     return jsonify({"result": info}), 200
@@ -108,14 +116,7 @@ def getAllTrainingHistory_trainer(trainer_id):
 @error_handler
 def getAllForTraineePageInTrainer(trainee_id):
     info = sql_c.get_all_for_trainee_page_in_trainer(trainee_id)
-    retVal = []
-    for element in translator:
-        for item in info["dataSource"]:
-            if item["month"] == element:
-                retVal.append({"month": translator[element], "training_amount": item["training_amount"]})
-            else:
-                retVal.append({"month": translator[element], "training_amount": 0})
-    info["dataSource"] = retVal
+    info["dataSource"] = custom_train_amount_per_month(info)
     print(info)
     return jsonify({"result": info}), 200
 
@@ -187,26 +188,14 @@ def getMessage(trainee_id):
     return jsonify({"result": info}), 200
 
 
-# @app.route("/api/changeMessageStatus/<trainee_id>/<trainer_id>", methods=['GET'])
-@app.route("/api/changeMessageStatus/", methods=['POST'])
+@app.route("/api/changeMessageStatus/<message_list>", methods=['GET'])
 @error_handler
-@cross_origin()
-# @cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
-def changeMessageStatus():
-    # ret = sql_c.change_message_status(trainee_id, trainer_id)
-    # return jsonify({"result": ret}), 200
-    trainee_id = request.json.get('trainee_id', '')
-    trainer_id = request.json.get('trainer_id', '')
-    result = sql_c.change_message_status(trainee_id, trainer_id)
-    response = jsonify({"result": result}), 200
-    # response.headers.add('Access-Control-Allow-Origin', '*')
-    # response.headers.add('Access-Control-Allow-Methods', 'GET, PUT, PATCH, POST, OPTIONS')
-    # response.headers.add('Access-Control-Allow-Headers', 'DNT,User-Agent,X-Requested-With,If-Modified-Since,'
-    #                                                      'Cache-Control,Content-Type,Range')
-    # response.headers.add('Access-Control-Expose-Headers', 'Content-Length,Content-Range')
+def changeMessageStatus(message_list):
+    message_list_data = json.loads(message_list)
+    ret = sql_c.change_message_status(message_list_data)
+    print(ret)
+    return jsonify({"result": ret}), 200
 
-    # return jsonify({"result": result}), 200
-    return response
 
 
 @app.route("/api/getUpcomingExercise_trainer/<trainer_id>", methods=['GET'])
@@ -305,6 +294,7 @@ def updatePersonalProgramLink(trainee_id, link):
 
 
 if __name__ == '__main__':
-    # TRAINID= changeMessageStatus(205380132, 205380131)
+    # TRAINID= changeMessageStatus([205380132, {"message": "1506", "status": "old", "trainer_id": 205380130, "trainer_name": "איתן עמותה"},
+    #                              {"message": "עבודה טובה", "status": "old", "trainer_id": 205380131, "trainer_name": "eitan association"}])
     app.run(host='127.0.0.1', port="5000", debug=True)
 

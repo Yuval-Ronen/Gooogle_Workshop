@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import ShowExerciseHistory from "../../show_exercise_history";
 import {useLocalStorage} from "../../../UtillHook";
 import serverConnector from "../../../server-connector";
@@ -12,6 +12,8 @@ const TraineeExerciseHistory = (props) => {
              setTrainingHis(res);
          })
     },[])
+
+
     return (
         <div className='exercise_history'>
             <ShowExerciseHistory training_his ={trainingHis} isDashboard={false}/>

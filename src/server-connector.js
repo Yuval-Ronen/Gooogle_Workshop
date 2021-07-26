@@ -148,52 +148,26 @@ const serverConnector = {
         return data["result"];
 
     },
-    changeMessageStatus: async (trainee_id, trainer_id) => {
-        // let res = await fetch(serverUrl + "/api/changeMessageStatus/" +trainee_id  +"/"+ trainer_id)
-        // let data = await res.json();
-        // return data["result"];
-        let res = await fetch(serverUrl + "/api/changeMessageStatus/",{
-            method: 'POST',
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify({
-                trainee_id: trainee_id,
-                trainer_id: trainer_id
-            })
-        })
+    changeMessageStatus: async (message_list) => {
+        let str = JSON.stringify(message_list);
+        console.log("my_str", str)
+        let res = await fetch(serverUrl + "/api/changeMessageStatus/" + str)
         let data = await res.json();
         return data["result"];
-    },
-    autoComplete_trainee: async (string, trainer_id) => {
-        let res = await fetch(serverUrl + "/api/autoComplete_trainee/",{
-            method: 'POST',
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify({
-                trainer_id: trainer_id,
-                string: string
-            })
-        })
-        return await res.json();
+        // let res = await fetch(serverUrl + "/api/changeMessageStatus/",{
+        //     method: 'POST',
+        //     headers:{
+        //         "Content-Type":"application/json"
+        //     },
+        //     body: JSON.stringify({
+        //         trainee_id: trainee_id,
+        //         trainer_id: trainer_id
+        //     })
+        // })
         // let data = await res.json();
         // return data["result"];
     },
-    autoComplete_train_type: async (string) => {
-        let res = await fetch(serverUrl + "/api/autoComplete_train_type/",{
-            method: 'POST',
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify({
-                string: string
-            })
-        })
-        return await res.json();
-        // let data = await res.json();
-        // return data["result"];
-    },
+
     getAllTrain_type: async (string) => {
         let res = await fetch(serverUrl + "/api/getAllTrain_type/" + string)
         return await res.json();
@@ -217,3 +191,34 @@ const serverConnector = {
 
 }
 export default serverConnector;
+
+
+    // autoComplete_trainee: async (string, trainer_id) => {
+    //     let res = await fetch(serverUrl + "/api/autoComplete_trainee/",{
+    //         method: 'POST',
+    //         headers:{
+    //             "Content-Type":"application/json"
+    //         },
+    //         body: JSON.stringify({
+    //             trainer_id: trainer_id,
+    //             string: string
+    //         })
+    //     })
+    //     return await res.json();
+    //     // let data = await res.json();
+    //     // return data["result"];
+    // },
+    // autoComplete_train_type: async (string) => {
+    //     let res = await fetch(serverUrl + "/api/autoComplete_train_type/",{
+    //         method: 'POST',
+    //         headers:{
+    //             "Content-Type":"application/json"
+    //         },
+    //         body: JSON.stringify({
+    //             string: string
+    //         })
+    //     })
+    //     return await res.json();
+    //     // let data = await res.json();
+    //     // return data["result"];
+    // },

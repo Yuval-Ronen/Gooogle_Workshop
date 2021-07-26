@@ -13,8 +13,8 @@ class ConnectSQL:
 
     def connect_to_db(self):
         self.cnx = mysql.connector.connect(user='root', password='stGNhgOtr6vCzgBu', host='127.0.0.1',
-                                           database='eitan_database', port=3306, buffered=True)
-        self.cursor = self.cnx.cursor(buffered=True)
+                                           database='eitan_database', port=3306)
+        self.cursor = self.cnx.cursor()
 
     def check_email_trainer(self, email):
         query = ("SELECT * "
@@ -366,10 +366,12 @@ class ConnectSQL:
             " ORDER BY MONTH(t1.train_date_start) ASC")
         self.cursor.execute(query, (trainer_id,))
         final = []
+        all_months = []
         for (month, training_amount) in self.cursor:
             inside = {"month": month, "training_amount": training_amount}
             final.append(inside)
-        return final
+            all_months.append(month)
+        return {"final": final, "all_months": all_months}
 
     def get_training_amount_by_month_trainee(self, trainee_id):
         query = (" SELECT MONTH(t1.train_date_start) AS month, COUNT(*) AS training_amount"
@@ -379,10 +381,12 @@ class ConnectSQL:
                  " ORDER BY MONTH(t1.train_date_start) ASC")
         self.cursor.execute(query, (trainee_id,))
         final = []
+        all_months = []
         for (month, training_amount) in self.cursor:
             inside = {"month": month, "training_amount": training_amount}
             final.append(inside)
-        return final
+            all_months.append(month)
+        return {"final": final, "all_months": all_months}
 
     def get_type_amount(self, trainee_id):
         query = (" SELECT t1.train_type AS train_type, COUNT(*) AS amount"
@@ -437,11 +441,14 @@ class ConnectSQL:
                     {"trainee_id": trainee_id, "trainer_name": trainer_name, "message": message, "status": status})
         return [res_status, final_new_message + final_old_message]
 
-    def change_message_status(self, trainee_id, trainer_id):
+    def change_message_status(self, message_list):
+        trainee_id = int(message_list[0])
+        all_messages = message_list[1:len(message_list)]
         changeQ = (" UPDATE eitan_database.messages"
                    " SET status = 'old'"
                    " WHERE trainee_id = %s AND trainer_id = %s")
-        self.cursor.execute(changeQ, (int(trainee_id), int(trainer_id),), multi=True)
+        for item in all_messages:
+            self.cursor.execute(changeQ, (trainee_id, int(item["trainer_id"]),))
         self.cnx.commit()
         print(self.cursor)
         return "changed"
