@@ -2,73 +2,68 @@ import React from 'react';
 import styled from "styled-components";
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
+import { Chip } from '@material-ui/core';
 
-const Grid = styled.header`
-    .container {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: flex-start;
-        align-content: center;
-    }
 
-    .item {
-        text-align: center;
-        padding: 0px;
-       
-    }
-
-    
-`; 
-
-const TraineeResult = ({listOfTrainees})=>{
+const TraineeResult = ({ listOfTrainees }) => {
 
     const useStyles = makeStyles((theme) => ({
         large: {
-          width: theme.spacing(10),
-          height: theme.spacing(10),
+            width: theme.spacing(10),
+            height: theme.spacing(10),
         },
         root: {
             display: 'flex',
             '& > *': {
-              margin: theme.spacing(1),
+                margin: theme.spacing(1),
             },
-            flexWrap: 'wrap'
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+
         },
         item: {
             display: 'flex',
             '& > *': {
-              margin: theme.spacing(0.3),
+                margin: theme.spacing(0.3),
             },
             flexDirection: 'column',
             alignItems: 'center ',
-        }
-      }));
+            color: '#55215e',
+            transition: 'all 0.6s',
+            '&:hover': {
+                color: '#f50057',
+                textDecoration: 'none',
+                opacity: 0.5,
+            },
+        },
+    }));
 
-      const classes = useStyles();
+    const classes = useStyles();
 
 
     return <div>
-        <Grid>
-        <div className={classes.root}>
-        
-        {/*<TraineeProgress listHistory = {trainingHistory} listProgram = {personalProgram }/>*/}
 
-        {listOfTrainees?.length > 0 && listOfTrainees.map((trainee, index)=>
-               
-                <a href={`/TrainerPage/trainee?trainee_id=${trainee.trainee_id}`} >
-                    <div className={classes.item}>
-                    <Avatar alt='image' src={trainee.image} className={classes.large}  />
-                     <h6>{trainee.first_name}</h6>
-                    <h6>{trainee.last_name}</h6>
-                    </div>
+        <div className={classes.root}>
+            {listOfTrainees?.length > 0 && listOfTrainees.map((trainee) =>
+                <a className={classes.item} href={`/TrainerPage/trainee?trainee_id=${trainee.trainee_id}`} >
+
+                    <Avatar alt='image' src={trainee.image} className={classes.large} />
+                    {/* <Chip
+                    label=  {trainee.first_name + ' ' + trainee.last_name}
+                    color= 'secondary'
+                    style={{
+                        cursor: 'pointer',
+                        fontFamily: 'Segoe UI',
+                    }}>
+                   
+                    </Chip> */}
+                    <h6 >{trainee.first_name}</h6>
+                    <h6 >{trainee.last_name}</h6>
+
                 </a>
-                
-             )
+            )
             }
         </div>
-        </Grid>
-        
-            </div>
-
-        }
+    </div>
+}
 export default TraineeResult;
