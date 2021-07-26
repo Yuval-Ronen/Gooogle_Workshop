@@ -52,9 +52,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '4px'
   },
   
-    // @global is handled by jss-plugin-global.
     '@global': {
-      // You should target [class*="MuiButton-root"] instead if you nest themes.
       '.MuiToolbar-regular': {
         minHeight: '0px',
       },
