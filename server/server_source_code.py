@@ -465,10 +465,12 @@ class ConnectSQL:
         return ret_link
 
     def insert_new_personal_program_link(self, trainee_id, trainer_id, link):
-        getLinkQ = (" INSERT INTO eitan_database.all_personal_program (trainee_id, trainer_id, link)"
-                    " VALUES (%s, %s, %s ")
+        getLinkQ = (" INSERT INTO eitan_database.all_personal_program(trainee_id, trainer_id, link)"
+                    " VALUES (%s, %s, %s) ")
         self.cursor.execute(getLinkQ, (int(trainee_id), int(trainer_id), link, ))
         self.cnx.commit()
+        print(self.cursor)
+        return "uploaded"
 
     def update_personal_program_link(self, trainee_id, link):
         getLinkQ = (" UPDATE eitan_database.all_personal_program"

@@ -197,7 +197,6 @@ def changeMessageStatus(message_list):
     return jsonify({"result": ret}), 200
 
 
-
 @app.route("/api/getUpcomingExercise_trainer/<trainer_id>", methods=['GET'])
 @error_handler
 def getUpcomingExercise_trainer(trainer_id):
@@ -267,12 +266,21 @@ def getPersonalProgramLink(trainee_id):
     return jsonify({"result": link}), 200
 
 
-@app.route("/api/insertNewPersonalProgramLink/<trainee_id>/<trainer_id>/<link>", methods=['GET'])
+# @app.route("/api/insertNewPersonalProgramLink/<all_info>", methods=['GET'])
+@app.route("/api/insertProgramLink/<trainee_id>/<trainer_id>/<link_list>", methods=['GET'])
 @error_handler
-def insertNewPersonalProgramLink(trainee_id, trainer_id, link):
-    link_to_share = link.splitext("?usp=sharing")
-    sql_c.insert_new_personal_program_link(trainee_id, trainer_id, link_to_share[0] + "?usp=sharing")
-    return jsonify({"result": "uploaded"}), 200
+def insertProgramLink(trainee_id, trainer_id, link_list):
+    # print(all_info)
+    # info = json.loads(all_info)
+    # trainee_id = info["trainee_id"]
+    # trainer_id = info["trainer_id"]
+    # link = info["link"]
+    # link_list_str = json.loads(link_list)
+    print(link_list)
+    link_to_share = link_list.replace(",", "/")
+    print(link_to_share)
+    res = sql_c.insert_new_personal_program_link(trainee_id, trainer_id, link_to_share + "?usp=sharing")
+    return jsonify({"result": res}), 200
 
 
 @app.route("/api/updatePersonalProgramLink/<trainee_id>/<link>", methods=['GET'])
@@ -294,7 +302,6 @@ def updatePersonalProgramLink(trainee_id, link):
 
 
 if __name__ == '__main__':
-    # TRAINID= changeMessageStatus([205380132, {"message": "1506", "status": "old", "trainer_id": 205380130, "trainer_name": "איתן עמותה"},
-    #                              {"message": "עבודה טובה", "status": "old", "trainer_id": 205380131, "trainer_name": "eitan association"}])
+    # TRAINID= insertNewPersonalProgramLink(205380132, 205380130, "https://docs.google.com/spreadsheets/d/1JJErTtqswVplcLKEwOmxUlHifwDYxLaD2uCd-3wmNSc/edit#gid=0")
     app.run(host='127.0.0.1', port="5000", debug=True)
 

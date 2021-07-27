@@ -15,10 +15,12 @@ import Button from "@material-ui/core/Button";
 import CancelIcon from "@material-ui/icons/Cancel";
 import SendIcon from "@material-ui/icons/Send";
 import {useLocalStorage} from "../../UtillHook";
+import {string} from "prop-types";
 
 const EmpowermentEdit = () => {
     const [userInfo] = useLocalStorage("userInfo",{});
     const [link, setLink] = useState("");
+    const [value, setValue] = useState("");
     const [traineeId, setTraineeId] = useState(0)
     const [open, setOpen] = useState(false);
 
@@ -41,15 +43,19 @@ const EmpowermentEdit = () => {
 
      },[traineeId])
     const handleChange = (event) => {
-        setLink(event.target.link);
+        setValue(event.target.value);
     };
 
     const handleSubmit = (event) => {
         setOpen(false);
-        serverConnector.insertNewPersonalProgramLink(traineeId, userInfo.ID, link).then(res => {
+        console.log("traineeId", traineeId.toString(),"userInfo.ID", userInfo.ID.toString() , "value",value)
+        var my = value.split("/")
+        console.log("link", my)
+        serverConnector.insertNewPersonalProgramLink(traineeId, userInfo.ID, value.split("/")).then(res => {
             console.log("res", res)
+            setLink(value);
         })
-        setLink('');
+        setValue('');
     }
 
       const handleClose = () => {
@@ -81,7 +87,7 @@ const EmpowermentEdit = () => {
                         <DialogTitle id="form-dialog-title">אנא הכניסו את הקישור למערך ההעצמה</DialogTitle>
                         <DialogContent>
                             <TextField
-                                link={link}
+                                value={value}
                                 onChange={handleChange}
                                 autoFocus
                                 margin="normal"
