@@ -8,13 +8,14 @@ const ShowGoogleDocs = ({source}) => {
 
 
     return (
-    <div className='empowerment' >
+    <div className='empowerment' style={{paddingTop:"20px"}} >
         <iframe
             src={source}
             title="file"
             width="100%"
             height="600px"
             border="bold"
+            display = "block"
         ></iframe>
     </div>
     )

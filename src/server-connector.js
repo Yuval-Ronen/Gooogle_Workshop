@@ -179,8 +179,7 @@ const serverConnector = {
         return data["result"];
     },
     insertNewPersonalProgramLink:  async (trainee_id, trainer_id, link) => {
-        // let str = JSON.stringify(link);
-        // console.log("my_str", str)
+
         let res = await fetch(serverUrl + "/api/insertProgramLink/" + trainee_id +"/"+  trainer_id +"/"+ link)
         let data = await res.json();
         return data["result"];

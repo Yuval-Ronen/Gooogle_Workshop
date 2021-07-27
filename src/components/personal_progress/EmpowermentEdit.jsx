@@ -15,7 +15,9 @@ import Button from "@material-ui/core/Button";
 import CancelIcon from "@material-ui/icons/Cancel";
 import SendIcon from "@material-ui/icons/Send";
 import {useLocalStorage} from "../../UtillHook";
-import {string} from "prop-types";
+import CreateIcon from '@material-ui/icons/Create';
+import sheets from "../../icons/google-sheets.png"
+
 
 const EmpowermentEdit = () => {
     const [userInfo] = useLocalStorage("userInfo",{});
@@ -48,34 +50,85 @@ const EmpowermentEdit = () => {
 
     const handleSubmit = (event) => {
         setOpen(false);
-        console.log("traineeId", traineeId.toString(),"userInfo.ID", userInfo.ID.toString() , "value",value)
-        var my = value.split("/")
-        console.log("link", my)
-        serverConnector.insertNewPersonalProgramLink(traineeId, userInfo.ID, value.split("/")).then(res => {
-            console.log("res", res)
-            setLink(value);
-        })
+        if(link.localeCompare("") != 0){//in that case we want to update and not to upload new
+            console.log("value", value)
+            serverConnector.updatePersonalProgramLink(traineeId, value.split("/")).then(res => {
+                console.log("res", res)
+                setLink(value);
+            })}
+        else{
+            serverConnector.insertNewPersonalProgramLink(traineeId, userInfo.ID, value.split("/")).then(res => {
+                console.log("res", res)
+                setLink(value);
+            })}
         setValue('');
     }
 
-      const handleClose = () => {
+    const handleClose = () => {
         setOpen(false);
+    };
+    const handleClick = () => {
+        setOpen(true);
       };
 
+    const EditDialog = () =>{
+        return(
+            <div>
+                <DialogContent>
+                    <TextField
+                        value={value}
+                        onChange={handleChange}
+                        autoFocus
+                        margin="normal"
+                        label="Google sheets הכניסו קישור של "
+                        fullWidth
+                        multiline
+                        variant="outlined"
+                        rtlEnabled
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start" >
+                                    <img src={sheets} style = {{width: "30px", height:"30px"}}/>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="secondary" endIcon={<CancelIcon />}>
+                        בטל
+                    </Button>
+                    <Button onClick={handleSubmit} color="primary" endIcon={<SendIcon />}>
+                        שלח
+                    </Button>
+                </DialogActions>
+            </div>
+        )
+    }
+
     if(link.localeCompare("") != 0){
-        console.log("not equal to empty link")
         return (
             <div className='empowerment'>
+                <StyledButton style={{ margin: "2px 2px 4px" , width:"270px", display: "inline"}}
+                onClick = {handleClick}>
+                    <CreateIcon/> עריכת הקישור</StyledButton>
+
                 <a href={`/TrainerPage/trainee?trainee_id=${traineeId}`} >
-                      <StyledButton style={{ margin: "2px 2px 4px" , width:"270px"}} >
-                          <ArrowBackIcon/> חזרה לעמוד מתאמן</StyledButton>
-                            <ShowGoogleDocs source = {link}/>
+                    <StyledButton style={{ margin: "2px 2px 4px" , width:"270px", display: "inline"}}>
+                        <ArrowBackIcon/> חזרה לעמוד מתאמן</StyledButton>
                 </a>
+                <ShowGoogleDocs source = {link} />
+                <div dir="rtl">
+                    <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title">
+                        <DialogTitle id="form-dialog-title">אנא הכניסו קישור חדש למערך ההעצמה</DialogTitle>
+                        <EditDialog/>
+                    </Dialog>
+                </div>
+
             </div>
             )
     }
     else{
-            console.log(" equal to empty link")
         return (
             <div className='empowerment'>
                 <a href={`/TrainerPage/trainee?trainee_id=${traineeId}`} >
@@ -85,34 +138,7 @@ const EmpowermentEdit = () => {
                 <div dir="rtl">
                     <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title">
                         <DialogTitle id="form-dialog-title">אנא הכניסו את הקישור למערך ההעצמה</DialogTitle>
-                        <DialogContent>
-                            <TextField
-                                value={value}
-                                onChange={handleChange}
-                                autoFocus
-                                margin="normal"
-                                label="Google sheets הכניסו קישור של "
-                                fullWidth
-                                multiline
-                                variant="outlined"
-                                rtlEnabled
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start" >
-                                            <img src="../../../icons/google-sheets.png" />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleClose} color="secondary" endIcon={<CancelIcon />}>
-                                בטל
-                            </Button>
-                            <Button onClick={handleSubmit} color="primary" endIcon={<SendIcon />}>
-                                שלח
-                            </Button>
-                        </DialogActions>
+                        <EditDialog/>
                     </Dialog>
                 </div>
             </div>

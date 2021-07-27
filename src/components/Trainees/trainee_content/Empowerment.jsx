@@ -24,25 +24,17 @@ const Empowerment = () => {
      })
      },[])
 
-    // const exporterRef = useRef(null);
-    //   const startExport = useCallback((options) => {
-    //     exporterRef.current.exportGrid(options);
-    //   }, [exporterRef]);
-
     return (
-
         <div>
             <div class="MuiToolbar-root MuiToolbar-regular Toolbar-toolbar-528 MuiToolbar-gutters"
                  style={{paddingLeft:"20px", paddingRight: "30px", paddingTop: "20px"}}>
                 <Tooltip title="PDF- יצוא ל" >
                     <PictureAsPdfIcon fontSize={"medium"} onClick={()=>{window.open(linkForPdf + "/export?format=pdf","_self")}}
-                    style={{size: "40px", color: "grey"}}>
+                    style={{color: "grey"}}>
                     </PictureAsPdfIcon>
                 </Tooltip>
             </div>
-
-
-             <div className='empowerment' style={{paddingTop: "20px"}}>
+             <div className='empowerment' style={{paddingTop: "20px", padding: "20px"}}>
                             <ShowGoogleDocs source = {link} />
             </div>
         </div>

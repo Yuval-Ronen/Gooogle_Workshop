@@ -266,19 +266,10 @@ def getPersonalProgramLink(trainee_id):
     return jsonify({"result": link}), 200
 
 
-# @app.route("/api/insertNewPersonalProgramLink/<all_info>", methods=['GET'])
 @app.route("/api/insertProgramLink/<trainee_id>/<trainer_id>/<link_list>", methods=['GET'])
 @error_handler
 def insertProgramLink(trainee_id, trainer_id, link_list):
-    # print(all_info)
-    # info = json.loads(all_info)
-    # trainee_id = info["trainee_id"]
-    # trainer_id = info["trainer_id"]
-    # link = info["link"]
-    # link_list_str = json.loads(link_list)
-    print(link_list)
     link_to_share = link_list.replace(",", "/")
-    print(link_to_share)
     res = sql_c.insert_new_personal_program_link(trainee_id, trainer_id, link_to_share + "?usp=sharing")
     return jsonify({"result": res}), 200
 
@@ -286,8 +277,9 @@ def insertProgramLink(trainee_id, trainer_id, link_list):
 @app.route("/api/updatePersonalProgramLink/<trainee_id>/<link>", methods=['GET'])
 @error_handler
 def updatePersonalProgramLink(trainee_id, link):
-    sql_c.update_personal_program_link(trainee_id, link)
-    return jsonify({"result": "updated"}), 200
+    link_to_share = link.replace(",", "/")
+    res = sql_c.update_personal_program_link(trainee_id, link_to_share)
+    return jsonify({"result": res}), 200
 
 # @app.route("/", methods=['GET'])
 # def react():

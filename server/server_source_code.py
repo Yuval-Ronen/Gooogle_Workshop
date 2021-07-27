@@ -478,6 +478,7 @@ class ConnectSQL:
                     " WHERE trainee_id = %s")
         self.cursor.execute(getLinkQ, (link, int(trainee_id),))
         self.cnx.commit()
+        return "updated"
 
 
     # def auto_complete_trainee(self, string, trainer_id):
