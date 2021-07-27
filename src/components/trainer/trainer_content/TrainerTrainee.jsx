@@ -22,17 +22,8 @@ const TrainerTrainee = () => {
         serverConnector.getAllForTraineePageInTrainer(trainee_id).then(res => {
             setTrainingHis(res.trainingHis);
             setDataSource(res.dataSource);
-
         })
-    //     serverConnector.getAllTrainingHistory_trainee(trainee_id).then(res => {
-    //         setTrainingHis(res);
-    //     })
-    // }, [])
-    //
-    //   useEffect( () =>{
-    //       serverConnector.getTrainingAmountByMonth_trainee(trainee_id).then(res => {
-    //           setDataSource(res);
-    //       })
+
       },[])
     return (
         <div>

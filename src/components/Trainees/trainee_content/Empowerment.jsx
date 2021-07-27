@@ -5,6 +5,8 @@ import {useLocalStorage} from "../../../UtillHook";
 import serverConnector from "../../../server-connector";
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 import {ExportPanel, Grid} from "@devexpress/dx-react-grid-material-ui";
+import Fab from "@material-ui/core/Fab";
+import {Tooltip} from "@material-ui/core";
 
 const Empowerment = () => {
     const [userInfo] = useLocalStorage("userInfo",{});
@@ -28,13 +30,20 @@ const Empowerment = () => {
     //   }, [exporterRef]);
 
     return (
-        <div>
-            {/*<ExportPanel startExport={startExport} />*/}
 
-            {/*<PictureAsPdfIcon onClick={window.open(linkForPdf + "/export?format=pdf")}>*/}
-            {/*</PictureAsPdfIcon>*/}
-            <div className='empowerment'>
-                            <ShowGoogleDocs source = {link}/>
+        <div>
+            <div class="MuiToolbar-root MuiToolbar-regular Toolbar-toolbar-528 MuiToolbar-gutters"
+                 style={{paddingLeft:"20px", paddingRight: "30px", paddingTop: "20px"}}>
+                <Tooltip title="PDF- יצוא ל" >
+                    <PictureAsPdfIcon fontSize={"medium"} onClick={()=>{window.open(linkForPdf + "/export?format=pdf","_self")}}
+                    style={{size: "40px", color: "grey"}}>
+                    </PictureAsPdfIcon>
+                </Tooltip>
+            </div>
+
+
+             <div className='empowerment' style={{paddingTop: "20px"}}>
+                            <ShowGoogleDocs source = {link} />
             </div>
         </div>
     )

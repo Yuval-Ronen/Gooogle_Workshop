@@ -5,12 +5,23 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import StyledButton from "./Empowerment.jsx"
 import serverConnector from "../../server-connector";
 import {useLocation} from "react-router-dom";
-
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import DialogActions from "@material-ui/core/DialogActions";
+import Button from "@material-ui/core/Button";
+import CancelIcon from "@material-ui/icons/Cancel";
+import SendIcon from "@material-ui/icons/Send";
+import {useLocalStorage} from "../../UtillHook";
 
 const EmpowermentEdit = () => {
+    const [userInfo] = useLocalStorage("userInfo",{});
     const [link, setLink] = useState("");
     const [traineeId, setTraineeId] = useState(0)
-    // const [location, setLocation] = useState("");
+    const [open, setOpen] = useState(false);
+
     let myLocation = useLocation()
 
 
@@ -22,23 +33,88 @@ const EmpowermentEdit = () => {
             serverConnector.getPersonalProgramLink(traineeId).then(res => {
                 console.log("link in EmpowermentEdit",res)
                 setLink(res);
+                if(res.localeCompare("") === 0){
+                   setOpen(true)
+                }
             })
         }
+
      },[traineeId])
+    const handleChange = (event) => {
+        setLink(event.target.link);
+    };
 
+    const handleSubmit = (event) => {
+        setOpen(false);
+        serverConnector.insertNewPersonalProgramLink(traineeId, userInfo.ID, link).then(res => {
+            console.log("res", res)
+        })
+        setLink('');
+    }
 
-    return (
-    <div className='empowerment'>
-        <a href={`/TrainerPage/trainee?trainee_id=${traineeId}`} >
-              <StyledButton style={{ margin: "2px 2px 4px" , width:"270px"}} >
-                  <ArrowBackIcon/> חזרה לעמוד מתאמן</StyledButton>
-                    <ShowGoogleDocs source = {link}/>
-        </a>
+      const handleClose = () => {
+        setOpen(false);
+      };
 
+    if(link.localeCompare("") != 0){
+        console.log("not equal to empty link")
+        return (
+            <div className='empowerment'>
+                <a href={`/TrainerPage/trainee?trainee_id=${traineeId}`} >
+                      <StyledButton style={{ margin: "2px 2px 4px" , width:"270px"}} >
+                          <ArrowBackIcon/> חזרה לעמוד מתאמן</StyledButton>
+                            <ShowGoogleDocs source = {link}/>
+                </a>
+            </div>
+            )
+    }
+    else{
+            console.log(" equal to empty link")
+        return (
+            <div className='empowerment'>
+                <a href={`/TrainerPage/trainee?trainee_id=${traineeId}`} >
+                      <StyledButton style={{ margin: "2px 2px 4px" , width:"270px"}} >
+                          <ArrowBackIcon/> חזרה לעמוד מתאמן</StyledButton>
+                </a>
+                <div dir="rtl">
+                    <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title">
+                        <DialogTitle id="form-dialog-title">אנא הכניסו את הקישור למערך ההעצמה</DialogTitle>
+                        <DialogContent>
+                            <TextField
+                                link={link}
+                                onChange={handleChange}
+                                autoFocus
+                                margin="normal"
+                                label="Google sheets הכניסו קישור של "
+                                fullWidth
+                                multiline
+                                variant="outlined"
+                                rtlEnabled
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start" >
+                                            <img src="../../../icons/google-sheets.png" />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose} color="secondary" endIcon={<CancelIcon />}>
+                                בטל
+                            </Button>
+                            <Button onClick={handleSubmit} color="primary" endIcon={<SendIcon />}>
+                                שלח
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                </div>
+            </div>
+            )
+    }
 
-
-    </div>
-    )
 
 }
 export default EmpowermentEdit;
+
+

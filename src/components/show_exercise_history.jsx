@@ -32,7 +32,6 @@ import { TableComponent } from "./TableComponentBase";
 import { TableHeaderContent } from "./TableHeaderContentBase";
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const theme = createMuiTheme({
   overrides: {
