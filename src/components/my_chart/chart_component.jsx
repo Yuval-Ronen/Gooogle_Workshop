@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { Chart, Series, CommonSeriesSettings, Legend, ValueAxis, Title, Border, Tooltip, Font } from 'devextreme-react/chart';
-import service from './month_data.js';
-import serverConnector from "../../server-connector";
-import { useLocalStorage } from "../../UtillHook";
-import { EventTracker } from '@devexpress/dx-react-chart';
 
-// const dataSource = service.getMonthData();
 
 
 
@@ -19,18 +14,18 @@ const TrainingCart = (props) => {
   }
   // const [userInfo] = useLocalStorage("userInfo",{});
 
-  function customizePoint(pointInfo) {
-
-    if (pointInfo.value >= 10) {
-      return { color: '#55215e' };
-    }
-    if (5 <= pointInfo.value && pointInfo.value < 10) {
-      return { color: '#d19ad8' };
-    }
-    if (pointInfo.value < 5) {
-      return { color: '#ffcbff' };
-    }
-  }
+  // function customizePoint(pointInfo) {
+  //
+  //   if (pointInfo.value >= 10) {
+  //     return { color: '#55215e' };
+  //   }
+  //   if (5 <= pointInfo.value && pointInfo.value < 10) {
+  //     return { color: '#d19ad8' };
+  //   }
+  //   if (pointInfo.value < 5) {
+  //     return { color: '#ffcbff' };
+  //   }
+  // }
 
 
   return (

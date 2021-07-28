@@ -33,7 +33,7 @@ const EmpowermentEdit = () => {
         let params = new URLSearchParams(myLocation.search);
         let trainee_id = parseInt(params.get("trainee_id")); //
         setTraineeId(trainee_id)
-        if(traineeId != 0){
+        if(traineeId !== 0){
             serverConnector.getPersonalProgramLink(traineeId).then(res => {
                 console.log("link in EmpowermentEdit",res)
                 setLink(res);
@@ -50,7 +50,7 @@ const EmpowermentEdit = () => {
 
     const handleSubmit = (event) => {
         setOpen(false);
-        if(link.localeCompare("") != 0){//in that case we want to update and not to upload new
+        if(link.localeCompare("") !== 0){//in that case we want to update and not to upload new
             console.log("value", value)
             serverConnector.updatePersonalProgramLink(traineeId, value.split("/")).then(res => {
                 console.log("res", res)
@@ -88,7 +88,7 @@ const EmpowermentEdit = () => {
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start" >
-                                    <img src={sheets} style = {{width: "30px", height:"30px"}}/>
+                                    <img src={sheets} alt = "" style = {{width: "30px", height:"30px"}}/>
                                 </InputAdornment>
                             ),
                         }}
@@ -106,7 +106,7 @@ const EmpowermentEdit = () => {
         )
     }
 
-    if(link.localeCompare("") != 0){
+    if(link.localeCompare("") !== 0){
         return (
             <div className='empowerment'>
                 <StyledButton style={{ margin: "2px 2px 4px" , width:"270px", display: "inline"}}

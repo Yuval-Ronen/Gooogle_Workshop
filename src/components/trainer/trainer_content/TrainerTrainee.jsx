@@ -10,7 +10,6 @@ import { useLocation } from "react-router-dom"
 import Medals from "../../Medals/medals_TrainerTrainee"
 
 const TrainerTrainee = () => {
-    const currentURL = window.location.href
     let location = useLocation()
     let params = new URLSearchParams(location.search);
     let trainee_id = parseInt(params.get("trainee_id")); // is the number 123

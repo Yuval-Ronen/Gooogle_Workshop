@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import {connect} from "react-redux";
 import TraineePageContent from "./trainee_content/TraineePageContent";
-import PageHeader_Trainee from "./PageHeader_Trainee";
+import PageHeaderTrainee from "./PageHeader_Trainee";
 
 
 const TraineesPage = (props) => {
@@ -15,7 +15,7 @@ const TraineesPage = (props) => {
             <Container fluid>
 
             <Row>
-                <PageHeader_Trainee />
+                <PageHeaderTrainee />
             </Row>
             <Row>
                     <TraineePageContent/>

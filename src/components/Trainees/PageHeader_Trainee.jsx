@@ -2,9 +2,8 @@ import Image from "react-bootstrap/Image";
 import EitanLogoSmall from "../../EitanLogoSmall.PNG";
 import * as PropTypes from "prop-types";
 import React, { Component } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import Logout from '../../components/Logout'
 import NameAndPic from "../NameAndPic"
 
 const Navigation = styled.header`
@@ -157,7 +156,7 @@ const Navigation = styled.header`
 `;
 
 
-class PageHeader_Trainee extends Component {
+class PageHeaderTrainee extends Component {
 
 
   constructor(props) {
@@ -225,9 +224,9 @@ class PageHeader_Trainee extends Component {
 
 
 
-PageHeader_Trainee.propTypes = {
+PageHeaderTrainee.propTypes = {
   authenticationData: PropTypes.any,
   alt: PropTypes.string
 };
 
-export default PageHeader_Trainee;
+export default PageHeaderTrainee;

@@ -1,6 +1,5 @@
 import GoogleLogin from "react-google-login";
 import {Redirect} from 'react-router-dom';
-import {Button} from "react-bootstrap";
 import {setUserData, setCurState} from "../../redux/actions";
 import {connect} from "react-redux";
 import {extractUserData} from "../googleApi/GoogleApi";
@@ -12,8 +11,6 @@ import StyledButton from "../personal_progress/Empowerment"
 
 const loginFailureHandler = (response) => {
     console.log(response);
-    // TODO what to do if login fails?
-
   }
 
 const LoginTrainee = (props) => {

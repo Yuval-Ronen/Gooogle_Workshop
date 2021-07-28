@@ -14,7 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import { triningType, Trainees, TrainingDetails } from './TrainingTypeAndTreinees'
+import { triningType, TrainingDetails } from './TrainingTypeAndTreinees'
 import serverConnector from "../../../server-connector";
 import {pink} from "@material-ui/core/colors";
 
@@ -238,7 +238,7 @@ class Trainer_Calendar extends React.PureComponent{
 
   changeAppointmentChanges(appointmentChanges) {
     console.log("changeAppointmentChanges", appointmentChanges)
-    if(Object.keys(appointmentChanges).length != 0){
+    if(Object.keys(appointmentChanges).length !== 0){
       console.log("put in server", Object.keys(appointmentChanges).length )
     }
 
@@ -292,37 +292,7 @@ class Trainer_Calendar extends React.PureComponent{
 
     this.setState((state) => {
       let { data } = state;
-      // if(added !== undefined && changed !== undefined){
-      //   console.log("added",added);
-      //   console.log("changed",changed);
-      //
-      //           this.create_new_event(this.props.userInfo.ID, added["Trainees"],
-      //     added["triningType"]?added["triningType"] : "ריצה" , convert_date(added["startDate"]),
-      //       convert_date(added["endDate"]), convert_time(added["startDate"]),convert_time(added["endDate"]),
-      //       added["moreInfo"]?added["moreInfo"] : null , added["TrainingDetailsId"]?added["TrainingDetailsId"]:1,
-      //       added["rRule"]?added["rRule"]: null, added["exDate"]?added["exDate"]: null).then(id =>{
-      //                 added["id"] = id;
-      //                 data = data.map(appointment => (
-      //                     changed[appointment.id] ? {...appointment, ...changed[appointment.id]} : appointment));
-      //
-      //                 let changed_data = changed[Object.keys(changed)[0]];
-      //                 changed_data["train_id"] = parseInt(Object.keys(changed)[0]);
-      //                 if(changed_data["startDate"] !== undefined){
-      //                   changed_data["train_time_start"] = convert_time(changed_data["startDate"]);
-      //                   changed_data["train_date_start"] = convert_date(changed_data["startDate"]);
-      //                 }
-      //                 if(changed_data["endDate"] !== undefined) {
-      //                   changed_data["train_time_end"] = convert_time(changed_data["endDate"]);
-      //                   changed_data["train_date_end"] = convert_date(changed_data["endDate"]);
-      //                 }
-      //                 delete changed_data["startDate"]
-      //                 delete changed_data["endDate"]
-      //
-      //                 console.log("changed_data",changed_data)
-      //                 serverConnector.updateExercise(changed_data).then(res => {
-      //                 });
-      //   });
-      // }
+
       if (added) {
         console.log("added",added);
 

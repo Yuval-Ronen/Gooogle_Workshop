@@ -27,11 +27,10 @@ const TraineeDashboard = (props) => {
              setAllMessages(res.allMessages)
              console.log("allMessages", res.allMessages)
          })
-        // serverConnector.changeMessageStatus(205380132,205380130)
-     },[])
+     },[userInfo.ID])
     
     const hideNewMassege = () => {
-        if (allMessages[0]  == "new") {
+        if (allMessages[0]  === "new") {
             return false;
         }
         else{

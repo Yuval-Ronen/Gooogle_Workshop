@@ -7,19 +7,14 @@ import 'devextreme/dist/css/dx.light.css';
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from 'react-bootstrap/Image';
-import eitan_logo from './eitan_logo.jpg';
 import EitanLogo from './EitanLogo.PNG';
 import LoginTrainer from "./components/trainer/LoginTrainer";
 import LoginTrainee from "./components/Trainees/LoginTrainee";
-import photo_eitan from "./photo_eitan.jpg"
 import "./App.css"
-import StyledButton from "./components/personal_progress/Empowerment"
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { FaFacebook, FaInstagram, FaGlobe } from "react-icons/fa";
 import IconButton from '@material-ui/core/IconButton';
-import { green, purple } from '@material-ui/core/colors';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 

@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux';
 import GoogleLogin from "react-google-login";
 import {Redirect} from 'react-router-dom';
-import {Button} from "react-bootstrap";
 import {extractUserData} from "../googleApi/GoogleApi";
 import {setCurState, setUserData} from '../../redux/actions'
 import serverConnector from '../../server-connector';

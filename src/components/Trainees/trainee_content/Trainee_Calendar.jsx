@@ -107,10 +107,10 @@ class Trainee_Calendar extends React.PureComponent {
         currentDate,
           startDayHour,
           endDayHour,
-          editingFormVisible,
+          // editingFormVisible,
           locale,
          } = this.state;
-         const { classes } = this.props;
+         // const { classes } = this.props;
     return (
       <Paper>
         <Scheduler

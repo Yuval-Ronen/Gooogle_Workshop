@@ -1,8 +1,6 @@
 import React from 'react';
-import styled from "styled-components";
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
-import { Chip } from '@material-ui/core';
 
 
 const TraineeResult = ({ listOfTrainees }) => {
@@ -48,15 +46,6 @@ const TraineeResult = ({ listOfTrainees }) => {
                 <a className={classes.item} href={`/TrainerPage/trainee?trainee_id=${trainee.trainee_id}`} >
 
                     <Avatar alt='image' src={trainee.image} className={classes.large} />
-                    {/* <Chip
-                    label=  {trainee.first_name + ' ' + trainee.last_name}
-                    color= 'secondary'
-                    style={{
-                        cursor: 'pointer',
-                        fontFamily: 'Segoe UI',
-                    }}>
-                   
-                    </Chip> */}
                     <h6 >{trainee.first_name}</h6>
                     <h6 >{trainee.last_name}</h6>
 

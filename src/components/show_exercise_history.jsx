@@ -103,12 +103,13 @@ const ShowExerciseHistory = (training_his) => {
 
   function trainings() {
     var rows = []
+    var numOfTrainings;
     {
       if (isDashboard) {
-        var numOfTrainings = 3
+        numOfTrainings = 3
       }
       else {
-        var numOfTrainings = allTrainings.length
+        numOfTrainings = allTrainings.length
       }
       allTrainings?.length > 0 && allTrainings.slice(0, numOfTrainings).map((exercise, index) =>
         rows.push({
@@ -152,10 +153,6 @@ const ShowExerciseHistory = (training_his) => {
     { columnName: 'train_date_start', align: 'right' },
   ]);
 
-  const [sorting, setSorting] = useState([
-    // { columnName: 'train_type', direction: 'asc' },
-    //{ columnName: 'train_date', direction: 'asc' }
-  ]);
 
   const [selection, setSelection] = useState([]);
 
@@ -205,7 +202,7 @@ const ShowExerciseHistory = (training_his) => {
     count: 'סה"כ אימונים',
   };
 
-  if (isDashboard == false) {
+  if (isDashboard === false) {
     return (
       <ThemeProvider theme={theme}>
         <Paper style={{ marginBottom: "3%" }}>

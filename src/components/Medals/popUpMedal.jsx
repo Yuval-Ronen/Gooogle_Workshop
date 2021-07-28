@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -136,14 +136,14 @@ export default function PopUpMedal(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = numOfMedals;
 
-  function ScrollTop(props) {
-    const { children, window } = props;
-    const trigger = useScrollTrigger({
-      target: window ? window() : undefined,
-      disableHysteresis: true,
-      threshold: 100,
-    });
-  }
+  // function ScrollTop(props) {
+  //   const { children, window } = props;
+  //   const trigger = useScrollTrigger({
+  //     target: window ? window() : undefined,
+  //     disableHysteresis: true,
+  //     threshold: 100,
+  //   });
+  // }
 
   const ScrollToTop = (event) => {
     const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
@@ -153,10 +153,10 @@ export default function PopUpMedal(props) {
     }
   };
 
-  ScrollTop.propTypes = {
-    children: PropTypes.element.isRequired,
-    window: PropTypes.func,
-  };
+  // ScrollTop.propTypes = {
+  //   children: PropTypes.element.isRequired,
+  //   window: PropTypes.func,
+  // };
 
   const handleNext = (event) => {
     changeMessageStatusLocaly(activeStep);
@@ -179,7 +179,7 @@ export default function PopUpMedal(props) {
   };
 
   const changeMessageStatusLocaly = (numMessage) => {
-    if (numOfMedals > 0 && newMessages[numMessage].status == "new") {
+    if (numOfMedals > 0 && newMessages[numMessage].status === "new") {
       newMessages[numMessage].status = "oldLocal";
     }
     console.log("Changed", numMessage);
@@ -193,20 +193,20 @@ export default function PopUpMedal(props) {
     let newMassegeCount = 0;
     newMessages.map((message) => {
       console.log("message",message)
-      if (message.status == "oldLocal") {
+      if (message.status === "oldLocal") {
         messagesUpdate.push(message);
          message.status = "old";
         console.log("traineeID", traineeID,"trainer_id", message.trainer_id)
       }
-      else if (message.status == "new"){
+      else if (message.status === "new"){
         newMassegeCount++;
       }
-      if(message.status == "new"){
+      if(message.status === "new"){
         newMark = "new"
       }
     });
     console.log("newMassegeCount", newMassegeCount);
-    if (newMassegeCount == 0) {
+    if (newMassegeCount === 0) {
       setVisible(true);
     }
     props.allMessages[0] = newMark;
@@ -218,7 +218,7 @@ export default function PopUpMedal(props) {
   };
 
   const cheackIfNew = (step) => {
-    if (newMessages[step].status == "new") {
+    if (newMessages[step].status === "new") {
       console.log("is new", step);
       return false;
     }
