@@ -2,9 +2,9 @@
 /* eslint-disable react/no-unused-state */
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState, IntegratedEditing, } from '@devexpress/dx-react-scheduler';
+import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {Scheduler, Resources, Toolbar, MonthView, WeekView, DayView, ViewSwitcher, Appointments,
-  AppointmentTooltip, AppointmentForm, DragDropProvider, EditRecurrenceMenu, DateNavigator, TodayButton,
+  AppointmentTooltip, AppointmentForm, DragDropProvider, DateNavigator,EditRecurrenceMenu, TodayButton,
   CurrentTimeIndicator,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { withStyles } from '@material-ui/core/styles';
@@ -20,10 +20,10 @@ import {pink} from "@material-ui/core/colors";
 
 
 
+
 const styles = theme => ({
   addButton: {
     position: '-webkit-sticky',
-    // position: 'sticky',
     bottom: theme.spacing(1) * 3,
     right: theme.spacing(1) * 4,
   },
@@ -164,10 +164,6 @@ class Trainer_Calendar extends React.PureComponent{
     this.changeAddedAppointment = this.changeAddedAppointment.bind(this);
     this.changeAppointmentChanges = this.changeAppointmentChanges.bind(this);
     this.changeEditingAppointment = this.changeEditingAppointment.bind(this);
-    // console.log("allTrainees as props",this.props.allTrainees);
-    // console.log("userInfo as props",this.props.userInfo);
-    // console.log("appointments as props",this.props.appointments);
-
 
 
   }
@@ -296,23 +292,72 @@ class Trainer_Calendar extends React.PureComponent{
 
     this.setState((state) => {
       let { data } = state;
+      // if(added !== undefined && changed !== undefined){
+      //   console.log("added",added);
+      //   console.log("changed",changed);
+      //
+      //           this.create_new_event(this.props.userInfo.ID, added["Trainees"],
+      //     added["triningType"]?added["triningType"] : "ריצה" , convert_date(added["startDate"]),
+      //       convert_date(added["endDate"]), convert_time(added["startDate"]),convert_time(added["endDate"]),
+      //       added["moreInfo"]?added["moreInfo"] : null , added["TrainingDetailsId"]?added["TrainingDetailsId"]:1,
+      //       added["rRule"]?added["rRule"]: null, added["exDate"]?added["exDate"]: null).then(id =>{
+      //                 added["id"] = id;
+      //                 data = data.map(appointment => (
+      //                     changed[appointment.id] ? {...appointment, ...changed[appointment.id]} : appointment));
+      //
+      //                 let changed_data = changed[Object.keys(changed)[0]];
+      //                 changed_data["train_id"] = parseInt(Object.keys(changed)[0]);
+      //                 if(changed_data["startDate"] !== undefined){
+      //                   changed_data["train_time_start"] = convert_time(changed_data["startDate"]);
+      //                   changed_data["train_date_start"] = convert_date(changed_data["startDate"]);
+      //                 }
+      //                 if(changed_data["endDate"] !== undefined) {
+      //                   changed_data["train_time_end"] = convert_time(changed_data["endDate"]);
+      //                   changed_data["train_date_end"] = convert_date(changed_data["endDate"]);
+      //                 }
+      //                 delete changed_data["startDate"]
+      //                 delete changed_data["endDate"]
+      //
+      //                 console.log("changed_data",changed_data)
+      //                 serverConnector.updateExercise(changed_data).then(res => {
+      //                 });
+      //   });
+      // }
       if (added) {
-      console.log("added",added);
-
-      this.create_new_event(this.props.userInfo.ID, added["Trainees"],
-        added["triningType"]?added["triningType"] : "ריצה" , convert_date(added["startDate"]),
-          convert_date(added["endDate"]), convert_time(added["startDate"]),convert_time(added["endDate"]),
-          added["moreInfo"]?added["moreInfo"] : null , added["TrainingDetailsId"]?added["TrainingDetailsId"]:1,
-          added["rRule"]?added["rRule"]: null, added["exDate"]?added["exDate"]: null).then(id =>{
-                    added["id"] = id;
-      });
         console.log("added",added);
 
-        const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [...data, { id: startingAddedId, ...added }];
+        this.create_new_event(this.props.userInfo.ID, added["Trainees"],
+          added["triningType"]?added["triningType"] : "ריצה" , convert_date(added["startDate"]),
+            convert_date(added["endDate"]), convert_time(added["startDate"]),convert_time(added["endDate"]),
+            added["moreInfo"]?added["moreInfo"] : null , added["TrainingDetailsId"]?added["TrainingDetailsId"]:1,
+            added["rRule"]?added["rRule"]: null, added["exDate"]?added["exDate"]: null).then(id =>{
+                      added["id"] = id;
+
+                        let changed_data = changed[Object.keys(changed)[0]];
+                        changed_data["train_id"] = parseInt(Object.keys(changed)[0]);
+                        if(changed_data["startDate"] !== undefined){
+                          changed_data["train_time_start"] = convert_time(changed_data["startDate"]);
+                          changed_data["train_date_start"] = convert_date(changed_data["startDate"]);
+                        }
+                        if(changed_data["endDate"] !== undefined) {
+                          changed_data["train_time_end"] = convert_time(changed_data["endDate"]);
+                          changed_data["train_date_end"] = convert_date(changed_data["endDate"]);
+                        }
+                        delete changed_data["startDate"]
+                        delete changed_data["endDate"]
+
+                        console.log("changed_data",changed_data)
+                        serverConnector.updateExercise(changed_data).then(res => {
+                        });
+        });
+
+          const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
+          data = [...data, { id: startingAddedId, ...added }];
+          data = data.map(appointment => (
+              changed[appointment.id] ? {...appointment, ...changed[appointment.id]} : appointment));
 
       }
-      if (changed) {
+      else if (changed) {
         console.log("in if changed")
         data = data.map(appointment => (
             changed[appointment.id] ? {...appointment, ...changed[appointment.id]} : appointment));
@@ -335,12 +380,13 @@ class Trainer_Calendar extends React.PureComponent{
         });
       }
 
-      if (deleted !== undefined) {
+      else if (deleted !== undefined) {
         this.setDeletedAppointmentId(deleted);
         this.toggleConfirmationVisible();
       }
 
       console.log("data",data);
+      console.log("state",this.state);
 
       return { data };
     });

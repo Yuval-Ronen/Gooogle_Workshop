@@ -1,4 +1,6 @@
 # server code
+from datetime import datetime
+
 import mysql.connector
 
 translator = {1: "ינואר", 2: "פבואר", 3: "מרץ", 4: "אפריל", 5: "מאי", 6: "יוני", 7: "יולי", 8: "אוגוסט", 9: "ספטמבר",
@@ -78,12 +80,15 @@ class ConnectSQL:
         for (train_id) in self.cursor:
             trainId = train_id
             break
-        print("train_id", trainId)
+        print("train_id", trainId[0])
         query_add_participants = ("INSERT INTO eitan_database.match_trainee_trainId (train_id, trainee_id)"
                                   " VALUES (%s, %s)")
+        print("trainees", trainees)
+
         for (trainee) in trainees:
-            data = (trainId[0], trainee)
-            self.cursor.execute(query_add_participants, data)
+            data = (trainId[0], int(trainee))
+            self.cursor.execute(query_add_participants, data, )
+        print("trainees", trainees)
         self.cnx.commit()
 
         return {"train_id": trainId}
@@ -95,7 +100,7 @@ class ConnectSQL:
             "train_time_end, training_details_id, rRule, exDate "
             " FROM eitan_database.all_exercise "
             " WHERE train_id = %s ")
-        self.cursor.execute(get_event_query, (changed_data["train_id"],))
+        self.cursor.execute(get_event_query, (int(changed_data["train_id"]),))
         info = {}
         for (trainer_id, train_type, train_date_start, train_date_end, description, train_time_start, train_time_end,
              training_details_id, rRule, exDate) in self.cursor:
@@ -107,6 +112,10 @@ class ConnectSQL:
         for field in info.keys():
             if field not in changed_data.keys():
                 changed_data[field] = info[field]
+            elif field == "rRule":
+                changed_data[field] += info[field]
+
+        print(changed_data)
 
         query = ("UPDATE eitan_database.all_exercise "
                  "SET train_type = %s,  train_date_start = %s, train_date_end = %s, description = %s, "
@@ -117,7 +126,7 @@ class ConnectSQL:
             changed_data["train_type"], changed_data["train_date_start"], changed_data["train_date_end"],
             changed_data["description"],
             changed_data["train_time_start"], changed_data["train_time_end"], changed_data["training_details_id"],
-            changed_data["rRule"], changed_data["exDate"], changed_data["train_id"], ))
+            changed_data["rRule"], changed_data["exDate"], int(changed_data["train_id"]), ))
 
         # if we changed the trainees in the event need to change the match in the train id
         if "Trainees" in changed_data.keys():
@@ -145,23 +154,27 @@ class ConnectSQL:
         self.cnx.commit()
         return {}
 
-
     def get_all_training_history_trainer(self, trainer_id):
         query = (
             "SELECT GROUP_CONCAT(' ' ,t3.first_name, ' ', t3.last_name) as all_trainees, "
             "train_type, train_time_start, train_time_end, train_date_start, train_date_end, description, "
-            "t1.train_id as train_id, training_details_id "
+            "t1.train_id as train_id, training_details_id, rRule, exDate "
             "FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2, "
             "eitan_database.trainee as t3 "
             " WHERE t3.ID = t2.trainee_id AND t1.train_id = t2.train_id AND t1.trainer_id = %s "
+            " AND train_date_end < now() "
             " GROUP BY t1.train_id "
-            " ORDER BY t1.train_date_start, t1.train_time_start DESC ")
+            " ORDER BY t1.train_date_start DESC, t1.train_time_start ASC ")
         self.cursor.execute(query, (trainer_id,))
         final = []
         for (all_trainees, train_type, train_time_start, train_time_end,
-             train_date_start, train_date_end, description, train_id, training_details_id) in self.cursor:
+             train_date_start, train_date_end, description, train_id,
+             training_details_id, rRule, exDate) in self.cursor:
             if description == 'null':
                 description = "אין תיאור"
+            # if rRule.find("RRULE") != 0: #this condition check if we have rRule relevant to this exercise
+            #     Date_required = train_date_start + datetime.timedelta(days=7)
+            #     Date_required = train_date_start + datetime.timedelta(weeks=7)
 
             inside = {"train_date_start": str(train_date_start),
                       "train_date_end": str(train_date_end),
@@ -180,8 +193,9 @@ class ConnectSQL:
             "FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2, "
             "eitan_database.trainer as t3"
             " WHERE t3.ID = t1.trainer_id AND t1.train_id = t2.train_id AND t2.trainee_id = %s"
+            " AND train_date_end < now() "            
             " GROUP BY t1.train_id"
-            " ORDER BY t1.train_date_start, t1.train_time_start DESC")
+            " ORDER BY t1.train_date_start DESC, t1.train_time_start ASC")
         self.cursor.execute(query, (trainee_id,))
         final = []
 

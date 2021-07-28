@@ -1,9 +1,7 @@
-import copy
 from functools import wraps
 import json
-from flask_cors import CORS, cross_origin
-from flask import Flask, jsonify, request
-from pip._vendor.pkg_resources import require
+from flask_cors import CORS
+from flask import Flask, jsonify
 
 from server.server_source_code import ConnectSQL
 from server.server_func import sql_manager
@@ -294,6 +292,6 @@ def updatePersonalProgramLink(trainee_id, link):
 
 
 if __name__ == '__main__':
-    # TRAINID= insertNewPersonalProgramLink(205380132, 205380130, "https://docs.google.com/spreadsheets/d/1JJErTtqswVplcLKEwOmxUlHifwDYxLaD2uCd-3wmNSc/edit#gid=0")
+    # TRAINID=updateExercise({'exDate': '20210728T100000Z', 'train_id': 29})
     app.run(host='127.0.0.1', port="5000", debug=True)
 
