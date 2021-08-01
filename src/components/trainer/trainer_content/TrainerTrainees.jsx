@@ -15,6 +15,7 @@ const TrainerTrainees = (props) => {
         serverConnector.getAllTrainees(userInfo.ID).then(res => {
             setAllTrainees(res);
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     return(

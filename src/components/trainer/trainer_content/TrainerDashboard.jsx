@@ -22,6 +22,7 @@ const TrainerDashboard = (props) => {
              setDataSource(res.dataSource);
              console.log("trainingHis",trainingHis,"dataSource",dataSource)
          })
+         // eslint-disable-next-line react-hooks/exhaustive-deps
      },[])
 
 

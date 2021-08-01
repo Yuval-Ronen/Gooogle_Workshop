@@ -17,8 +17,6 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import GradeRoundedIcon from '@material-ui/icons/GradeRounded';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
 import StarsRoundedIcon from '@material-ui/icons/StarsRounded';
 
@@ -104,6 +102,7 @@ export default function PopUpMedal(props) {
       }
     }
     )();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.hideNewMassege]);
 
   let numOfMedals = 0;
@@ -191,7 +190,7 @@ export default function PopUpMedal(props) {
     changeMessageStatusLocaly(activeStep);
     setOpen(false);
     let newMassegeCount = 0;
-    newMessages.map((message) => {
+    newMessages.forEach((message) => {
       console.log("message",message)
       if (message.status === "oldLocal") {
         messagesUpdate.push(message);

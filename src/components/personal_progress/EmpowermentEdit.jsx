@@ -42,7 +42,7 @@ const EmpowermentEdit = () => {
                 }
             })
         }
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
      },[traineeId])
     const handleChange = (event) => {
         setValue(event.target.value);

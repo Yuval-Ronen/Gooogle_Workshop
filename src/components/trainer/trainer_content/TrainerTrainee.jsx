@@ -22,7 +22,7 @@ const TrainerTrainee = () => {
             setTrainingHis(res.trainingHis);
             setDataSource(res.dataSource);
         })
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
       },[])
     return (
         <div>

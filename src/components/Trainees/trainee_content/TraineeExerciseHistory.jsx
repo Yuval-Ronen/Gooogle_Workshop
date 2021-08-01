@@ -11,6 +11,7 @@ const TraineeExerciseHistory = (props) => {
          serverConnector.getAllTrainingHistory_trainee(userInfo.ID).then(res => {
              setTrainingHis(res);
          })
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
 

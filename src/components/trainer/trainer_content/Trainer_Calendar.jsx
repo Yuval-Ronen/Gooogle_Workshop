@@ -14,7 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import { triningType, TrainingDetails } from './TrainingTypeAndTreinees'
+import {  TrainingDetails } from './TrainingTypeAndTreinees'
 import serverConnector from "../../../server-connector";
 import {pink} from "@material-ui/core/colors";
 
@@ -379,7 +379,7 @@ class Trainer_Calendar extends React.PureComponent{
       editingFormVisible,
       locale,
     } = this.state;
-    const { classes } = this.props;
+    // const { classes } = this.props;
     return (
 
       <Paper>

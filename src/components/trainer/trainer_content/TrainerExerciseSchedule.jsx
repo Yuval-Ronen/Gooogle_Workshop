@@ -9,6 +9,7 @@ const TrainerExerciseSchedule = (props) => {
 
     return (
         <div className='trainer-exercise-schedule'>
+            {/* eslint-disable-next-line */}
             <Trainer_Calendar userInfo = {userInfo} allTrainees = {allTrainees} />
         </div>
     )

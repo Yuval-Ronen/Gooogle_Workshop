@@ -104,7 +104,7 @@ const ShowExerciseHistory = (training_his) => {
   function trainings() {
     var rows = []
     var numOfTrainings;
-    {
+    
       if (isDashboard) {
         numOfTrainings = 3
       }
@@ -122,7 +122,7 @@ const ShowExerciseHistory = (training_his) => {
         })
       )
 
-    }
+    
     return rows
   }
 

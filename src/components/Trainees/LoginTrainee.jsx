@@ -14,7 +14,9 @@ const loginFailureHandler = (response) => {
   }
 
 const LoginTrainee = (props) => {
+    // eslint-disable-next-line 
     const [userInfo, setUserInfo] = useLocalStorage("userInfo",{});
+    // eslint-disable-next-line 
     const [googlePic, setGooglePic] = useLocalStorage("googlePic",'');
 
    if (props.currentState === "trainee") {
