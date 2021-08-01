@@ -8,4 +8,3 @@ mysql==0.0.2
 mysql-connector-python==8.0.22
 gunicorn
 flask-heroku
-Flask
