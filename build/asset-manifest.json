@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.50902336.chunk.css",
-    "main.js": "/static/js/main.ac04df9d.chunk.js",
-    "main.js.map": "/static/js/main.ac04df9d.chunk.js.map",
+    "main.js": "/static/js/main.c20496a2.chunk.js",
+    "main.js.map": "/static/js/main.c20496a2.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.bbb8b9b0.js",
     "runtime-main.js.map": "/static/js/runtime-main.bbb8b9b0.js.map",
     "static/css/2.a9f3178f.chunk.css": "/static/css/2.a9f3178f.chunk.css",
-    "static/js/2.1671f0d1.chunk.js": "/static/js/2.1671f0d1.chunk.js",
-    "static/js/2.1671f0d1.chunk.js.map": "/static/js/2.1671f0d1.chunk.js.map",
+    "static/js/2.cf63c746.chunk.js": "/static/js/2.cf63c746.chunk.js",
+    "static/js/2.cf63c746.chunk.js.map": "/static/js/2.cf63c746.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.a9f3178f.chunk.css.map": "/static/css/2.a9f3178f.chunk.css.map",
     "static/css/main.50902336.chunk.css.map": "/static/css/main.50902336.chunk.css.map",
-    "static/js/2.1671f0d1.chunk.js.LICENSE.txt": "/static/js/2.1671f0d1.chunk.js.LICENSE.txt",
+    "static/js/2.cf63c746.chunk.js.LICENSE.txt": "/static/js/2.cf63c746.chunk.js.LICENSE.txt",
     "static/media/EitanLogo.f0c3ca6e.PNG": "/static/media/EitanLogo.f0c3ca6e.PNG",
     "static/media/EitanLogoSmall.bdbdd9e2.PNG": "/static/media/EitanLogoSmall.bdbdd9e2.PNG",
     "static/media/dx.light.css": "/static/media/dxicons.d8b3a23c.ttf",
@@ -20,8 +20,8 @@
   "entrypoints": [
     "static/js/runtime-main.bbb8b9b0.js",
     "static/css/2.a9f3178f.chunk.css",
-    "static/js/2.1671f0d1.chunk.js",
+    "static/js/2.cf63c746.chunk.js",
     "static/css/main.50902336.chunk.css",
-    "static/js/main.ac04df9d.chunk.js"
+    "static/js/main.c20496a2.chunk.js"
   ]
 }
