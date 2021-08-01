@@ -1,13 +1,12 @@
 from functools import wraps
 import json
 from flask_cors import CORS
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 
 from server.server_source_code import ConnectSQL
 from server.server_func import sql_manager
 
-# app = Flask(__name__, static_folder="../public", static_url_path='/', template_folder="../public")
-app = Flask(__name__)
+app = Flask(__name__, static_folder="./build/static", template_folder="./build")
 
 CORS(app, supports_credentials=True)
 cors = CORS(app, resources={r"*": {"origins": "http://localhost:3000"}, r"/api/*": {"origins": "http://localhost:5000"}})
@@ -279,10 +278,6 @@ def updatePersonalProgramLink(trainee_id, link):
     res = sql_c.update_personal_program_link(trainee_id, link_to_share)
     return jsonify({"result": res}), 200
 
-# @app.route("/", methods=['GET'])
-# def react():
-#     return render_template("index.html")
-    # return app.send_static_file('index.html')
 
 
 # @app.route('/')
@@ -290,8 +285,12 @@ def updatePersonalProgramLink(trainee_id, link):
 # def index():
 #     return render_template('index.html')
 
+@app.route("/", methods=['GET'])
+def react():
+    return render_template("index.html")
+
 
 if __name__ == '__main__':
     # TRAINID=updateExercise({'exDate': '20210728T100000Z', 'train_id': 29})
-    app.run(host='127.0.0.1', port="5000", debug=True)
+    app.run(host='localhost', port="5000", debug=True)
 

@@ -204,18 +204,13 @@ class PageHeaderTrainee extends Component {
             <NavLink activeClassName="selected" to="/TraineesPage">
               <li>
                 <div className="logo">
-                  {/* <Link > */}
                   <Image src={EitanLogoSmall} />
-                  {/* </Link> */}
                 </div>
               </li>
             </NavLink>
 
           </ul>
         </nav>
-
-
-
       </Navigation>
 
     );

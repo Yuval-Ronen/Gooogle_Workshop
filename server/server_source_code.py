@@ -524,11 +524,4 @@ class ConnectSQL:
         if self.cnx:
             self.cnx.close()
 
-# if __name__ == '__main__':
-#     a = ConnectSQL()
-#     query1 = ("SELECT * "
-#               " FROM eitan_database.trainer")
-#     a.cursor.execute(query1, ())
-#     f = a.check_email_trainee("yuvali1994@gmail.com")
-#     print(f)
-#     # a.cnx.close()
+
