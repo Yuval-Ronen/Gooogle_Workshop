@@ -1,6 +1,4 @@
 # server code
-from datetime import datetime
-
 import mysql.connector
 
 translator = {1: "ינואר", 2: "פבואר", 3: "מרץ", 4: "אפריל", 5: "מאי", 6: "יוני", 7: "יולי", 8: "אוגוסט", 9: "ספטמבר",
@@ -14,7 +12,7 @@ class ConnectSQL:
         self.connect_to_db()
 
     def connect_to_db(self):
-        self.cnx = mysql.connector.connect(user='root', password='stGNhgOtr6vCzgBu', host='127.0.0.1',
+        self.cnx = mysql.connector.connect(user='root', password='stGNhgOtr6vCzgBu', host='localhost',
                                            database='eitan_database', port=3306)
         self.cursor = self.cnx.cursor()
 
