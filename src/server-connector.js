@@ -1,7 +1,7 @@
-// const serverUrl = "";
+const serverUrl = "https://eitan.herokuapp.com/";
 
 
-const serverUrl = "http://localhost:5000";
+// const serverUrl = "http://localhost:5000";
 
 
 
