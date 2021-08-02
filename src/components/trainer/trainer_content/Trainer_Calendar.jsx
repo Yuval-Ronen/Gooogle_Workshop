@@ -302,29 +302,30 @@ class Trainer_Calendar extends React.PureComponent{
             added["moreInfo"]?added["moreInfo"] : null , added["TrainingDetailsId"]?added["TrainingDetailsId"]:1,
             added["rRule"]?added["rRule"]: null, added["exDate"]?added["exDate"]: null).then(id =>{
                       added["id"] = id;
+                        if (changed) {
+                          let changed_data = changed[Object.keys(changed)[0]];
+                          changed_data["train_id"] = parseInt(Object.keys(changed)[0]);
+                          if(changed_data["startDate"] !== undefined){
+                            changed_data["train_time_start"] = convert_time(changed_data["startDate"]);
+                            changed_data["train_date_start"] = convert_date(changed_data["startDate"]);
+                          }
+                          if(changed_data["endDate"] !== undefined) {
+                            changed_data["train_time_end"] = convert_time(changed_data["endDate"]);
+                            changed_data["train_date_end"] = convert_date(changed_data["endDate"]);
+                          }
+                          delete changed_data["startDate"]
+                          delete changed_data["endDate"]
 
-                        let changed_data = changed[Object.keys(changed)[0]];
-                        changed_data["train_id"] = parseInt(Object.keys(changed)[0]);
-                        if(changed_data["startDate"] !== undefined){
-                          changed_data["train_time_start"] = convert_time(changed_data["startDate"]);
-                          changed_data["train_date_start"] = convert_date(changed_data["startDate"]);
-                        }
-                        if(changed_data["endDate"] !== undefined) {
-                          changed_data["train_time_end"] = convert_time(changed_data["endDate"]);
-                          changed_data["train_date_end"] = convert_date(changed_data["endDate"]);
-                        }
-                        delete changed_data["startDate"]
-                        delete changed_data["endDate"]
-
-                        console.log("changed_data",changed_data)
-                        serverConnector.updateExercise(changed_data).then(res => {
-                        });
+                          console.log("changed_data",changed_data)
+                          serverConnector.updateExercise(changed_data).then(res => {
+                          });}
         });
 
           const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
           data = [...data, { id: startingAddedId, ...added }];
-          data = data.map(appointment => (
-              changed[appointment.id] ? {...appointment, ...changed[appointment.id]} : appointment));
+          if (changed) {
+            data = data.map(appointment => (
+                changed[appointment.id] ? {...appointment, ...changed[appointment.id]} : appointment));}
 
       }
       else if (changed) {
