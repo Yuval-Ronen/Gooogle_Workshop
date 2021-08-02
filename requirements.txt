@@ -34,3 +34,4 @@ virtualenv==20.4.7
 virtualenv-clone==0.5.4
 Werkzeug==1.0.1
 yarg==0.1.9
+psycopg2-binary

@@ -283,13 +283,13 @@ def updatePersonalProgramLink(trainee_id, link):
 # def index():
 #     return render_template('index.html')
 
-# @app.route("/", methods=['GET'])
-# def react():
-#     return render_template("index.html")
+@app.route("/", methods=['GET'])
+def react():
+    return render_template("index.html")
 
 
 if __name__ == '__main__':
     # TRAINID=updateExercise({'exDate': '20210728T100000Z', 'train_id': 29})
-    app.run(host='localhost', port="5000", debug=True)
-    # app.run()
+    # app.run(host='localhost', port="5000", debug=True)
+    app.run()
 

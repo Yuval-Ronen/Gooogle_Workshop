@@ -1,8 +1,8 @@
-// const serverUrl = "https://eitan.herokuapp.com/";
-const serverUrl ="https://main.d3hof7gzp9awj0.amplifyapp.com/"
+const serverUrl = "https://eitan.herokuapp.com/";
+// const serverUrl ="https://main.d3hof7gzp9awj0.amplifyapp.com/"
 
 // const serverUrl = "http://localhost:5000";
-
+// const serverUrl = "http://0.0.0.0:3207"
 
 
 
