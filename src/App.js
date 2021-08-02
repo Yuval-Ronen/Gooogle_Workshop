@@ -7,7 +7,7 @@ import 'devextreme/dist/css/dx.light.css';
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from 'react-bootstrap/Image';
-import EitanLogo from './icons/EitanLogo.PNG';
+import EitanLogo from './icons/EitanLogo.png';
 import LoginTrainer from "./components/trainer/LoginTrainer";
 import LoginTrainee from "./components/Trainees/LoginTrainee";
 import "./App.css"
