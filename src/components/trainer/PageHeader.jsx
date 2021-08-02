@@ -1,5 +1,5 @@
 import Image from "react-bootstrap/Image";
-import EitanLogoSmall from "../../EitanLogoSmall.PNG";
+import EitanLogoSmall from "../../icons/EitanLogoSmall.PNG";
 import * as PropTypes from "prop-types";
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
@@ -210,7 +210,7 @@ class PageHeader extends Component {
               <li>
                 <div className="logo">
                   {/* <Link > */}
-                  <Image src={EitanLogoSmall} />
+                  <Image src={EitanLogoSmall} alt = "" />
                   {/* </Link> */}
                 </div>
               </li>
