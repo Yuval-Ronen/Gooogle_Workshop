@@ -13,7 +13,7 @@ class ConnectSQL:
 
     def connect_to_db(self):
         self.cnx = mysql.connector.connect(user='root', password='stGNhgOtr6vCzgBu', host='35.193.242.182',
-                                           database='eitan_database', port=3306)
+                                           database='eitan_database', port="3306")
         self.cursor = self.cnx.cursor()
 
     def check_email_trainer(self, email):
