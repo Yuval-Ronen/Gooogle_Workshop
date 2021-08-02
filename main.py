@@ -283,9 +283,9 @@ def updatePersonalProgramLink(trainee_id, link):
 # def index():
 #     return render_template('index.html')
 
-@app.route("/", methods=['GET'])
-def react():
-    return render_template("index.html")
+# @app.route("/", methods=['GET'])
+# def react():
+#     return render_template("index.html")
 
 
 if __name__ == '__main__':
