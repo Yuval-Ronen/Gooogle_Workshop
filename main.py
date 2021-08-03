@@ -1,3 +1,4 @@
+import os
 from functools import wraps
 import json
 from flask_cors import CORS
@@ -7,9 +8,10 @@ from server.server_source_code import ConnectSQL
 from server.server_func import sql_manager
 
 app = Flask(__name__, static_folder="./build/static", template_folder="./build")
-
+myport = int(os.environ.get("PORT", 5000))
 CORS(app, supports_credentials=True)
-cors = CORS(app, resources={r"*": {"origins": "http://localhost:3000"}, r"/api/*": {"origins": "http://localhost:5000"}})
+cors = CORS(app, resources={r"*": {"origins": "http://localhost:3000"}, r"/api/*": {"origins": "http://localhost:5000"},
+                            r"*": {"origins": "https://eitan.herokuapp.com/:" + str(myport)}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 translator = {1: "ינואר", 2: "פבואר", 3: "מרץ", 4: "אפריל", 5: "מאי", 6: "יוני", 7: "יולי", 8: "אוגוסט", 9: "ספטמבר", 10: "אוקטובר", 11: "נובמבר", 12: "דצמבר"}
@@ -279,17 +281,17 @@ def updatePersonalProgramLink(trainee_id, link):
     return jsonify({"result": res}), 200
 
 
-@app.route('/')
-def index():
-    return "<h1>Welcome to Geeks for Geeks</h1>"
+# @app.route('/')
+# def index():
+#     return "<h1>Welcome to Geeks for Geeks</h1>"
 
-# @app.route("/", methods=['GET'])
-# def react():
-#     return render_template("index.html")
+@app.route("/", methods=['GET'])
+def react():
+    return render_template("index.html")
 
 
 if __name__ == '__main__':
     # TRAINID=updateExercise({'exDate': '20210728T100000Z', 'train_id': 29})
     # app.run(host='localhost', port="5000", debug=True)
-    app.run()
+    app.run(port=myport)
 
