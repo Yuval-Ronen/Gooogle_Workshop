@@ -281,13 +281,13 @@ def updatePersonalProgramLink(trainee_id, link):
     return jsonify({"result": res}), 200
 
 
-# @app.route('/')
-# def index():
-#     return "<h1>Welcome to Geeks for Geeks</h1>"
+@app.route('/')
+def index():
+    return "<h1>Welcome to Geeks for Geeks</h1>"
 
-@app.route("/", methods=['GET'])
-def react():
-    return render_template("index.html")
+# @app.route("/", methods=['GET'])
+# def react():
+#     return render_template("index.html")
 
 
 if __name__ == '__main__':
