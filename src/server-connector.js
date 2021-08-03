@@ -7,7 +7,7 @@ import * as os from "os";
 // const serverUrl ="https://main.d3hof7gzp9awj0.amplifyapp.com/"
 
 const serverUrl = "";
-// const serverUrl = "http://0.0.0.0:3207"
+// const serverUrl = "http://localhost:5000"
 
 
 
