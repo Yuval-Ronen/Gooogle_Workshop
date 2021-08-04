@@ -295,6 +295,6 @@ def fallback(e):
 
 if __name__ == '__main__':
     # TRAINID=updateExercise({'exDate': '20210728T100000Z', 'train_id': 29})
-    app.run(host='localhost', port="5000", debug=True)
-    # app.run()
+    # app.run(host='localhost', port="5000", debug=True)
+    app.run()
 
