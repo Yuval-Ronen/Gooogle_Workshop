@@ -38,7 +38,7 @@ class Logout extends React.Component{
                   clientId="476408447979-ksp3ikmql53717ucvohu0uhm8t7ld9f1.apps.googleusercontent.com"
                   render = {renderProps => (
                       
-                    <p style={{color:'red', fontSize:14, display: "inline", margin: "5", cursor: "pointer"}} onClick={renderProps.onClick}><ExitToAppIcon/> התנתק/י</p>
+                    <p style={{color:'red', fontSize:14, display: "table-row-group", margin: "5", cursor: "pointer"}} onClick={renderProps.onClick}><ExitToAppIcon/> התנתק/י</p>
                       
             )}
                   onLogoutSuccess={this.logout}

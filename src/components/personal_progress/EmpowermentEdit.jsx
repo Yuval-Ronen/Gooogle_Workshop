@@ -18,11 +18,19 @@ import { useLocalStorage } from "../../UtillHook";
 import CreateIcon from '@material-ui/icons/Create';
 import sheets from "../../icons/google-sheets.png"
 import Link from '@material-ui/core/Link';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-
 import Container from "react-bootstrap/Container";
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
 
+
+
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+
+const MuiTheme = createMuiTheme({
+    direction: 'rtl',
+});
 
 const theme2 = createMuiTheme({
     overrides: {
@@ -92,7 +100,10 @@ const EmpowermentEdit = () => {
 
     const EditDialog = () => {
         return (
-            <div>
+
+             <StylesProvider jss={jss}>
+                <div dir='rtl'>
+                    <ThemeProvider theme={MuiTheme}>
                 <DialogContent>
                     <TextField
                         value={value}
@@ -114,35 +125,40 @@ const EmpowermentEdit = () => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="secondary" endIcon={<CancelIcon />}>
+                    <Button onClick={handleClose} color="secondary" startIcon={<CancelIcon />}>
                         בטל
                     </Button>
-                    <Button onClick={handleSubmit} color="primary" endIcon={<SendIcon />}>
+                    <Button onClick={handleSubmit} color="primary" startIcon={<SendIcon />}>
                         שלח
                     </Button>
                 </DialogActions>
-            </div>
+                </ThemeProvider>
+                </div>
+            </StylesProvider>
         )
     }
 
     if (link.localeCompare("") !== 0) {
         return (
-            <div className='empowerment'>
+            <StylesProvider jss={jss}>
+            <div dir='rtl'>
+                <ThemeProvider theme={MuiTheme}>
                 <Container fluid style={{
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-
+                    paddingBottom:"10px",
                 }}>
-                    <ThemeProvider theme={theme2}>
+                    
+                    <StyledButton 
+                        onClick={handleClick}>
+                        <CreateIcon /> עריכת הקישור</StyledButton>
+                        <ThemeProvider theme={theme2}>
                         <Link href={`/TrainerPage/trainee?trainee_id=${traineeId}`} >
                             <StyledButton >
                                 <ArrowBackIcon /> חזרה לעמוד מתאמן</StyledButton>
                         </Link>
                     </ThemeProvider>
-                    <StyledButton 
-                        onClick={handleClick}>
-                        <CreateIcon /> עריכת הקישור</StyledButton>
                 </Container>
                 <ShowGoogleDocs source={link} />
                 <div dir="rtl">
@@ -152,12 +168,16 @@ const EmpowermentEdit = () => {
                     </Dialog>
                 </div>
 
-            </div>
+                </ThemeProvider>
+                </div>
+            </StylesProvider>
         )
     }
     else {
         return (
-            <div className='empowerment'>
+            <StylesProvider jss={jss}>
+            <div dir='rtl'>
+                <ThemeProvider theme={MuiTheme}>
                 <Container fluid style={{
                     display: "flex",
                     justifyContent: "space-between",
@@ -176,7 +196,9 @@ const EmpowermentEdit = () => {
                             <ArrowBackIcon /> חזרה לעמוד מתאמן</StyledButton>
                     </Link>
                 </Container>
-            </div>
+                </ThemeProvider>
+                </div>
+            </StylesProvider>
         )
     }
 

@@ -74,9 +74,9 @@ function App() {
           </ThemeProvider>
         </Row>
         <Row style={{ justifyContent: 'center' }}>
-
+        <LoginTrainee />
           <LoginTrainer />
-          <LoginTrainee />
+          
         </Row>
       </Container>
 

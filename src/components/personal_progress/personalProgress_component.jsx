@@ -8,7 +8,7 @@ const PersonalProgress = (trainee) => {
 
     return (
         <a href={`/TrainerPage/trainee/traineeEmpowerment?trainee_id=${trainee.trainee}`} >
-            <StyledButton style={{ marginTop: "60px"  }} >
+            <StyledButton style={{ marginTop: "60px", width:'90%'}} >
                <p> <EditIcon fontSize='large'/></p>
                 <p>עריכת מערך העצמה</p>
             </StyledButton>
