@@ -25,7 +25,7 @@ const Navigation = styled.header`
   z-index: 1;
   display: flex;
   justify-content: space-around;
-  align-items: flex-end;
+  align-items: center;
   //padding: 0px 100px 0;
   height: 140px;
   margin-bottom: 30px;

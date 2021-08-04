@@ -8,6 +8,16 @@ import ShowExerciseHistory from "../../show_exercise_history";
 import serverConnector from "../../../server-connector";
 import { useLocation } from "react-router-dom"
 import Medals from "../../Medals/medals_TrainerTrainee"
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+
+const MuiTheme = createMuiTheme({
+    direction: 'rtl',
+});
 
 const TrainerTrainee = () => {
     let location = useLocation()
@@ -25,13 +35,12 @@ const TrainerTrainee = () => {
 // eslint-disable-next-line react-hooks/exhaustive-deps
       },[])
     return (
-        <div>
+        <StylesProvider jss={jss}>
+        <div dir='ltr'>
+            <ThemeProvider theme={MuiTheme}>
             {/*    <h1> need to put name</h1>*/}
             <Container fluid style={{justifyContent:'center'}}>
                 <Row >
-                <Col  sm={9} xs={20} >
-                        <TrainingCart dataSource = {dataSource}/>
-                    </Col>
                     <Col >
                         <p>
                             <PersonalProgress trainee={trainee_id} />
@@ -40,7 +49,10 @@ const TrainerTrainee = () => {
                             <Medals trainee={trainee_id}/>
                         </p>
                     </Col>
-
+                    <Col  sm={9} xs={20} >
+                        <TrainingCart dataSource = {dataSource}/>
+                    </Col>
+                    
                 </Row>
                 <Row>
                     <Col>
@@ -50,7 +62,9 @@ const TrainerTrainee = () => {
                     </Col>
                 </Row>
             </Container>
-        </div>
+            </ThemeProvider>
+                </div>
+            </StylesProvider>
 
 
     )
