@@ -22,7 +22,7 @@ const TrainerPage = (props) => {
     return(
         <div className='trainer-page'> 
             <Container fluid>
-            <Row>
+            <Row style={{display: 'flex', flexDirection:'column'}}>
                 <PageHeader/>
             </Row>
             <Row>

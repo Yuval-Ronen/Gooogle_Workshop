@@ -1,14 +1,6 @@
-import * as os from "os";
 
-// const myport = parseInt(os.environ.get("PORT", 5000))
-// const serverUrl = "http://localhost:" + myport;
-
-// const serverUrl = "https://eitan.herokuapp.com:" + myport;
-// const serverUrl ="https://main.d3hof7gzp9awj0.amplifyapp.com/"
-
+// const serverUrl = "http://localhost:5000";
 const serverUrl = "";
-// const serverUrl = "http://localhost:5000"
-
 
 
 
