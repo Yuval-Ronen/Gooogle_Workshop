@@ -527,6 +527,7 @@ class Trainer_Calendar extends React.PureComponent {
                 />
                 <MonthView
                   name='חודש'
+                  maxAppointmentsPerCell={3}
                 />
                 <DayView
                   cellDuration={60}

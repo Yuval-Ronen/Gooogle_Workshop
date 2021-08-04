@@ -1,4 +1,5 @@
 // import react from "react";
+import Paper from '@material-ui/core/Paper';
 
 const ShowGoogleDocs = ({source}) => {
 
@@ -8,6 +9,9 @@ const ShowGoogleDocs = ({source}) => {
 
 
     return (
+      <Paper>
+
+     
     <div className='empowerment' style={{paddingTop:"20px"}} >
         <iframe
             src={source}
@@ -16,8 +20,10 @@ const ShowGoogleDocs = ({source}) => {
             height="600px"
             border="bold"
             display = "block"
+            sandbox = "allow-top-navigation"
         ></iframe>
     </div>
+    </Paper>
     )
 
 }
