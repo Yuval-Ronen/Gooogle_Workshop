@@ -283,33 +283,18 @@ def updatePersonalProgramLink(trainee_id, link):
     return jsonify({"result": res}), 200
 
 
-# @app.route('/')
-# def index():
-#     return "<h1>Welcome to Geeks for Geeks</h1>"
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-@app.route("/")
-def react():
+
+@app.errorhandler(404)
+def fallback(e):
     return render_template("index.html")
-
-# @app.route("/")
-# def react():
-#     return render_template("index.html", request_path=request.args.get('request_path', ''))
-
-
-# @app.errorhandler(404)
-# def handle_404(e):
-#     if request.method == 'GET':
-#         return redirect(f'/?request_path={quote_plus(request.path)}')
-#     return e
-
-# @app.route('/', defaults={'path': ''})
-# @app.route('/<path:path>')
-# def catch_all(path):
-#     return 'You want path: %s' % path
 
 
 if __name__ == '__main__':
     # TRAINID=updateExercise({'exDate': '20210728T100000Z', 'train_id': 29})
-    # app.run(host='localhost', port="5000", debug=True)
-    app.run()
+    app.run(host='localhost', port="5000", debug=True)
+    # app.run()
 
