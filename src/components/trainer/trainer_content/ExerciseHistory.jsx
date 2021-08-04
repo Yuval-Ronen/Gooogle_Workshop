@@ -12,7 +12,7 @@ const ExerciseHistory = () => {
          if(userInfo.admin !== undefined ){//user is trainer
              serverConnector.getAllTrainingHistory_trainer(userInfo.ID).then(res => {
                  setTrainingHis(res);
-                 console.log("trainingHis",trainingHis)
+                 // console.log("trainingHis",trainingHis)
              })
          }
          else{

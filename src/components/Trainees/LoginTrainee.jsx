@@ -10,7 +10,7 @@ import StyledButton from "../personal_progress/Empowerment"
 
 
 const loginFailureHandler = (response) => {
-    console.log(response);
+    // console.log(response);
   }
 
 const LoginTrainee = (props) => {
@@ -44,14 +44,14 @@ const LoginTrainee = (props) => {
                     const userDataFromGoogle = extractUserData(response);
                     const userDataFromServer = await serverConnector.checkIfTrainee(userDataFromGoogle.email);
                     if(userDataFromServer.ID !== undefined){ // user found as trainer.
-                        console.log("user is trainee:");
-                        console.log(userDataFromServer);
+                        // console.log("user is trainee:");
+                        // console.log(userDataFromServer);
                         setUserInfo(userDataFromServer);
                         setGooglePic(userDataFromGoogle.imageUrl)
                         props.setCurState("trainee");
                         props.setUserData(userDataFromGoogle);
                     } else {
-                        console.log("user is not trainer:");
+                        // console.log("user is not trainer:");
                     }
                 }
             }

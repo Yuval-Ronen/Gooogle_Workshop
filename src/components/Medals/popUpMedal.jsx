@@ -96,22 +96,22 @@ export default function PopUpMedal(props) {
 
 
   const [open, setOpen] = useState(false);
-  console.log("hideNewMassege", props.hideNewMassege);
+  // console.log("hideNewMassege", props.hideNewMassege);
   const [invisible, setVisible] = useState(props.hideNewMassege);
-  console.log("allMessages", props.allMessages);
-  console.log("invisible", invisible);
+  // console.log("allMessages", props.allMessages);
+  // console.log("invisible", invisible);
 
 
   useEffect(() => {
     (async function () {
-      console.log("async", "");
+      // console.log("async", "");
       if (props.allMessages.length > 1 && props.allMessages[0] === "new") {
         setVisible(false);
-        console.log("invisible", invisible);
+        // console.log("invisible", invisible);
       }
       else {
         setVisible(true);
-        console.log("invisible", invisible);
+        // console.log("invisible", invisible);
       }
     }
     )();
@@ -122,13 +122,13 @@ export default function PopUpMedal(props) {
   if (props.allMessages.length > 0) {
     numOfMedals = props.allMessages[1].length;
   };
-  console.log("numOfMedals", numOfMedals);
+  // console.log("numOfMedals", numOfMedals);
 
   let newMessages = [];
   if (numOfMedals > 0) {
     newMessages = props.allMessages[1];
   }
-  console.log("newMessages", newMessages);
+  // console.log("newMessages", newMessages);
 
 
   const handleClickOpen = () => {
@@ -194,7 +194,7 @@ export default function PopUpMedal(props) {
     if (numOfMedals > 0 && newMessages[numMessage].status === "new") {
       newMessages[numMessage].status = "oldLocal";
     }
-    console.log("Changed", numMessage);
+    // console.log("Changed", numMessage);
   }
 
   const handleClose = () => {
@@ -204,11 +204,11 @@ export default function PopUpMedal(props) {
     setOpen(false);
     let newMassegeCount = 0;
     newMessages.forEach((message) => {
-      console.log("message",message)
+      // console.log("message",message)
       if (message.status === "oldLocal") {
         messagesUpdate.push(message);
          message.status = "old";
-        console.log("traineeID", traineeID,"trainer_id", message.trainer_id)
+        // console.log("traineeID", traineeID,"trainer_id", message.trainer_id)
       }
       else if (message.status === "new"){
         newMassegeCount++;
@@ -217,13 +217,13 @@ export default function PopUpMedal(props) {
         newMark = "new"
       }
     });
-    console.log("newMassegeCount", newMassegeCount);
+    // console.log("newMassegeCount", newMassegeCount);
     if (newMassegeCount === 0) {
       setVisible(true);
     }
     props.allMessages[0] = newMark;
     if(messagesUpdate.length > 1){
-      console.log("messagesUpdate",messagesUpdate)
+      // console.log("messagesUpdate",messagesUpdate)
       serverConnector.changeMessageStatus(messagesUpdate).then(res =>{
       });
     }
@@ -231,11 +231,11 @@ export default function PopUpMedal(props) {
 
   const cheackIfNew = (step) => {
     if (newMessages[step].status === "new") {
-      console.log("is new", step);
+      // console.log("is new", step);
       return false;
     }
     else {
-      console.log("is old", step);
+      // console.log("is old", step);
       return true;
     }
   }

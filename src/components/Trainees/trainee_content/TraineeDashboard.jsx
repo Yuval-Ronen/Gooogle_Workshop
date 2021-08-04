@@ -31,12 +31,12 @@ const TraineeDashboard = (props) => {
 
     useEffect( () => {
          serverConnector.GetAllTraineeDashboard(userInfo.ID).then(res => {
-             console.log("RES",res)
+             // console.log("RES",res)
              setTrainingHis(res.trainingHis);
              setDataSource(res.dataSource);
              setChartDataSource(res.chartDataSource);
              setAllMessages(res.allMessages)
-             console.log("allMessages", res.allMessages)
+             // console.log("allMessages", res.allMessages)
          })
      },[userInfo.ID])
     

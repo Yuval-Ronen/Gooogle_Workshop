@@ -1,10 +1,6 @@
 # server code
 import mysql.connector
 
-translator = {1: "ינואר", 2: "פבואר", 3: "מרץ", 4: "אפריל", 5: "מאי", 6: "יוני", 7: "יולי", 8: "אוגוסט", 9: "ספטמבר",
-              10: "אוקטובר", 11: "נובמבר", 12: "דצמבר"}
-
-
 class ConnectSQL:
     def __init__(self):
         self.cnx = None
@@ -281,50 +277,23 @@ class ConnectSQL:
     def get_all_for_trainee_page_in_trainer(self, trainee_id):
         trainingHis = self.get_all_training_history_trainee(trainee_id)
         dataSource = self.get_training_amount_by_month_trainee(trainee_id)
+        print("dataSource", dataSource)
+
         return {"trainingHis": ["מאמן", trainingHis], "dataSource": dataSource}
 
     def get_all_trainee_dashboard(self, trainee_id):
-        query = (
-            "SELECT GROUP_CONCAT(t3.first_name, ' ', t3.last_name) as all_trainees, train_type, train_time_start, "
-            "train_date_start, description "
-            "FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2, "
-            "eitan_database.trainer as t3 "
-            " WHERE t3.ID = t1.trainer_id AND t1.train_id = t2.train_id AND t2.trainee_id = %s "
-            "AND CONCAT(t1.train_date_start,' ',t1.train_time_start) >= NOW()"
-            " GROUP BY t1.train_id"
-            " ORDER BY t1.train_date_start, t1.train_time_start DESC")
-        self.cursor.execute(query, (trainee_id,))
-        trainingHis = []
-        for (all_trainees, train_type, train_time_start, train_date_start, description) in self.cursor:
-            if description == 'null':
-                description = "אין תיאור"
-            inside = {"train_date_start": str(train_date_start), "train_time_start": str(train_time_start),
-                      "all_trainees": all_trainees,
-                      "description": description, "train_type": train_type}
-            trainingHis.append(inside)
-        query2 = (" SELECT MONTH(t1.train_date_start) AS month, COUNT(*) AS training_amount"
-                  " FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2"
-                  " WHERE YEAR(t1.train_date_start) = YEAR(NOW()) AND t1.train_id = t2.train_id AND t2.trainee_id = %s"
-                  " GROUP BY MONTH(t1.train_date_start)"
-                  " ORDER BY MONTH(t1.train_date_start) ASC")
-        self.cursor.execute(query2, (trainee_id,))
-        chartDataSource = []
-        for (month, training_amount) in self.cursor:
-            for element in translator:
-                if month == element:
-                    chartDataSource.append({"month": translator[element], "training_amount": training_amount})
-                else:
-                    chartDataSource.append({"month": translator[element], "training_amount": 0})
+        dataSource = self.get_training_amount_by_month_trainee(trainee_id)
+        trainingHis = self.get_upcoming_exercise_trainee(trainee_id)
 
         query3 = (" SELECT t1.train_type AS train_type, COUNT(*) AS amount"
                   " FROM eitan_database.all_exercise as t1, eitan_database.match_trainee_trainId as t2"
                   " WHERE YEAR(t1.train_date_start) = YEAR(NOW()) AND t1.train_id = t2.train_id AND t2.trainee_id = %s"
                   " GROUP BY t1.train_type")
         self.cursor.execute(query3, (trainee_id,))
-        dataSource = []
+        dataSourcePie = []
         for (train_type, amount) in self.cursor:
             inside = {"train_type": train_type, "amount": amount}
-            dataSource.append(inside)
+            dataSourcePie.append(inside)
 
         query4 = (
             " SELECT CONCAT( first_name, ' ', last_name) as trainer_name, m.trainer_id as trainer_id , message, status"
@@ -344,7 +313,7 @@ class ConnectSQL:
                 final_old_message.append(
                     {"trainer_name": trainer_name, "trainer_id": trainer_id, "message": message, "status": status})
 
-        return {"dataSource": dataSource, "chartDataSource": chartDataSource, "trainingHis": ["מאמן", trainingHis],
+        return {"dataSource": dataSource, "dataSourcePie": dataSourcePie, "trainingHis": ["מאמן", trainingHis],
                 "allMessages": [res_status, final_new_message + final_old_message]}
 
     def get_upcoming_exercise_trainee(self, trainee_id):
@@ -356,7 +325,8 @@ class ConnectSQL:
             " WHERE t3.ID = t1.trainer_id AND t1.train_id = t2.train_id AND t2.trainee_id = %s "
             "AND CONCAT(t1.train_date_start,' ',t1.train_time_start) >= NOW()"
             " GROUP BY t1.train_id"
-            " ORDER BY t1.train_date_start, t1.train_time_start DESC")
+            " ORDER BY t1.train_date_start , t1.train_time_start DESC"
+            " LIMIT 3")
         self.cursor.execute(query, (trainee_id,))
         final = []
         for (all_trainees, train_type, train_time_start, train_date_start, description) in self.cursor:

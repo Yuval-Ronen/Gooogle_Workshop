@@ -13,7 +13,7 @@ const TrainerTrainee = () => {
     let location = useLocation()
     let params = new URLSearchParams(location.search);
     let trainee_id = parseInt(params.get("trainee_id")); // is the number 123
-    console.log("trainee_id", trainee_id)
+    // console.log("trainee_id", trainee_id)
     const [trainingHis, setTrainingHis] = useState(["מתאמנים", []]);
     const [dataSource, setDataSource] = useState([]);
 

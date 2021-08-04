@@ -93,9 +93,9 @@ class Trainee_Calendar extends React.PureComponent {
   today = new Date();
 
   constructor(props) {
-    console.log("in constructor", props.userInfo)
-    console.log("in constructor props appoin", props.appointments)
-    console.log("in constructor appointments", appointments)
+    // console.log("in constructor", props.userInfo)
+    // console.log("in constructor props appoin", props.appointments)
+    // console.log("in constructor appointments", appointments)
 
     super(props);
     this.state = {
@@ -130,7 +130,7 @@ class Trainee_Calendar extends React.PureComponent {
   }
 
   componentDidMount() {
-    console.log("userInfo", this.props.userInfo)
+    // console.log("userInfo", this.props.userInfo)
     serverConnector.getAllTrainingHistory_trainee(this.props.userInfo.ID).then(res => {
       // this.setState({allTrainees :res});
       let helper = []
@@ -151,15 +151,15 @@ class Trainee_Calendar extends React.PureComponent {
         });
       }
       this.setState({ data: helper });
-      console.log("res in mount", helper)
+      // console.log("res in mount", helper)
 
     })
 
     // console.log("traineesToCal",this.traineesToCal)
   }
   render() {
-    console.log("in render", this.props.userInfo)
-    console.log("in render", this.props.appointments)
+    // console.log("in render", this.props.userInfo)
+    // console.log("in render", this.props.appointments)
 
     const { data,
       resources,

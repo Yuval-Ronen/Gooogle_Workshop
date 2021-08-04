@@ -12,7 +12,7 @@ import StyledButton from "../personal_progress/Empowerment"
 
 
 const loginFailureHandler = (response) => {
-    console.log(response);
+    // console.log(response);
     // TODO what to do if login fails?
   }
 
@@ -38,7 +38,7 @@ const LoginTrainer = (props) => {
                     alignItems: "center",
                     margin: 10,
 }} >
-                    כניסת מאמנים</StyledButton>
+                    כניסת מאמנים  </StyledButton>
             )}
             buttonText={''}
             onSuccess={async (response) =>
@@ -46,14 +46,14 @@ const LoginTrainer = (props) => {
                     const userDataFromGoogle = extractUserData(response);
                     const userDataFromServer = await serverConnector.checkIfTrainer(userDataFromGoogle.email);
                     if(userDataFromServer.ID !== undefined){ // user found as trainer.
-                        console.log("user is trainer:");
-                        console.log(userDataFromServer);
+                        // console.log("user is trainer:");
+                        // console.log(userDataFromServer);
                         setUserInfo(userDataFromServer);
                         setGooglePic(userDataFromGoogle.imageUrl)
                         props.setCurState("trainer");
                         props.setUserData(userDataFromGoogle);
                     } else {
-                        console.log("user is not trainer:");
+                        // console.log("user is not trainer:");
 
                     }
                 }

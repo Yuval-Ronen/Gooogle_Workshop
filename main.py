@@ -28,11 +28,11 @@ def custom_train_amount_per_month(info):
     retVal = [0] * 12
 
     info_keys = info["dataSource"]["all_months"]
-    month_not_in_infok = list(translator.keys() - info_keys)
+    month_not_in_info = list(translator.keys() - info_keys)
 
     for item in info["dataSource"]["final"]:
         retVal[item["month"] - 1] = {"month": translator[item["month"]], "training_amount": item["training_amount"]}
-    for element in month_not_in_infok:
+    for element in month_not_in_info:
         retVal[element - 1] = {"month": translator[element], "training_amount": 0}
     return retVal
 
@@ -62,8 +62,6 @@ def checkIfTrainer(email):
     # info = sql_manager.sql_c.check_email_trainer(email)
     info = sql_c.check_email_trainer(email)
     print(info)
-    # info.headers.add("Access-Control-Allow-Origin", "*")
-    # return jsonify({info}), 200
     return info
 
 
@@ -72,7 +70,6 @@ def checkIfTrainer(email):
 def checkIfTrainee(email):
     info = sql_c.check_email_trainee(email)
     print(info)
-    # return jsonify(info)
     return info
 
 
@@ -81,7 +78,6 @@ def checkIfTrainee(email):
 def get_all_trainer_calendar(trainer_id):
     info = sql_c.get_all_trainer_calendar(trainer_id)
     print(info)
-    # return jsonify({"result": result_list}), 200
     return jsonify({"result": info}), 200
 
 
@@ -89,8 +85,9 @@ def get_all_trainer_calendar(trainer_id):
 @error_handler
 def get_all_trainee_dashboard(trainee_id):
     info = sql_c.get_all_trainee_dashboard(trainee_id)
+    info["chartDataSource"] = custom_train_amount_per_month(info)
+    info["dataSource"] = info["dataSourcePie"]
     print(info)
-    # return jsonify({"result": result_list}), 200
     return jsonify({"result": info}), 200
 
 
@@ -295,6 +292,6 @@ def fallback(e):
 
 if __name__ == '__main__':
     # TRAINID=updateExercise({'exDate': '20210728T100000Z', 'train_id': 29})
-    # app.run(host='localhost', port="5000", debug=True)
-    app.run()
+    app.run(host='localhost', port="5000", debug=True)
+    # app.run()
 

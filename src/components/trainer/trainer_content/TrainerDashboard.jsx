@@ -20,7 +20,7 @@ const TrainerDashboard = (props) => {
          serverConnector.GetAllTrainerDashboard(userInfo.ID).then(res =>{
              setTrainingHis(res.trainingHis);
              setDataSource(res.dataSource);
-             console.log("trainingHis",trainingHis,"dataSource",dataSource)
+             // console.log("trainingHis",trainingHis,"dataSource",dataSource)
          })
          // eslint-disable-next-line react-hooks/exhaustive-deps
      },[])

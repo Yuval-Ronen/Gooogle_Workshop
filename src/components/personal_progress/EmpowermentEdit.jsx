@@ -52,7 +52,7 @@ const EmpowermentEdit = () => {
         setTraineeId(trainee_id)
         if (traineeId !== 0) {
             serverConnector.getPersonalProgramLink(traineeId).then(res => {
-                console.log("link in EmpowermentEdit", res)
+                // console.log("link in EmpowermentEdit", res)
                 setLink(res);
                 if (res.localeCompare("") === 0) {
                     setOpen(true)
@@ -68,15 +68,15 @@ const EmpowermentEdit = () => {
     const handleSubmit = (event) => {
         setOpen(false);
         if (link.localeCompare("") !== 0) {//in that case we want to update and not to upload new
-            console.log("value", value)
+            // console.log("value", value)
             serverConnector.updatePersonalProgramLink(traineeId, value.split("/")).then(res => {
-                console.log("res", res)
+                // console.log("res", res)
                 setLink(value);
             })
         }
         else {
             serverConnector.insertNewPersonalProgramLink(traineeId, userInfo.ID, value.split("/")).then(res => {
-                console.log("res", res)
+                // console.log("res", res)
                 setLink(value);
             })
         }

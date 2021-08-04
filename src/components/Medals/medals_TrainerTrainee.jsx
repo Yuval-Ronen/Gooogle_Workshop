@@ -24,7 +24,7 @@ export default function Medals (trainee) {
     const [userInfo] = useLocalStorage("userInfo",{});
     const [value, setValue] = useState('');
     const [open, setOpen] = useState(false);
-    console.log("trainee", trainee.trainee);
+    // console.log("trainee", trainee.trainee);
 
     const handleChange = (event) => {
         setValue(event.target.value);
@@ -33,7 +33,7 @@ export default function Medals (trainee) {
     const handleSubmit = (event) => {
         setOpen(false);
         serverConnector.sendMessage(trainee.trainee, userInfo.ID, value).then(res => {
-            console.log("res", res)
+            // console.log("res", res)
         })
         setValue('');
     }

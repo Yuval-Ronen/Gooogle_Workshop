@@ -38,9 +38,9 @@ const Empowerment = () => {
     useEffect(() => {
 
         serverConnector.getPersonalProgramLink(userInfo.ID).then(res => {
-            console.log("link with edit", res);
+            // console.log("link with edit", res);
             let withoutEdit = res.split("/edit");
-            console.log("link withoutEdit", withoutEdit[0] + "/preview");
+            // console.log("link withoutEdit", withoutEdit[0] + "/preview");
             setLinkForPdf(withoutEdit[0])
             setLink(withoutEdit[0] + "/preview");
         })

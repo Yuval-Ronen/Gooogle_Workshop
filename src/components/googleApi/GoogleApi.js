@@ -1,6 +1,6 @@
 export const extractUserData = (response) => {
-    console.log("got response:")
-    console.log(response)
+    // console.log("got response:")
+    // console.log(response)
     if(response && response.profileObj){
         return {
             email: response.profileObj.email,

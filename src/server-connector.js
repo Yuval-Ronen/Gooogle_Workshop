@@ -35,7 +35,7 @@ const serverConnector = {
     },
     createNewTrain: async (trainer_id, trainees, train_type, train_date_start, train_date_end,  train_time_start,
                           train_time_end, description, training_details_id, rRule, exDate) =>{
-        console.log("all new train info", rRule)
+        // console.log("all new train info", rRule)
         let res = await fetch(serverUrl+"/api/createNewTrain/" + trainer_id +"/"+ [trainees] +"/"+ train_type +"/"+ train_date_start +"/"+ train_date_end +"/"+
             train_time_start +"/"+train_time_end +"/"+ description +"/"+ training_details_id +"/"+ rRule +"/"+ exDate);
         let data = await res.json();
@@ -44,7 +44,7 @@ const serverConnector = {
 
     updateExercise:async (changed_data) =>{
         let str = JSON.stringify(changed_data);
-        console.log("my_str", str)
+        // console.log("my_str", str)
         let res = await fetch(serverUrl+"/api/updateExercise/" + str);
         let data = await res.json();
         return data["result"];
@@ -75,7 +75,7 @@ const serverConnector = {
         let res = await fetch(serverUrl + "/api/getAllTrainingHistory_trainer/" + trainer_id)
         // return await res.json();
         let data = await res.json();
-        console.log(data["result"])
+        // console.log(data["result"])
         return data["result"];
 
     },
@@ -101,7 +101,7 @@ const serverConnector = {
     getUpcomingExercise_trainee: async (trainee_id) => {
         let res = await fetch(serverUrl + "/api/getUpcomingExercise_trainee/" + trainee_id)
         let data = await res.json();
-        console.log("im in server connector doing getUpcomingExercise_trainee ", data["result"])
+        // console.log("im in server connector doing getUpcomingExercise_trainee ", data["result"])
         return data["result"];
         // return await data;
         // return await res.json();
@@ -119,7 +119,7 @@ const serverConnector = {
     getTrainingAmountByMonth_trainee: async (trainee_id) => {
         let res = await fetch(serverUrl + "/api/getTrainingAmountByMonth_trainee/" + trainee_id)
         let data = await res.json();
-        console.log("im in server connector doing getTrainingAmountByMonth_trainee ", data["result"])
+        // console.log("im in server connector doing getTrainingAmountByMonth_trainee ", data["result"])
         // console.log(data)
         return data["result"];
 //        return  await res.json();
@@ -129,7 +129,7 @@ const serverConnector = {
     getTypeAmount: async (trainee_id) => {
         let res = await fetch(serverUrl + "/api/getTypeAmount/" + trainee_id)
         let data = await res.json();
-        console.log("im in server connector doing getTypeAmount ", data["result"])
+        // console.log("im in server connector doing getTypeAmount ", data["result"])
 
         return data["result"];
 
@@ -148,7 +148,7 @@ const serverConnector = {
     },
     changeMessageStatus: async (message_list) => {
         let str = JSON.stringify(message_list);
-        console.log("my_str", str)
+        // console.log("my_str", str)
         let res = await fetch(serverUrl + "/api/changeMessageStatus/" + str)
         let data = await res.json();
         return data["result"];
