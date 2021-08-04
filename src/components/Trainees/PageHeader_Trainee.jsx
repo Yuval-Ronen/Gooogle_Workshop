@@ -8,7 +8,7 @@ import NameAndPic from "../NameAndPic"
 
 const Navigation = styled.header`
   width: 100%;
-  border-bottom: 8px solid #55215e;
+  border-bottom: 3px solid #55215e;
   z-index: 1;
   display: flex;
   justify-content: space-around;
@@ -175,7 +175,7 @@ class PageHeaderTrainee extends Component {
   render() {
     const { isExpanded } = this.state;
     return (
-      <Navigation>
+      <Navigation style={{ textAlign: 'center'}}>
 
         <nav className="nav">
           <i
@@ -184,24 +184,7 @@ class PageHeaderTrainee extends Component {
             onClick={e => this.handleToggle(e)}
           />
           <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
-            <li className={"google"}>
-              
-                <NameAndPic />
-              
-            </li>
-            <NavLink activeClassName="active" to="/TraineesPage/exercise_history">
-              <li>היסטוריית אימונים</li>
-            </NavLink>
-
-            <NavLink activeClassName="active" to="/TraineesPage/empowerment">
-              <li>מערך העצמה</li>
-            </NavLink>
-
-            <NavLink activeClassName="active" to="/TraineesPage/exercise_schedule">
-              <li>לוח אימונים</li>
-            </NavLink>
-
-            <NavLink activeClassName="selected" to="/TraineesPage">
+          <NavLink activeClassName="selected" to="/TraineesPage">
               <li>
                 <div className="logo">
                   <Image src={EitanLogoSmall} />
@@ -209,6 +192,23 @@ class PageHeaderTrainee extends Component {
               </li>
             </NavLink>
 
+            <NavLink activeClassName="active" to="/TraineesPage/exercise_schedule">
+              <li>לוח אימונים</li>
+            </NavLink>
+            <NavLink activeClassName="active" to="/TraineesPage/empowerment">
+              <li>מערך העצמה</li>
+            </NavLink>
+
+
+
+            <NavLink activeClassName="active" to="/TraineesPage/exercise_history">
+              <li>היסטוריית אימונים</li>
+            </NavLink>
+            <li className={"google"}>
+              
+              <NameAndPic />
+            
+          </li>
           </ul>
         </nav>
       </Navigation>

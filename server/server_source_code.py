@@ -12,7 +12,7 @@ class ConnectSQL:
         self.connect_to_db()
 
     def connect_to_db(self):
-        self.cnx = mysql.connector.connect(user='root', password='stGNhgOtr6vCzgBu', host='35.193.242.182',
+        self.cnx = mysql.connector.connect(user='root', password='stGNhgOtr6vCzgBu', host='127.0.0.1',
                                            database='eitan_database', port="3306")
         self.cursor = self.cnx.cursor()
 

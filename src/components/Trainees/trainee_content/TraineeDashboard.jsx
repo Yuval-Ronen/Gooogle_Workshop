@@ -9,6 +9,17 @@ import TrainTypePie from "../../train_pie/train_type_pie";
 import {useLocalStorage} from "../../../UtillHook";
 import serverConnector from "../../../server-connector";
 import PopUpMedal from "../../Medals/popUpMedal"
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+
+const theme = createMuiTheme({
+    direction: 'rtl',
+});
 
 const TraineeDashboard = (props) => {
     const [userInfo] = useLocalStorage("userInfo",{});
@@ -38,19 +49,21 @@ const TraineeDashboard = (props) => {
         }
     };
 
-    return(<div>
+    return(<StylesProvider jss={jss}>
+        <div dir = 'rtl'>
+      <ThemeProvider theme={theme}>
              <Container fluid>
-            <Row style={{justifyContent: 'flex-end', marginRight: '0.5%'}}>
+            <Row style={{justifyContent: 'flex-start', marginLeft: '0.5%'}}>
                 <PopUpMedal allMessages = {allMessages} hideNewMassege = {hideNewMassege()}/>
                 </Row>
                 <Row sm=  {2} xs={1} >
-                     <Col >
-                        <TrainTypePie dataSource = {dataSource}/>
-                    </Col>
+
                     <Col>
                         <TrainingCart dataSource = {chartDataSource} style ={{height:"200px"}}/>
                     </Col>
-
+                    <Col >
+                        <TrainTypePie dataSource = {dataSource}/>
+                    </Col>
                 </Row>
                 <Row>
                     <Col >
@@ -60,7 +73,9 @@ const TraineeDashboard = (props) => {
                 </Row>
             </Container>
 
-            </div>
+            </ThemeProvider>
+      </div>
+      </StylesProvider>
 
     )
 }

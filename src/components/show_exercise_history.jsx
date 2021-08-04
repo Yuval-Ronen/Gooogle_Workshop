@@ -32,8 +32,16 @@ import { TableComponent } from "./TableComponentBase";
 import { TableHeaderContent } from "./TableHeaderContentBase";
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+
 
 const theme = createMuiTheme({
+  direction: 'rtl',
+  
   overrides: {
     MuiTableCell: {
       root: {
@@ -81,7 +89,17 @@ const theme = createMuiTheme({
     Mui: {
       checked: {}
     },
-   
+    MuiMenuItem:{
+     root: {
+      fontFamily:'Segoe UI',
+     }
+   },
+   Pagination: {
+     rowsLabel: {
+      fontFamily:'Segoe UI',
+      direction: 'ltr',
+     }
+   }
   },
 });
 
@@ -136,21 +154,21 @@ const ShowExerciseHistory = (training_his) => {
 
 
   const columns = [
-    { name: 'description', title: 'תיאור' },
-    { name: 'train_type', title: 'סוג אימון' },
-    { name: 'trainerOrTrainee', title: trainerOrTrainee },
-    { name: 'train_time_start', title: 'שעה' },
     { name: 'train_date_start', title: 'תאריך' },
+    { name: 'train_time_start', title: 'שעה' },
+    { name: 'trainerOrTrainee', title: trainerOrTrainee },
+    { name: 'train_type', title: 'סוג אימון' },
+    { name: 'description', title: 'תיאור' },
   ];
 
   const rows = trainings()
 
   const [tableColumnExtensions] = useState([
-    { columnName: 'description', align: 'right', wordWrapEnabled: true },
-    { columnName: 'train_type', align: 'right' },
-    { columnName: 'trainerOrTrainee', align: 'right', wordWrapEnabled: true },
-    { columnName: 'train_time_start', align: 'right' },
-    { columnName: 'train_date_start', align: 'right' },
+    { columnName: 'description', align: 'left', wordWrapEnabled: true },
+    { columnName: 'train_type', align: 'left' },
+    { columnName: 'trainerOrTrainee', align: 'left', wordWrapEnabled: true },
+    { columnName: 'train_time_start', align: 'left' },
+    { columnName: 'train_date_start', align: 'left' },
   ]);
 
 
@@ -194,16 +212,21 @@ const ShowExerciseHistory = (training_his) => {
   }, [exporterRef]);
 
   const [totalSummaryItems] = useState([
-    { columnName: 'train_date_start', type: 'count' },
+    { columnName: 'description', type: 'count' },
 
   ]);
 
   const messages = {
     count: 'סה"כ אימונים',
+    showExportMenu: 'ייצוא',
+    exportAll: 'ייצוא כל האימונים',
+    exportSelected: 'ייצוא אימונים נבחרים'
   };
 
   if (isDashboard === false) {
     return (
+      <StylesProvider jss={jss}>
+        <div dir = 'rtl'>
       <ThemeProvider theme={theme}>
         <Paper style={{ marginBottom: "3%" }}>
           <Grid
@@ -284,7 +307,7 @@ const ShowExerciseHistory = (training_his) => {
             <TableFilterRow
               showFilterSelector
               iconComponent={FilterIcon}
-              messages={{ month: 'Month equals' }}
+              messages={{ month: 'לפי חודש', filterPlaceholder: 'סנן...', contains:'מכיל'}}
             />
             <PagingPanel />
             <TableSummaryRow
@@ -292,7 +315,9 @@ const ShowExerciseHistory = (training_his) => {
 
 
             <Toolbar />
-            <ExportPanel startExport={startExport} />
+            <ExportPanel 
+            startExport={startExport} 
+            messages={messages}/>
           </Grid>
           <GridExporter
             ref={exporterRef}
@@ -303,11 +328,16 @@ const ShowExerciseHistory = (training_his) => {
           />
         </Paper>
       </ThemeProvider>
+      </div>
+      </StylesProvider>
     )
 
   }
+  
   else {
     return (
+      <StylesProvider jss={jss}>
+        <div dir = 'rtl'>
       <ThemeProvider theme={theme}>
         <Paper style={{ marginBottom: "3%" }}>
           <Grid
@@ -325,6 +355,8 @@ const ShowExerciseHistory = (training_his) => {
           </Grid>
         </Paper>
       </ThemeProvider>
+      </div>
+      </StylesProvider>
     );
   }
 

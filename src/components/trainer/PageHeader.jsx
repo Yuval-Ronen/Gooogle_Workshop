@@ -5,11 +5,23 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import NameAndPic from "../NameAndPic"
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+
+
+const MuiTheme = createMuiTheme({
+  direction: 'rtl',
+});
 
 
 const Navigation = styled.header`
   width: 100%;
-  border-bottom: 8px solid #55215e;
+  border-bottom: 3px solid #55215e;
   z-index: 1;
   display: flex;
   justify-content: space-around;
@@ -178,50 +190,59 @@ class PageHeader extends Component {
   render() {
     const { isExpanded } = this.state;
     return (
-      <Navigation >
+      <StylesProvider jss={jss}>
+        <div dir='rtl' style={{ textAlign: 'center' }}>
+          <ThemeProvider theme={MuiTheme}>
+            <Navigation >
 
-        <nav className="nav" >
-          <i
-            className="fa fa-bars"
-            aria-hidden="true"
-            onClick={e => this.handleToggle(e)}
-          />
-          <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
-            <li className="google">
+              <nav className="nav" >
+                <i
+                  className="fa fa-bars"
+                  aria-hidden="true"
+                  onClick={e => this.handleToggle(e)}
+                />
+                <ul className={`collapsed ${isExpanded ? "is-expanded" : ""}`}>
 
-              <NameAndPic/>
+                  <NavLink activeClassName="selected" to="/TrainerPage">
+                    <li>
+                      <div className="logo">
 
-            </li>
-            <NavLink activeClassName="active" to="/TrainerPage/exercise_history" >
-              <li>היסטוריית אימונים</li>
-            </NavLink>
+                        <Image src={EitanLogoSmall} alt="" />
 
-            <NavLink activeClassName="active" to="/TrainerPage/trainees" >
-              <li>מתאמנים</li>
-            </NavLink>
-
-            <NavLink activeClassName="active" to="/TrainerPage/exercise_schedule">
-              <li>לוח אימונים</li>
-            </NavLink>
-
-
-
-            <NavLink activeClassName="selected" to="/TrainerPage">
-              <li>
-                <div className="logo">
-                  {/* <Link > */}
-                  <Image src={EitanLogoSmall} alt = "" />
-                  {/* </Link> */}
-                </div>
-              </li>
-            </NavLink>
-
-          </ul>
-        </nav>
+                      </div>
+                    </li>
+                  </NavLink>
+                  <NavLink activeClassName="active" to="/TrainerPage/exercise_schedule">
+                    <li>לוח אימונים</li>
+                  </NavLink>
 
 
-      </Navigation>
 
+
+
+                  <NavLink activeClassName="active" to="/TrainerPage/trainees" >
+                    <li>מתאמנים</li>
+                  </NavLink>
+
+
+                  <NavLink activeClassName="active" to="/TrainerPage/exercise_history" >
+                    <li>היסטוריית אימונים</li>
+                  </NavLink>
+
+                  <li className="google">
+
+                    <NameAndPic />
+
+                  </li>
+                </ul>
+              </nav>
+
+
+            </Navigation>
+
+          </ThemeProvider>
+        </div>
+      </StylesProvider>
     );
   }
 }

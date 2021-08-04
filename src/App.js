@@ -24,10 +24,11 @@ const theme = createMuiTheme({
       root: {
         backgroundColor: 'white',
         fontSize: '1.6rem',
-        color: '#55215e',
+        color: '#88648f',
         '&:hover': {
           color: 'white',
           backgroundColor: 'rgb(85, 33, 94)',
+          transitionDuration: '0.4s',
         },
       },
     },
@@ -63,7 +64,7 @@ function App() {
             <IconButton aria-label="FaceBook" href="https://www.facebook.com/EitanEverybodyCan/" target="_blank">
               <FaFacebook />
             </IconButton>
-            <IconButton aria-label="Instagram" href="https://www.instagram.com/eitan_everybodycan/" target="_blank">
+            <IconButton  aria-label="Instagram" href="https://www.instagram.com/eitan_everybodycan/" target="_blank" style={{marginRight:'5px', marginLeft:'5px'}}>
             <FaInstagram />
             </IconButton>
             <IconButton aria-label="Eitan website" href="https://www.everybodycan.co.il/" target="_blank">

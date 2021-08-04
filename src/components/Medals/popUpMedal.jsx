@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Rubik',
     textAlign: 'right',
     fontSize: '1.4rem',
+    direction: 'ltr',
   },
   bottom: {
     display: 'flex',
@@ -75,7 +76,19 @@ const theme2 = createMuiTheme({
         width: '-webkit-fill-available',
       }
     },
-  
+    MuiButton:{
+      root: {
+        color: "#f50057",
+        "&.Mui-disabled":{
+          color: "rgba(245, 0, 87,0.3)",
+        }
+      }
+    },
+    Mui:{
+      disabled: {
+        color: "#ffc717",
+      }
+    }
   },
 });
 
@@ -336,14 +349,14 @@ export default function PopUpMedal(props) {
               activeStep={activeStep}
               nextButton={
                 <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}
-                  style={{ color: "#f50057", fontFamily: 'Segoe UI' }}>
+                  style={{  fontFamily: 'Segoe UI' }}>
                   הבא
                   {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
                 </Button>
               }
               backButton={
                 <Button size="small" onClick={handleBack} disabled={activeStep === 0}
-                  style={{ color: "#f50057", fontFamily: 'Segoe UI' }}>
+                  style={{  fontFamily: 'Segoe UI' }}>
                   {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
                   הקודם
                 </Button>
