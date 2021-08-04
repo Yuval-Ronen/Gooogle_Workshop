@@ -41,7 +41,7 @@ const TrainerTrainee = () => {
             {/*    <h1> need to put name</h1>*/}
             <Container fluid style={{justifyContent:'center'}}>
                 <Row >
-                    <Col >
+                    <Col  fluid style={{textAlign:'center'}}>
                         <p>
                             <PersonalProgress trainee={trainee_id} />
                         </p>

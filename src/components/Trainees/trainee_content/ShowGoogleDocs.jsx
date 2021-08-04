@@ -8,21 +8,13 @@ const ShowGoogleDocs = ({source}) => {
       }
 
 
-    return (
-  
-<div>
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSlvOXwEBHTlmxrXF0mzWFcCAGZd5Zm22nkvXtZSisJf12ccI5XFMXFwQqHGqxeo5rZLkpm1j8qwpzk"></iframe>
-
-     
-    
+    return(     
         <iframe
             src={source}
             title="file"
             width="100%"
-            height="400px"
-
+            height="600px"
         ></iframe>
-  </div>
     )
 
 }

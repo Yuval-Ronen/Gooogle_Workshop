@@ -59,7 +59,7 @@ export default function Medals(trainee) {
 
     return (
         <div>
-            <StyledButton onClick={handleClickOpen} style={{ width: '90%' }}>
+            <StyledButton onClick={handleClickOpen} style={{ width: '90%',marginBottom: "15px" }}>
                 <p> <StarsRoundedIcon fontSize='large' /></p>
                 <p>שליחת כוכב איתן</p>
             </StyledButton>
