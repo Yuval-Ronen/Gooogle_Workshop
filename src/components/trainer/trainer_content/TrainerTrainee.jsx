@@ -29,6 +29,9 @@ const TrainerTrainee = () => {
             {/*    <h1> need to put name</h1>*/}
             <Container fluid style={{justifyContent:'center'}}>
                 <Row >
+                <Col  sm={9} xs={20} >
+                        <TrainingCart dataSource = {dataSource}/>
+                    </Col>
                     <Col >
                         <p>
                             <PersonalProgress trainee={trainee_id} />
@@ -37,9 +40,7 @@ const TrainerTrainee = () => {
                             <Medals trainee={trainee_id}/>
                         </p>
                     </Col>
-                    <Col  sm={9} xs={20} >
-                        <TrainingCart dataSource = {dataSource}/>
-                    </Col>
+
                 </Row>
                 <Row>
                     <Col>

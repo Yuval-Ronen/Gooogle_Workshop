@@ -12,16 +12,23 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { purple } from '@material-ui/core/colors';
 import SendIcon from '@material-ui/icons/Send';
 import CancelIcon from '@material-ui/icons/Cancel';
-import {useLocalStorage} from "../../UtillHook";
+import { useLocalStorage } from "../../UtillHook";
 import serverConnector from "../../server-connector"
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { create } from 'jss';
+import rtl from 'jss-rtl';
+import { StylesProvider, jssPreset } from '@material-ui/core/styles';
 
-const theme = createMuiTheme({
-    direction: 'rtl', // Both here and <body dir="rtl">
-  });
 
-export default function Medals (trainee) {
-    const [userInfo] = useLocalStorage("userInfo",{});
+
+const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+
+const MuiTheme = createMuiTheme({
+    direction: 'rtl',
+});
+
+export default function Medals(trainee) {
+    const [userInfo] = useLocalStorage("userInfo", {});
     const [value, setValue] = useState('');
     const [open, setOpen] = useState(false);
     // console.log("trainee", trainee.trainee);
@@ -41,60 +48,63 @@ export default function Medals (trainee) {
 
     const handleClickOpen = () => {
         setOpen(true);
-      };
-    
-      const handleClose = () => {
+    };
+
+    const handleClose = () => {
         setOpen(false);
-      };
+    };
 
 
     //console.log("medalText", medalText);
 
-        return (
-            <div>
-                <StyledButton onClick={handleClickOpen}>
-                    <p> <StarsRoundedIcon fontSize='large' /></p>
-                    <p>שליחת כוכב איתן</p>
-                </StyledButton>
+    return (
+        <div>
+            <StyledButton onClick={handleClickOpen} style={{ width: '90%' }}>
+                <p> <StarsRoundedIcon fontSize='large' /></p>
+                <p>שליחת כוכב איתן</p>
+            </StyledButton>
 
-                <ThemeProvider theme={theme}>
-                <div dir="rtl">
-                <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title">
-                    <DialogTitle id="form-dialog-title">שלח כוכב איתן</DialogTitle>
-                    <DialogContent>
-                        <TextField
-                            value={value}
-                            onChange={handleChange}
-                            autoFocus
-                            margin="normal"
-                            label="כתוב חיזוק אישי למתאמן"
-                            fullWidth
-                            multiline
-                            variant="outlined"
-                            rtlEnabled
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <FavoriteIcon style={{ color: purple[500] }} />
-                                    </InputAdornment>
-                                ),
-                            }}
-                        />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose} color="secondary" endIcon={<CancelIcon />}>
-                            בטל
-                        </Button>
-                        <Button onClick={handleSubmit} color="primary" endIcon={<SendIcon />}>
-                            שלח
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+            <StylesProvider jss={jss}>
+                <div dir='rtl'>
+                    <ThemeProvider theme={MuiTheme}>
+                        <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title">
+                            <DialogTitle style={{textAlign: 'justify',
+                            }}>שלח כוכב איתן</DialogTitle>
+                            <DialogContent>
+                                <TextField
+                                    value={value}
+                                    onChange={handleChange}
+                                    autoFocus
+                                    margin="normal"
+                                    label="כתוב חיזוק אישי למתאמן"
+                                    fullWidth
+                                    multiline
+                                    variant="outlined"
+                                    rtlEnabled
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <FavoriteIcon style={{ color: purple[500] }} />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleClose} color="secondary" startIcon={<CancelIcon />}>
+                                    בטל
+                                </Button>
+                                <Button onClick={handleSubmit} color="primary" startIcon={<SendIcon />}>
+                                    שלח
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                    </ThemeProvider>
                 </div>
-                </ThemeProvider>
-            </div>
-        )
-    }
+            </StylesProvider>
+        </div>
+    )
+}
 
 
 

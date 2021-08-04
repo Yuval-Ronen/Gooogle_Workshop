@@ -9,21 +9,18 @@ const ShowGoogleDocs = ({source}) => {
 
 
     return (
-      <Paper>
+  
 
      
-    <div className='empowerment' style={{paddingTop:"20px"}} >
+    
         <iframe
             src={source}
             title="file"
             width="100%"
-            height="600px"
-            border="bold"
-            display = "block"
-            sandbox = "allow-top-navigation"
+            height="400px"
+
         ></iframe>
-    </div>
-    </Paper>
+  
     )
 
 }

@@ -118,10 +118,10 @@ const Navigation = styled.header`
       visibility: hidden;
       padding-top: 40px;
       display: flex;
-      flex-direction: column-reverse;
+      flex-direction: column;
       justify-content: center;
       flex-wrap: wrap;
-      align-items: flex-end;
+      align-items: flex-start;
       overflow: hidden;
       max-height: 0;
       -moz-transition-duration: 0.4s;

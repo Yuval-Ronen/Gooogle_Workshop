@@ -48,7 +48,7 @@ const Empowerment = () => {
     }, [])
 
     return (
-        <Paper>
+        <div>
             <div class="MuiToolbar-root MuiToolbar-regular Toolbar-toolbar-528 MuiToolbar-gutters"
                 style={{ paddingLeft: "20px", paddingBottom: "20px", paddingTop: "20px", textAlign: 'left' }}>
                 <ThemeProvider theme={theme}>
@@ -67,7 +67,7 @@ const Empowerment = () => {
             <div className='empowerment' style={{ paddingTop: "20px" }}>
                 <ShowGoogleDocs source={link} />
             </div>
-        </Paper>
+            </div>
     )
 
 }
