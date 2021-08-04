@@ -11,7 +11,7 @@ const TrainTypePie = (props) => {
   }
   return (
     <div style = {{marginBottom:"20px"}}>
-    <p style = {{textAnchor: "middle", fontSize: "25px", color: "#55215e", textAlign: 'center', marginTop: '10px'}} >סוגי אימון</p>
+    <p style = {{textAnchor: "middle", fontSize: "25px", color: "#55215e", textAlign: 'center', marginTop: '10px', marginBottom: '15px' }} >סוגי אימון</p>
     <Paper>
     <PieChart
       id="pie"

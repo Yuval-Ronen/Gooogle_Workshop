@@ -30,7 +30,7 @@ const TrainingCart = (props) => {
 
   return (
     <div style={{ marginBottom: "20px" }}>
-      <p style={{ textAnchor: "middle", fontSize: "25px", color: "#55215e", textAlign: 'center', marginTop: '10px' }} >אימונים לפי חודש</p>
+      <p style={{ textAnchor: "middle", fontSize: "25px", color: "#55215e", textAlign: 'center', marginTop: '10px', marginBottom: '15px' }} >אימונים לפי חודש</p>
       <Paper>
         <Chart
           id="chart"

@@ -12,34 +12,12 @@ const Navigation = styled.header`
   z-index: 1;
   display: flex;
   justify-content: space-around;
-  align-items: flex-end;
+  align-items: center;
   //padding: 0px 100px 0;
   height: 140px;
   margin-bottom: 30px;
   background: #FFF;
-  
-  .google{
-    // width: 15%;
-    // height: 5%;
-    // display: flex;
-    // flex-direction: column;
-    // clear: both;
-    // text-decoration: none;
-    // position: absolute;
-    // left: 7%;
-    // top: 4%;
-    // bottom: 2%
-  }
-
-  .logo  {
-    // display: flex;
-    // flex-direction: column;
-    // clear: both;
-    // text-decoration: none;
-    // position: absolute;
-    // right: 7%;
-    // top: 2%;
-  }
+ 
 
   a {
     opacity: 4;

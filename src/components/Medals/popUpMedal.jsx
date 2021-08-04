@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   headerBody: {
     color: 'white',
     fontFamily: 'Rubik',
-    textAlign: 'right',
+    textAlign: 'center',
     fontSize: '1.4rem',
     direction: 'ltr',
   },

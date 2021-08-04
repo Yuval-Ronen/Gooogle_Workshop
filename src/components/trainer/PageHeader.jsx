@@ -30,29 +30,7 @@ const Navigation = styled.header`
   height: 140px;
   margin-bottom: 30px;
   background: #FFF;
-  
-  .google{
-    // width: 15%;
-    // height: 5%;
-    // display: flex;
-    // flex-direction: column;
-    // clear: both;
-    // text-decoration: none;
-    // position: absolute;
-    // left: 7%;
-    // top: 4%;
-    // bottom: 2%
-  }
 
-  .logo  {
-    // display: flex;
-    // flex-direction: column;
-    // clear: both;
-    // text-decoration: none;
-    // position: absolute;
-    // right: 7%;
-    // top: 2%;
-  }
 
   a {
     opacity: 4;

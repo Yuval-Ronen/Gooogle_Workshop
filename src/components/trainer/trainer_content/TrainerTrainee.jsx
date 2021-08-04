@@ -56,7 +56,7 @@ const TrainerTrainee = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <p style={{ textAnchor: "middle", fontSize: "35px", color: "#55215e", textAlign: 'center' }} >היסטוריית אימונים</p>
+                        <p style={{ textAnchor: "middle", fontSize: "35px", color: "#55215e", textAlign: 'center', marginBottom: '15px'  }} >היסטוריית אימונים</p>
                         <ShowExerciseHistory training_his={trainingHis} isDashboard={false} />
 
                     </Col>
