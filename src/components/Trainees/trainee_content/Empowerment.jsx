@@ -42,7 +42,7 @@ const Empowerment = () => {
             let withoutEdit = res.split("/edit");
             // console.log("link withoutEdit", withoutEdit[0] + "/preview");
             setLinkForPdf(withoutEdit[0])
-            setLink(withoutEdit[0] + "/preview");
+            setLink(withoutEdit[0]);
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

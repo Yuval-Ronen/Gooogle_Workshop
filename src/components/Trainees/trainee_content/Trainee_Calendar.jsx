@@ -120,8 +120,8 @@ class Trainee_Calendar extends React.PureComponent {
       editingAppointment: undefined,
       previousAppointment: undefined,
       addedAppointment: {},
-      startDayHour: 9,
-      endDayHour: 19,
+      startDayHour: 5,
+      endDayHour: 22,
       isNewAppointment: false,
       locale: 'he-IS',
     };
