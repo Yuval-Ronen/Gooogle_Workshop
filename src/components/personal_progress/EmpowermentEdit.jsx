@@ -152,7 +152,7 @@ const EmpowermentEdit = () => {
                                     <ArrowBackIcon /> חזרה לעמוד מתאמן</StyledButton>
                             </Link>
                     </ThemeProvider>
-                    <ShowGoogleDocs source={link} />
+                    <ShowGoogleDocs source={link} source_for_mobile={link}/>
                     <div dir="rtl">
                         <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title">
                             <DialogTitle style={{ textAlign: 'initial' }}>אנא הכנס קישור חדש למערך ההעצמה</DialogTitle>
