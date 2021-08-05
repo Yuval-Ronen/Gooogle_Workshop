@@ -19,8 +19,9 @@ const ShowGoogleDocs = (props) => {
                 height="600px"
             ></iframe>
             <div className={"mobile-show mobile-dont-show"} style={{height: "100%", position: "relative", border: "none", padding: "40px", }}>
-                <a href = {props.source_for_mobile}>
-                    <img  src={sheets} alt="" style={{ width: "100px", height: "100px", position:"absolute"}} />
+                <a href = {props.source_for_mobile} style={{textAlign:'center', cursor:'pointer'}}>
+                    <p style={{direction:'rtl', color: "#f50057"}}>היכנס דרך Google Sheets</p>
+                    <img  src={sheets} alt="" style={{ width: "100px", height: "100px", marginLeft:'30%', marginRight:'30%'}} />
                 </a>
             </div>
         </div>
