@@ -110,7 +110,7 @@ const EmpowermentEdit = () => {
                                 onChange={handleChange}
                                 autoFocus
                                 margin="normal"
-                                label="Google sheets הכניסו קישור של "
+                                label="הכניסו קישור של Google sheets"
                                 fullWidth
                                 multiline
                                 variant="outlined"
