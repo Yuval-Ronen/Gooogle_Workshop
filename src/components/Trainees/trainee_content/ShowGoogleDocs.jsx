@@ -1,5 +1,4 @@
 // import react from "react";
-import Paper from '@material-ui/core/Paper';
 
 const ShowGoogleDocs = ({source}) => {
 
@@ -8,12 +7,13 @@ const ShowGoogleDocs = ({source}) => {
       }
 
 
-    return(     
+    return(
         <iframe
             src={source}
             title="file"
             width="100%"
             height="600px"
+
         ></iframe>
     )
 

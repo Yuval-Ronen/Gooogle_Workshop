@@ -11,13 +11,6 @@ class Logout extends React.Component{
         loggedOut: false,
     }
 
-    constructor(props) {
-        super(props);
-        // console.log(props)
-    }
-
-
-
     logout = () => {
                 // console.log("logged out!")
                 this.props.setUserData({})

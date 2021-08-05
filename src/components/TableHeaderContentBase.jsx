@@ -4,7 +4,6 @@ import EventRoundedIcon from '@material-ui/icons/EventRounded';
 import ScheduleRoundedIcon from '@material-ui/icons/ScheduleRounded';
 import DescriptionIcon from '@material-ui/icons/Description';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import SportsRoundedIcon from '@material-ui/icons/SportsRounded';
 import SportsBasketballIcon from '@material-ui/icons/SportsBasketball';
 import { withStyles } from '@material-ui/core/styles';
 

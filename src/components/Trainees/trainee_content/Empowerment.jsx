@@ -5,9 +5,7 @@ import { useLocalStorage } from "../../../UtillHook";
 import serverConnector from "../../../server-connector";
 import { Tooltip } from "@material-ui/core";
 import SaveIcon from '@material-ui/icons/Save';
-import StyledButton from '../../personal_progress/Empowerment.jsx'
 import Divider from '@material-ui/core/Divider';
-import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';

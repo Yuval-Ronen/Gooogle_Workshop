@@ -218,7 +218,9 @@ class ConnectSQL:
             " WHERE t3.ID = t2.trainee_id AND t1.train_id = t2.train_id AND t1.trainer_id = %s "
             "AND CONCAT(t1.train_date_start,' ',t1.train_time_start) >= NOW()"
             " GROUP BY t1.train_id"
-            " ORDER BY t1.train_date_start, t1.train_time_start DESC")
+            " ORDER BY t1.train_date_start, t1.train_time_start"
+            " LIMIT 3")
+
         self.cursor.execute(query, (trainer_id,))
         final = []
         for (all_trainees, train_type, train_time_start, train_date_start, description) in self.cursor:
@@ -325,7 +327,7 @@ class ConnectSQL:
             " WHERE t3.ID = t1.trainer_id AND t1.train_id = t2.train_id AND t2.trainee_id = %s "
             "AND CONCAT(t1.train_date_start,' ',t1.train_time_start) >= NOW()"
             " GROUP BY t1.train_id"
-            " ORDER BY t1.train_date_start , t1.train_time_start DESC"
+            " ORDER BY t1.train_date_start , t1.train_time_start"
             " LIMIT 3")
         self.cursor.execute(query, (trainee_id,))
         final = []

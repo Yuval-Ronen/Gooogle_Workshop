@@ -16,7 +16,6 @@ import {
   CurrentTimeIndicator,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { appointments } from '../../trainer/trainer_content/Training'
 import { TrainingDetails, Trainees } from '../../trainer/trainer_content/TrainingTypeAndTreinees'
 import serverConnector from "../../../server-connector";
 import rtl from 'jss-rtl';
