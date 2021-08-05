@@ -14,7 +14,7 @@ const NameAndPic = () => {
                  src={googlePic} alt={''}/>
 
             <Logout/></div>
-        <h6 style={{display: "inline-block", float: "right"}} dir='rtl'>שלום, {userInfo.first_name + ' ' + userInfo.last_name}</h6>
+        <h6 style={{display: "inline-block", float: "right",fontSize:'1rem'}} dir='rtl'>שלום, {userInfo.first_name + ' ' + userInfo.last_name}</h6>
     </div>;
 }
 export default NameAndPic;

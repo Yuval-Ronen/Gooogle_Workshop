@@ -268,7 +268,7 @@ def getPersonalProgramLink(trainee_id):
 @error_handler
 def insertProgramLink(trainee_id, trainer_id, link_list):
     link_to_share = link_list.replace(",", "/")
-    res = sql_c.insert_new_personal_program_link(trainee_id, trainer_id, link_to_share + "?usp=sharing")
+    res = sql_c.insert_new_personal_program_link(trainee_id, trainer_id, link_to_share)
     return jsonify({"result": res}), 200
 
 
